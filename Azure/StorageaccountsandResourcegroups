@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Page</title>
+</head>
+<body>
+    <header>
+        <h1>Storage Accounts</h1>
+        <h2>Subtitle: Learn About HTML Structure</h2>
+    </header>
+
+    <section>
+        <h3>Resource Groups</h3>
+        <ul>
+            <li>first create source resource group</li>
+            <li>second create target resource group</li>
+            <li>create one storage account in source group</li>
+            <li>move storage account from source group to target group</li>
+        </ul>
+    </section>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Azure Resources</h1>
+        <p>Here is your guide to navigating the Azure portal and related resources.</p>
+    </header>
+    <section>
+        <h2> on premise vs cloud </h2>
+        <h2> following is the material drive under azure26th feb batch u can see everything</h2>
+        <a href="https://drive.google.com/drive/folders/1ADGKUV08hQmbHM73gAk_xbob2rqBePOt">Azure class material drive</a>
+        <div> 
+            <p1> 
+               Azure storage services vs Aws services
+
+                <a href="https://azure.microsoft.com/en-us/pricing/calculator"> azure price caliculator </a>
+                <li>
+                    <ui> 
+                       1. Azure storage service is a cloud based service managed by microsoft
+                       2. we need to create storage account to use any kind of azure storage service which are below 4 services.
+                       3. there are 4 kind of storages
+                          a. blob storage
+                          b. file storage
+                          c. table storage - (costmos db, no premium storage account for this)
+                          d. queue storage - (azure storage, np premium)
+
+                    There are various azure storage accounts
+                      1. standard general purpose v2 - with this all 4 storage services we can usgae - this is recommended for most scenarios
+                      2. premium block blob - only blob storage - premium blob 10 times faster than general blob but cost is more - recom - high transaction rates require low storage latency
+                      3. premium file share - only file - but expensive 
+                      4. premium blob share - only blob 
+
+                      storage account should be accessed by url due to that storage account name should be unique and it should be lowercase letters
+                      resource group always keep under subscription - storage account should stay under resource group
+
+                    </ui>
+                    <ul>
+                       In all Aws services managed indipendently they dont need storgae account.
+                       2. blob called as s3
+                       2. file called EFS
+                       3. table called as dynamic
+                       4. queue called as sqs. 
+                    </ul>
+                </li>
+            </p1>
+        </div>
+       
+    </section>
+   
+ 
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+    </footer>
+</body>
+</html>
