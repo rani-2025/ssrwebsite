@@ -21,8 +21,7 @@
                Azure storage services vs Aws services
 
                 <a href="https://azure.microsoft.com/en-us/pricing/calculator"> azure price caliculator </a>
-                <li>
-                    <ui> 
+               
                        1. Azure storage service is a cloud based service managed by microsoft
                        2. we need to create storage account to use any kind of azure storage service which are below 4 services.
                        3. there are 4 kind of storages
@@ -39,22 +38,88 @@
 
                       storage account should be accessed by url due to that storage account name should be unique and it should be lowercase letters
                       resource group always keep under subscription - storage account should stay under resource group
-
-                    </ui>
-                    <ul>
+                    </p1>
+                   
+                    <p>
                        In all Aws services managed indipendently they dont need storgae account.
                        2. blob called as s3
                        2. file called EFS
                        3. table called as dynamic
                        4. queue called as sqs. 
-                    </ul>
-                </li>
-            </p1>
+                    </p>
+               
+            
         </div>
        
     </section>
+   <section>
    
- 
+        <p>
+            <h3>
+                LRS - local redundant storage
+            </h3>
+            <p>
+                here 3 copies of data will maintained but in same zone.
+            </p>
+        </p>
+    
+    
+        
+        <p>
+            <h3>
+                ZRS - zonal redundant storage
+            </h3>
+           <p>
+            here 3 copies of data maintained but in different zones
+           </p>
+           Locally Redundant Storage (LRS) replicates data within a single data center, 
+           while Zone-Redundant Storage (ZRS) replicates data across three separate availability zones within the same region, 
+           offering higher availability and durability at a slightly higher cost. 
+        </p>
+
+        <p>
+            <h3>
+                GRS - geo redundant storage
+            </h3>
+            <p>
+                here there are 2 regions primary and secondary region.
+                1. here 3 copies of data will maintained with in same region  (LRS)
+                2. then cross region which is secondary region maintain 3 more regions (LRS) where data will be copied async 
+                here primary region org will choose secondary will be chosen by azure. usually takes less than 15 min to copy from primary to secondary
+            </p>
+            <p>
+                Geo-redundant storage (GRS) copies your data synchronously three times to one or more availability zones in the primary region using LRS. 
+                It then copies your data asynchronously to a single physical location in a secondary region that is hundreds of miles away from the primary region
+            </p>
+        </p>
+    
+        <p>
+            <h3>
+                GZRS - geo zone redundant storage
+            </h3>
+            <p>
+                here there are 2 regions primary and secondary region.
+                1.in primary here 3 copies of data will maintained ZRS region  (LRS)
+                2. then cross region which is secondary region maintain 3 more regions (LRS) where data will be copied async 
+                here primary region org will choose secondary will be chosen by azure. usually takes less than 15 min to copy from primary to secondary
+            </p>
+            <p>
+                Geo-redundant storage (GRS) copies your data synchronously three times to one or more availability zones in the primary region using LRS. 
+                It then copies your data asynchronously to a single physical location in a secondary region that is hundreds of miles away from the primary region
+            </p>
+            <p>
+                In Azure, Geo-Zone-Redundant Storage (GZRS) offers the highest level of data protection and availability by replicating data across three availability zones within the primary region 
+                and then asynchronously to a single zone in a paired secondary region, 
+                ensuring data durability and resilience against both zonal and regional outages
+            </p>
+        </p>
+   </section>
+   <section>
+    <h3>
+        storage 
+    </h3>
+   </section>
+
     <footer>
         <p>For support with assignments, submit them via email: 
             <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
