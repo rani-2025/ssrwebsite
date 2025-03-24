@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Azure Resources</h1>
+        <p>Here is your guide to navigating the Azure portal and related resources.</p>
+    </header>
+    <section>
+        <h2> blob storage</h2>
+        <h2> following is the material drive</h2>
+        <a href="https://drive.google.com/drive/folders/1ADGKUV08hQmbHM73gAk_xbob2rqBePOt"></a>
+        <div> 
+            <p1> 
+                 2 types of blob storage public and provate blobs
+       
+            </p1>
+            <p1> 
+               <h3> public vs private blob</h3>
+               <p>
+
+                1. no authentication required any one can access public blob
+                2. only the people have access can accees provate blob
+
+                3. by default blob is private 
+                4. public blob security is the one who created, azure is not responsible
+                5. in case of provate security is azure responsible
+                6. annonymous access enabled means its a public
+
+               </p>
+           </p1>
+           <p1> 
+           <h3>
+            blob soft delete ->
+            1. if no soft delete enabled and user does accidental dental query it will be permanantly deleted.
+            2. if softdelete option enabled for 7 days and user does accedentalquery then u  can recover object for 7 days after 7 days it will be deleted
+            minimum soft delete - 1 day and max - 365 days
+
+            disadvantage of soft delete
+             1. we need to pay for storage for the deleted object until the softdelete days 
+
+             if we delete container all the objects from the storage will be deleted
+             we can keep softdelete option at blob level or at container level.
+
+           </h3>
+           <h3>
+            static website
+            <p>
+                with static website $web container will be created, as per the mapped path we need to upload files in web folder
+                go to myipaddress get the ip address
+            </p>
+           </h3>
+        </p1>
+        </div>
+   
+    </section>
+    <section>
+        <h3>
+            versioning in blobs
+        </h3>
+        <p>
+            versioning only available in blob
+            Blob versioning, to automatically maintain previous versions of a blob. When blob versioning is enabled, 
+            you can restore an earlier version of a blob to recover your data if it's erroneously modified or deleted.
+             <a href = "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview"> learn here more on this</a>
+
+             if u enable blob change feed - logs all the changes been done fir version
+             enable version feed - we can track on all the changes on version
+
+             Pros - if the latest version is corrupted we can make active of older versions select that as current version
+        </p>
+    </section>
+    <section>
+        <p>
+            <h3> Life cycle management in blobs which helps to save the costs</h3>
+            <ul title="Deletion After N no of days">
+                <li>
+                    let say if we define is version older than 7 days -> yes -> it will delete all those versions
+                </li>
+            </ul>
+            <ul title="Mpving to colder tier"></ul>
+                <li>
+                   we can defile lifecycle rule as -> 
+                   1. if object not used for more than 30 days and this object kept in hot tier then move to cool tier
+                   2. if object not used for more than 90 days and this object kept in cool tier then move to cold tier
+                   3. if object not used for more than 200 days and this object kept in cold tier then move to archival tier
+                   4. if object not used for more than 365 days and this object kept in archival tier then delete permanant
+                </li>
+            </ul>
+        </p>
+    </section>
+ 
+    <section>
+        <p>
+            <h3>
+                what is Azure file storage - to store common files
+            </h3>
+            <ul>
+                <li>
+                    1. store commonly used tools and utilities which can be acesed by developer and admin
+                    2. pros - shared access - azure supports acces on smb protocol on windows, nfs on linux
+                            - fully managed
+                            - resiliency - extremly reliable and fault tolerance
+                    3. 2 tiers available in file share 
+                       1. standard - only on smb  
+                       2. premium - can access on nfs and smb , premium is more faster than standard, higher the quota 
+                </li>
+            </ul>
+           
+        </p>
+    </section>
+    <section>
+        virtual machine
+    </section>
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+    </footer>
+</body>
+</html>

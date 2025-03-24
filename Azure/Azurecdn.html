@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Azure Resources</h1>
+        <p>Here is your guide to navigating the Azure portal and related resources.</p>
+    </header>
+    <section>
+        <h2> following is the material drive</h2>
+        <a href="https://drive.google.com/drive/folders/1ADGKUV08hQmbHM73gAk_xbob2rqBePOt"></a>
+      <p>
+        <h3> what is CDN - Content delivery network</h3>
+        -> let say forexample u have blob storage created in us east region.
+
+        -> for example we have users from different regions ind, us, SA 
+        in this scenario with out CDN if they want to download image from blob does all the users get same speed?
+        ans is No - bcs each one has different network
+
+        -> accessing blob from CDN will resolve this issue.
+        in this scenario actual blob will be cached in CDN profile and accessed from CDN edge ind, cdn edge us and cdn edge and respective locations get 
+        data from nearest CDN. this defintely having better performance.
+
+        -> in above scenario if cache miss happens then it will directly hit origin then data stores in cache here first user first time bit slow 
+        next time onwards its with improved performance
+
+        CDN works on port no 3
+
+        we can restrict cdn profile works on geo filtering means it will be accessable to only allowed filters
+
+      </p>
+      <p>
+        <h3> blob access tiers</h3>
+        1. hottier - storage cost high, but retrival cost minimal - store frequently used data here
+        2. cool tier - e.g.long term data backup, centralized data logs, quarterly financial data (storage cost less, access cost high)
+         -- so store only frequently used one
+         -- here 30 day locking period -- until 30 days we cant delete
+        3. archival tier - lock - 180 days, store vert very frequenr access data, minimal store cost, high access cost, 
+        e.g store audit complains data like-- its offline storage -- when ever u want retrieval we need to send request to azure - 
+        will take 3 hrs to warm up if u need faster then we need to pay to azure- 
+        if u want to delete before locking period we need to pay delete cost 
+
+        we have option to convert one acees tier to another
+
+        when we create storage account - default is cool
+
+        cold tier dont worry at this time.
+    </p>
+   
+    </section>
+
+ 
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+    </footer>
+</body>
+</html>
