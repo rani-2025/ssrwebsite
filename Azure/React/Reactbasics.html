@@ -11,29 +11,53 @@
     <header>
         <h1>Welcome to React Resources</h1>
     </header>
+    
     <section>
-        <h2> Event handling</h2>
-      <p>
-        <ul>
-            <li>
-                In react event handling will be achieved through jsx event attributes in js its Html event attributes
-                e.g click event handling attribute - in JSX -> onClick and js -> onclick 
-            </li>
-        </ul>
-      
+        <h2>Event Handling</h2>
+        <p>
+            In React, event handling is achieved through JSX event attributes, similar to HTML event attributes in JavaScript. 
+            For example, the click event handling attribute is:
+            - In JSX: <code>onClick</code>
+            - In JavaScript: <code>onclick</code>
+        </p>
 
-      </p>
-      <p>
-        <h3> blob access tiers</h3>
-      
-    </p>
-   
+        <p>
+            When you assign <code>onClick={handleClick}</code>, you are passing the function itself as a reference. 
+            React will then call this function when the click event occurs. However, if you use <code>onClick={handleClick()}</code>, 
+            the function <code>handleClick</code> is executed immediately, and its return value (which is often <code>undefined</code> if 
+            the function doesn't explicitly return anything) is assigned to the <code>onClick</code> handler. This leads to the function running 
+            on every render and not when the button is clicked.
+        </p>
+
+        <p>
+            Sample code:
+            <pre>
+                <code>
+function MyComponent() {
+  const handleClick = () => {
+    console.log('Button was clicked!');
+  };
+
+  return (
+    <button onClick={handleClick}> {/* Correct way */}
+      Click me
+    </button>
+  );
+}
+                </code>
+            </pre>
+        </p>
+
+        <h3>Please refer following link to see various ways to declare React functions</h3>
+        <a href="Reactfunctiondeclarations.html" target="_blank"> Various React Functional Declarations </a>
+        <p>
+            <!-- Add content for Blob Access Tiers here -->
+        </p>
     </section>
-
  
     <footer>
-        <p>For support with assignments, submit them via email: 
-            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        <p>
+
         </p>
     </footer>
 </body>

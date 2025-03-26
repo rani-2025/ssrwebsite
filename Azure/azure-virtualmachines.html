@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Page</title>
+</head>
+<body>
+    <header>
+        <h1>Azure storage</h1>
+        <a href = "https://azure.microsoft.com/en-us/products/storage/storage-explorer"> down load storage explorer from this link</a>
+    </header>
+    <section></section>
+        <h3>Virtual machines </h3>
+       <p>
+       different types of virtual machines
+       a,b - series for development
+       d- > for QA low esage
+       f - high 
+       g- data bases
+       h & m - hevy grade machines learning
+       l & m - high configuration db 
+       n -> dedicated gpu enabled 
+    </p>
+    <p>
+        While it's difficult to pinpoint one definitive "most used" series, the D-series is widely considered a popular and well-rounded choice for general-purpose workloads in Azure, offering a good balance of CPU, memory, and storage. 
+        most cheapest vm - east us where microsoft head quearter 
+    </p>
+    </section>
+    <section>
+        <p>
+            to increase the size of VM go to VM overview -> stop first once doesn
+            under availability + scale -> size -> then go to vm series -> then do resize -> resize will chagre the amount
+            as long as VM in start state it wil be charged
+            to avoid charges setup autoshut down in off hours by going operations -> auto shut down -> then set the time -> u will get alerts once its shutdown
+            
+            There are 2 kind of ips - 1- static ip, 2- dynamic ips
+
+            when vm create - select authentication type - password based 
+            
+            by default public ip - is static 
+            if vm stopped called as deallocated state 
+
+          
+
+            POC - 
+            create one dynamic and static ip vms 
+            once done note their ip addresses 
+            stop both of them and then start -
+            now check static and dynamic ip addresses -> static ip - never change but dynamic ip will change, 
+            make sure 99.99 % use static there is no specific advantage of dynamic ip over static ip
+
+            scenRIO - LETS assume vm stop for 1 month reset vm pwd ->
+           vm - help -> reset pwd 
+           azure will stare uname in cache
+        </p>
+    </section>
+    <section>
+        <h3>vm disks</h3>
+        <p>when azure create it will create with 2 disks - os disk and temporary disk,
+        u cant add mutliple os disks in single vm
+        if windows - os disk mapped to c drive</p>
+        more details refer following screenshots
+        <a href = "/Assets/disksinVM.png">VM disk types</a>
+        <a href="/Assets/vmdisksmoredetails.png"> More details on vm disks</a>
+        
+        with the VM d-series -> u can see options of localstorage -> this local storage called temporarary storage - this will vary as per vm size
+
+        intially when create VM max u can 2 TB 
+
+        to use VM after created -> go to VM -> click on connect then download RDP file - oncw downloaded click on rdp  - it will ask uname and pwd - once enter it will connect
+        on RDP vm machine what ever stored in OS disk will exist after stop and start but it will be deleted the one stored in temp disk
+
+        do not create partition on OS disk on VM - it will create issues 
+        <a href = "/Assets/connectvm.png">Connect VM</a>
+
+        by default tmp stored in C drive we can change to d drive by going to environment variables
+        <a href = "/Assets/updatevmtempstoragedrive.png">Map temp storage</a>
+    
+        create new partition only with unallocated space
+    </section>
+    <section>
+        <h3> vm size update</h3>
+        Does azure allows to reduce size of disk? No - bcs of data loss
+        at os level - we can shrink the volume but it doesnt allow to reduce size at azure level
+
+        <p>
+            how to increase size vm ->first stop vm -> 
+            <a href = "/Assets/stopVM.png">How to stop VM</a>
+            once completed then go to vm -> disk -> settings -> size + performance -> down u can see custom size there u can enter once done stop and start VM
+            <a href = "/Assets/VMcustomsizeincrease.png">VM customsize location</a>
+            once done restart VM 
+            then download VM -> connect RDP ->
+            once u connect RDP u still see old size on drives to see the increased size - in windows go to Diskmanagement > there u can see unallocated -> there extend (function() {
+                
+            <a href = "/Assets/extendVMdisksize.png">Extend VM Disk</a>
+            
+        </p>
+    </section>
+</body>
+</html>
