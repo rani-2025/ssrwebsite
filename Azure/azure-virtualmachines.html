@@ -93,9 +93,48 @@
             then download VM -> connect RDP ->
             once u connect RDP u still see old size on drives to see the increased size - in windows go to Diskmanagement > there u can see unallocated -> there extend (function() {
                 
-            <a href = "/Assets/extendVMdisksize.png">Extend VM Disk</a>
+            <a href = "/Assets/extendVMdisksize.png">Extended VM Disk</a>
             
         </p>
+        <p>
+            <h3> Attach single datadisk with single VM</h3>
+            if we want to attach external disk we need to attach data disk
+            <a href = "/Assets/datadisksinvm.png">External Harddisks (Data disk) definition</a>
+            <a href = "/Assets/createdatadisk.png">how to create Harddisks (Data disk) - settings in portal(as per storage type u get through put)</a>
+            every datadisk has lun number (logical unique number) for azure to identify the data disk
+            There are different type of data disks
+
+            if u want to share datadisks to multiple VM's recommanded to go filestorage
+            to intialize the datadisk in VM(RDP) go to Diskmanagement and attach unallocated memory
+
+        </p>
+        <p>
+            <h3> Attach signle datadisk to multiple vms (following is the approach but not recommanded) </h3>
+            1. we need to disbale host caching (in disk host cache select none)
+            2. dettach all existsing VMs which are been attached to this disk (beside hist cach detach option)
+            3. under datadisk config select max disks capacity to 3 
+            4. after that go to VM and click attach existing datadisk then click on apply 
+
+            to move vms to different resource group follow the below settings
+            <a href = "/Assets/movevmstodifferentresourcegroup.png">Move vms to different resource group go this setting and click on move</a>
+        </p>
+    </section>
+    <section>
+        <h3>Linux Vms</h3>
+        there is no gui associated with linux Vms
+        for inbount ports - select 22 for windows its 33 , port no 80 for ssh same for both
+        from cmd line to connect to linux -> type -- ssh username (e.g: ssh amol@74.225.202.252)
+        if u create vm with public key then use this command
+        ssh username -i enterkey 
+        if u want key readonly - type chmod 400
+    </section>
+    <section>
+        High availability Vms
+        if u r in a region no availability zone then this wont be applied to that region
+        <a href = "/Assets/highavailabilityvms.png">high availability vm</a>
+        <a href = "/Assets/highavailabilityvms.png">high availability vm settings add multiple zones and multiple vm names</a>
+        here each vm allocated in one zone for eg if one vm go down it will pickup from other
+        there is no sync between Vms
     </section>
 </body>
 </html>
