@@ -2,84 +2,169 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Azure Resources</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /* Simple styling for the header and links */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: #007BFF;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            background-color: red;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .subnav-content a {
+            float: left;
+            color: white;
+            text-decoration: none;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+
+        /* Simple styling for the header */
         header {
             background-color: #333;
             color: white;
             padding: 10px;
             text-align: center;
         }
-        nav {
+
+        /* Styling for the Back to Menu button */
+        .back-to-menu {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
             text-align: center;
+        }
+
+        .back-to-menu:hover {
+            background-color: #218838;
+        }
+
+        /* Section styling */
+        section {
             margin: 20px;
         }
-        nav a {
-            margin: 10px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: white;
-            background-color: #007BFF;
-            border-radius: 5px;
-        }
-        nav a:hover {
-            background-color: #0056b3;
+
+        section a {
+            color: #007BFF;
         }
     </style>
 </head>
 <body>
+
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <div class="subnav">
+            <button class="subnavbtn">Resources <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#references-html">All Website References</a>
+                <a href="#azurereferences-html">What is Azure</a>
+                <a href="#limitations-on-premise-html">Azure Limitations On-Premise</a>
+                <a href="#cloud-models-html">Azure Cloud Models</a>
+                <a href="#cloud-competitor-html">Azure Cloud Competitors</a>
+                <a href="#cloud-deployment-html">Azure Cloud Deployments</a>
+            </div>
+        </div>
+        <a href="#contact">Contact</a>
+    </div>
+
     <header>
         <h1>Welcome to Azure Resources</h1>
         <p>Here is your guide to navigating the Azure portal and related resources.</p>
     </header>
 
-    <!-- Navigation Links -->
-    <nav>
-        <a href="#references-html">All Website References</a>
-        <a href="#azurereferences-html">What is Azure</a>
-        <a href="#limitations-on-premise-html">Azure Limitations On-Premise</a>
-        <a href="#cloud-models-html">Azure Cloud Models</a>
-        <a href="#cloud-competitor-html">Azure Cloud Competitors</a>
-        <a href="#cloud-deployment-html">Azure Cloud Deployments</a>
-    </nav>
-
     <!-- Sections -->
     <section id="references-html">
         <h2>All Website References</h2>
         <a href="references.html" target="_blank">References</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
     </section>
 
     <section id="azurereferences-html">
         <h2>What is Azure</h2>
         <img src="../Assets/azurereference.png" alt="cloud models" width="400" height="300" />
+        <a href="#top" class="back-to-menu">Back to Menu</a>
     </section>
 
     <section id="limitations-on-premise-html">
         <h2>Azure Limitations On-Premise</h2>
         <p>Click the link below to explore additional details:</p>
         <a href="limitations-on-premise.html" target="_blank">Limitations on premise</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
     </section>
 
     <section id="cloud-models-html">
         <h2>Azure Cloud Models</h2>
         <p>Click the link below to explore additional details:</p>
         <a href="cloud-models.html" target="_blank">Cloud Model</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
     </section>
 
     <section id="cloud-competitor-html">
         <h2>Azure Cloud Competitors</h2>
         <p>Click the link below to explore additional details:</p>
         <a href="cloud-competitors.html" target="_blank">Cloud Competitors</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
     </section>
 
     <section id="cloud-deployment-html">
         <h2>Azure Cloud Deployments</h2>
         <p>Click the link below to explore additional details:</p>
         <a href="cloud-deployment.html" target="_blank">Cloud Deployments</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
     </section>
 
     <footer>
@@ -87,5 +172,6 @@
             <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
         </p>
     </footer>
+
 </body>
 </html>
