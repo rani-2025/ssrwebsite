@@ -152,10 +152,27 @@
         <p>
             <h3>
                 steps to create custom image
-            
-                create 
+                1. create VM and setup IIS once done come back stop VM then go to settings click on capture
+
+                custom image needs to be created under sameregion as VM if we try to do different it wont allow.
+                once u created custom image u cant merge new changes if we need any changes we need to create new custom image.
+                
+                in windows IIS in linux we have apache
+                
+                when creating custom image we have an option to create generalized and specialized image type
+                if generalized its always ask username and password
             </h3>
         </p>
+    </section>
+    <section>
+        <h3> working of autoscaling (VMSS) </h3>
+        vms count will increase and decrease as per the workload 
+        <a href = "/Assets/vmscaling.png">we can configure all this scaling setup</a>
+        <a href = "/Assets/azurescalingconfig1.png"> azure will scaling as per query condition time given</a>
+        if we delete vm under vmss automatically will create new one by azure why because it has to maintain minimun number of vms 1
+        if we configure min 2 then it always create 2 when vm been deleted.
+        also new vm will be created cpu load increases as well to balance the load.
+        this can be set it up at - vm - settings - scaling  
     </section>
 </body>
 </html>
