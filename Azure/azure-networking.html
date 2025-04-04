@@ -81,5 +81,37 @@
         Topology how the connectivity happens in VM.
     </p>
    </section>
+   <section>
+    <h3> Azure Secrity group</h3>
+    <p> NSG (Network Secuirty group) used to encapsulare rules for azure resource, for each rule we need to provide source and destination.   
+      when ever u create NSG either u can apply at aubnet level or NIC level.
+      if its NIC it will just apply to the VM attached to NIC but if u apply at subnet level then all vms inside subnet will be protected. 
+      best practice is give at subnet level.
+
+      we can even add rules at subnet level and NIC Level combination as well.
+    </p>
+    lower rule is the priority in NSG order
+    <a href ="/Assets/Nsgruleorderexample.png">In this 100 rule will be processed first its lower is first priorty</a>
+    <a href ="/Assets/NSGordersample2.png">write down which rule will be processed for each sample</a>
+    there are NSG inbound default rules which cant be deleted
+   </section>
+   <section>
+    <h3>
+      bastrain host
+    </h3>
+    <p>
+      1. this needs dedicated subnet
+      2. name always azurebastionsubnet
+      3. single bastnet only single vnet
+      4. Azure Bastion is a fully managed service that provides secure and seamless Remote Desktop Protocol (RDP) and Secure Shell Protocol (SSH) access to virtual machines (VMs) in Azure, 
+      without exposing them to the public internet, acting as a secure jump box or bastion host. 
+
+      <p>
+        POC
+      1. create one window and linux vm with out public IP
+      2. Create bastron host
+      3. using bastron host we can connect those 2 vm even with out having public IP
+    </p>
+   </section>
 </body>
 </html>
