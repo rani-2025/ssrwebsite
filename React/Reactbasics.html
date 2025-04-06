@@ -81,10 +81,45 @@ function MyComponent() {
 
         </p>
     </section>
- 
+    <section>
+        declaration of state in react.
+        usestate allows component to have its own state
+        <pre>
+            <code>
+        import {useState} from React;
+        const LightSwitch = () => {
+            const [lightOn, setLightOn] = useState(false);
+            function handleLight () {
+                setLightOn(!lightOn)
+            }
+
+            return(
+                <h1> Light is turned on: {lightOn}</h1>
+                <button onClick={ () => {setLightOn(!lightOn)}}</button> > or
+                <button onClick={ handleLight } ></button>
+            )
+        }
+
+     </code>
+    </pre>
+    </section>
+    <section>
+        Run the following command to create the React app named counter_app: 
+
+    </section>
+    <section>
+       <h3> Managing state in react </h3> 
+       with in using usestate
+       if its across we can manage through global state  which is called useContext
+    </section>
+    <section>
+        <p>
+            prop drilling is a situation where you are passing data from a parent to a child component, then to a grandchild component, and so on, until it reaches a more distant component further down the component tree, where this data is required
+        </p>
+    </section>
     <footer>
         <p>
-
+            npx create-react-app counter_app
         </p>
     </footer>
 </body>
