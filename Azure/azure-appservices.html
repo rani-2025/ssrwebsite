@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Azure Appservices</h1>
+        <p>never launch isolated app service plan in lab account iyt costs very high</p>
+
+    </header>
+
+   <section>
+    <p>
+        1. Azure app service
+        2. azure app service plan - go with linux cheap and support all
+        pricing plan go with basic tear - dev and QA , premium plan for prod
+        3. with app service we dont need to create VM we can directly connect and deploy
+        
+        <a href = "https://github.com/kakarot291994/appServiceNode"> app service repo for lab</a>
+
+      4. to create with custom domain we need to do domain purchase from godaddy
+      <a href="/Assets/appserviceconfigurationplan.png">Azure appservice config plans</a>
+      <a href="/Assets/whatisappservice.png">what is appservice</a>
+      <a href="/Assets/whatisappserviceplans.png">what is appservice plan</a>
+    
+
+    </p>
+   </section>
+   <section>
+    <p>
+       <h3>Azure resource locks</h3>
+       2 type of locks 
+        1. read only locks - apart from delete u can even prevent editing
+        2. delete only lock - it will prevent delete
+
+        if no lock protection if any delete query apply of resource group it will be deleted
+        <a href="/Assets/azureresourcelocks.png"> refer resource lock advantage </a>
+        we can apply resource locks at resource group or at resource level.
+
+    </p>
+   </section>
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+    </footer>
+</body>
+</html>
