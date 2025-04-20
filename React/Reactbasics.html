@@ -210,6 +210,32 @@ function MyComponent() {
         Rule of thumb: more conservative than ^; stick to the exact minor version.
         </p>
     </section>
+    <section>
+        <h3>stateful vs stateless components</h3>
+       1.  stateful component maintain the state in component
+       2. stateless component doesnt maintain any state this will read state through props
+       3.  props cant be changes, where as state does -- state will be created using useState or useContext
+       4. we can create global state using usecontext where usestate is local to component  
+       5. this is how we can create state and pass as prop, if u need to update then declare setFruits
+       <pre>
+        <code>
+            export function App() {
+                const [fruits] = React.useState([
+                      {fruitName: 'apple', id: 1},
+                      {fruitName: 'apple', id: 2},
+                      {fruitName: 'plum', id: 3},
+                 ]);
+                return (
+                  <div className="App">
+                    <h1>Where should the state go?</h1>
+                    <Fruits fruits={ fruits }/>
+                    <FruitsCounter fruitscount={ fruits.length }/>
+                  </div>
+                );
+              }
+        </code>
+       </pre>
+    </section>
     </section>
     <footer>
        
