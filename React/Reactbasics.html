@@ -236,6 +236,47 @@ function MyComponent() {
         </code>
        </pre>
     </section>
+    <section>
+        <p>
+            <h3>React routing</h3>
+           1.  In React we can achieve navigation between pages by using react router.
+           2. to achieve this we need to install react router module by using 
+           npm i react-router-dome@6 (6 is the module)
+           3. Add below code in index.js file
+           <pre>
+            <code>
+                import {BrowserRouter } from 'react-router-dom'
+
+                const root = ReactDom.createRoot()
+                root.render(
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                )
+            </code>
+           </pre>
+           4. Add below code in app.js file
+           <pre>
+            <code>
+                import { Routes, Route} from 'react-router-dom';
+                function App() {
+                    return (
+                    // this is to define navigation links from header nav when click on home and about me
+                    <nav>
+                        <Link to="/" className="nav-item"> Homepage </Link> 
+                        <Link to="/about-me" className="nav-item"> AboutMe </Link> 
+                    </nav>
+                    // this is to define routes
+                    <Routes>
+                        <Route path="/" element ={ <Homepage />} />
+                        <Route path="/about-me" element ={ <AboutMe />} />
+                    </Routes>
+                    );
+                }
+            </code>
+           </pre>
+        </p>
+    </section>
     </section>
     <footer>
        
