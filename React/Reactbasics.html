@@ -162,7 +162,7 @@ function MyComponent() {
         </p>
     </section>
     <section>
-        <h3> Node module level - (npmrc) file</h3>
+        <h3> project root level - (npmrc) file</h3>
         <p> 
             The .npmrc file is a configuration file used by npm (Node Package Manager) to manage settings for installing packages and interacting with npm registries. 
             It allows you to customize behavior globally, per project, or per user.
@@ -190,6 +190,108 @@ function MyComponent() {
             This also disables features like npm ci (which depends on the lock file))
 
         </p>
+    </section>
+    <section>
+        <h3> project root level (eslintrc) file</h3>
+        <p>
+            if you see an .eslintrc in node_modules, it's likely from an ESLint configuration package, <br>
+            but you'd usually maintain your own .eslintrc at the root of your project.
+            <ul>
+            <li>An .eslintrc file in a React project (or any JavaScript/Node.js project) is a configuration file for ESLint, 
+                which is a static code analysis tool used to identify and fix problems in JavaScript code. 
+                This file is essential for ensuring that the code follows certain style guidelines, best practices, and avoids errors.</li>
+
+            <h3>What does the .eslintrc file do? </h3>
+            <li>Linting Configuration: It specifies the rules ESLint should follow while analyzing the code. 
+                For example, it can define rules like "always use semicolons" or "indent using 2 spaces."</li>
+
+           <li>Code Quality: It can enforce consistent coding styles and conventions across a team, 
+            making the codebase easier to read, maintain, and debug.</li>
+
+          <li> Error Prevention: ESLint helps prevent bugs by catching common mistakes, 
+            such as declaring a variable but not using it, or using a console.log statement in production code.</li>
+        </ul>
+    <h3> we have following settings in our project each setting means</h3>
+    <ul>
+       <li> "default-param-last": "off": Disables the rule that enforces default parameters to come last in function signatures.</li>
+
+        <li>"react/function-component-definition": "off": Disables the rule that enforces a specific style (declaration vs. expression) for React function components.</li>
+
+        <li>"prefer-regex-literals": "off": Disables the rule that encourages using regular expression literals over the RegExp constructor.</li>
+      </ul>
+        </p>
+    </section>
+    <section>
+        <h2>project rrot level jenkinsfile</h2>
+        This is jenkins pipeline or jenkins file contains configuration related to CI/CD pipeline jobs.
+        <h3> following are the settings at my project levels</h3>
+        <ul>
+            <li>jenkins_debug_image: Specifies a Docker image (jenkins-nodejs20:4.2.4) to be used for debugging.</li>
+
+            <li>base_image_override: Disables the feature of overriding the default base image, 
+                meaning it won't change the base image for other steps in the pipeline.</li>
+        </ul>
+        // this is how our project jenkins file lookslike
+        <pre>
+            <code>
+            #!/usr/bin/env groovy
+            @Library('psl@api/2') _
+
+            gradleBuild {
+                with 'jenkins-nodejs20:4.2.4'
+                build {
+                    parallel false
+                }
+                publish {
+                    docker {
+                    images 'fusion-marketing'
+                    }
+                    nexus {
+                    modules()
+                    }
+                }
+                veracodeConfig {
+                    modules 'fusion-marketing'
+                }
+                report {
+                    checkstyle '**/build/reports/checkstyle/*.xml'
+                    archive 'build/license*.zip', 'build/version.properties', 'coverage/**'
+                }
+                notify 'DP-JCP-RWDDevs-All-dl@jcp.com'
+                jenkins_debug_image {
+                debugImage 'jenkins-nodejs20:4.2.4'
+                }
+                base_image_override {
+                    enabled false
+                }
+            }
+            </code>
+        </pre>
+    </section>
+    <section>
+        <h3>Project level gradle.properties</h3>
+        <p>
+            The gradle.properties file is used in Gradle, a build automation tool, <br>
+            to define configuration properties that can be used throughout the build process
+        </p>
+        <ul>
+            <li>
+                In our org we have sonarqube props
+            </li>
+        </ul>
+        // this is how gradle file looks like
+        <pre>
+            <code>
+                nexusUrl=https://maven.infra.dp-dev.jcpcloud2.net
+                registryName=registry.dp-dev.jcpcloud2.net
+                jcp_docker_maintained_by=Jcpenny Devops Team<devops-service-dl@jcp.com>
+                jcp_docker_node_base_image=registry.dp-dev.jcpcloud2.net/jcp-nodejs20:4.2.4
+                nodePort=8080
+                systemProp.sonar.sources=src
+                systemProp.sonar.host.url=https://sonarqube.infra.dp-dev.jcpcloud2.net
+                systemProp.sonar.javascript.lcov.reportPaths=coverage/lcov.info
+            </code>
+        </pre>
     </section>
     <section>
         <h3>
