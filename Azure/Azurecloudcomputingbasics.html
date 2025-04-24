@@ -98,7 +98,52 @@
   </a>
   </p>
 </section>  
+<section>
+  <h3> list of azure commands for reference</h3>
+  <p>
+    BASH COMMANDS:
+az account list: gives the details of the existing azure account
+az account list --output table : gives the details of the existing azure account but in a table format
+az account list -o table : gives the details of the existing azure account but in a table format[While writing the full form we use (--) double hypen,
+but while using the shortcut we use single hypen(-)]
 
+To create Azure Resource Group:
+az group create --name new-rg --loaction southcentralus
+To create multiple resource group in a region using one command:
+az group create -n rg-1 -l westus && az group create -n rg-2 -l westus && az group create -n rg-3 -l westus
+To list all the resource groups present in a particular location:
+az group list --output table | grep westus
+az group list --query "[?location=='westus']" -o table
+
+      Delete resourcegroup for a particular region
+      az group list --query "[?location=='westus']".name -o tsv | xargs -otl az group delete -n
+
+
+      POWERSHELL COMMANDS:
+      To get details about our subscription
+      Get-Azsubscription
+      
+      To create resource group:
+      New-Azresourcegroup -n rg-powershell -l southcentralus
+      
+      To create multiple resource groups using a single command:
+      New-AzresourceGroup -n rg1 -l westus && New-AzresourceGroup -n rg2 -l westus && New-AzresourceGroup -n rg3 -l westus
+      
+      List all the resource groups in a particular region
+      
+      Get-Azresourcegroup -l westus
+      Get-Azresourcegroup -l westus | Format-table 
+      
+      Delete resourcegroup for a particular region
+      
+      Get-AzResourcegroup -l southcentralus | remove-azresourcegroup
+ 
+ <a href="https://learn.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-13.0.0#find-commands">
+  Azure commands document
+ </a>
+
+  </p>
+</section>
   
 </body>
 </html>
