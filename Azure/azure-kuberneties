@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+        <h1>Azure container registry</h1>
+        <p>
+            its registry where u store all docker images.
+        </p>
+        A Docker image is a read-only template containing everything needed to run an application, 
+        including the code, runtime, system tools, libraries, and settings. 
+        It's essentially a snapshot or blueprint of the application's environment. 
+   <ul>
+    <li>
+        <h3> how to create container registry</h3>
+        1.create resource group
+        2. create container registry (it had premium and standard --if standard store in only one region, premium it will store to mutiple regions)
+        3. once created push the docker image to container
+    </li>
+    <li>
+        <h3>create docker image</h3>
+        all the steps available in this repo 
+        https://github.com/kakarot291994/acr-tutorials
+        once its pushed then we can see image in container
+    </li>
+    <li>
+        <h3> to create container instanse we need to create admin user</h3>
+        in networking make as pubclic
+        1. u cant scale with container instanse only we can publish one at a time to resolve this we use kuberneties 
+    </li>
+    <li>
+        <h3> create kubernetes cluster</h3>
+        1. create kubernetes cluster
+        2. 
+    </li>
+   </ul>
+</body>
+</html>
