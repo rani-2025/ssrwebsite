@@ -379,6 +379,71 @@ function MyComponent() {
            </pre>
         </p>
     </section>
+    <h3>
+        Conditional rendering
+    </h3>
+    <p>
+    <ul>
+        <li>
+           State is all the data your app is currently working with. With this in mind, 
+           you can decide to conditionally render specific components in your app, based on whether specific state data has specific values. 
+           To make this possible, React works with the readily available JavaScript syntax and concepts.
+        </li>
+    </ul>
+    <h3> example of conditional rendering</h3>
+    <pre>
+        <code>
+            function CurrentMessage({day}) {
+                const weekday = (day >= 1 && day <= 5);
+                const weekend = (day >= 6 && day <= 7);
+                let message;
+                
+               if (weekday) {
+               message = <Workdays />
+              } else if (weekend) {
+                message = <Weekends />
+               } else {
+               message = <ErrorComponent />
+                 }
+                
+                return (
+               <div>
+                {message}
+               </div>
+                )
+                }
+        </code>
+    </pre>
+    <ul>
+        <li>
+            here 
+            The output of the CurrentMessage component will depend on what the received value of the day variable is. 
+            On the condition of the day variable having the value of any number between 1 and 5 (inclusive), 
+            the output will be the contents of the Workdays component. Otherwise, 
+            on the condition of the day variable having the value of either 6 or 7, 
+            the output will be the contents of the Weekends component.
+    </li>
+</ul>
+    </p>
+    <p>
+        <h3>Conditional rendering using the logical AND operator</h3>
+        <pre>
+            <code>
+                function LogicalAndExample() {
+                    const val = prompt('Anything but a 0')
+                    
+                     return (
+                         <div>
+                          <h1>Please don't type in a zero</h1>
+                            {val &&
+                                <h2>Yay, no 0 was typed in!</h2>
+                         }
+                            </div>
+                   )
+                    }
+            </code>
+        </pre>
+    </p>
     </section>
     <footer>
        
