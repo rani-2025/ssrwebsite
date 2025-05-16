@@ -548,7 +548,7 @@ function MyComponent() {
             3 ways u can include videos
             1. using html <video src=""></video>
             2. using external videos
-            3. using npm video package, u can look for https://www.npmjs.com/ for frequently downloaded video packages
+            3. using npm video package, u can look for npmjs.org for frequently downloaded video packages
             one of the sample u can find at github.com/CookPete/react-player
 
             <p>
@@ -559,6 +559,38 @@ function MyComponent() {
                 2. Perform an internet search for the package name    
                 3. Check the frequency of updates
             </p>
+        </p>
+        <p>
+            sample react 
+            1. u can find react player package here 
+            https://www.npmjs.com/package/react-player
+
+            2. npm install react-player
+            3. import ReactPlayer from "react-player";
+            4. import ReactPlayer from "react-player/youtube"; (embed from youtube)
+            5. in Reactplayer if u set playing true automatically when page loads
+            5. <pre>
+                <code>
+                    import React from "react";
+                    import ReactPlayer from "react-player/youtube";
+
+                    const App = () => {
+                    return (
+                        <div>
+                        <MyVideo />
+                        </div>
+                    );
+                    };
+
+                    const MyVideo = () => {
+                    return (
+                        <ReactPlayer url='https://www.youtube.com/watch?v=T8TZQ6k4SLE' playing="{false}" volume={0.5}/>
+                    );
+                    };
+
+                    export default App;
+                </code>
+            </pre>
         </p>
     </section>
     <footer>
