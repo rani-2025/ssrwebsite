@@ -67,10 +67,37 @@
             9. date (provide date info)
             10. w (will show number of users using - who is logged in )
             11. whoami (will show which previlige u - it will help us to see which user we are from)
-            12. dmesg (will show system boot and hardware logs -- it will help us trouble shooting any issues comes with hardware etc..(think of it like system internal diary during startup of os))
+            12. dmesg (display msg from kernal like ... will show system boot and hardware logs -- it will help us trouble shooting any issues comes with hardware etc..(think of it like system internal diary during startup of os))
             13. cat /proc/cpuinfo - gives cpu info
             14. cat /proc/meminfo - gives cpu memory info
             15. free -h (show actual, virtual - memory info in readable format -- how much used, free etc..., swap - virtual memory)
+            16. history - shows all commands been used after login 
+            17. mkdir - create directory , we can create mutiple directories by placing mkdir test1 test2 test3
+            18. ls - list all folders, directories, files (if ls of particular directory then it will give files in that dir) 
+            19. many forms of ls commands - ls -r (this is to check inside subdirectory) 
+                    ls -a (list all files including hidden files as well)
+                    ls -s (list all files and their sizes also showes total size of that directory (wont show hidden files))
+                    ll or ls -al (list detailed version of files and directories)
+
+            20. cd - into specific directory , cd.. go back to previous directory
+            21. ~/test2 cd -- it will tell weatger dir or file
+            22. touch testfile1 (it will create empty testfile1), touch testfile1 testfile2 (will create multiple files)
+            23. nano test4 - open new editor with that filename -- u can enter few lines then enter control s , then control X to exit
+            24. head test4 - will show only first 10 lines default from top of file, if u want edit file also use - nano test4
+            24. head -n 5 test4 - then will give 5, as per the number u can even give 20
+            25. tail test4 - will give last 10 lines of files - this read from bottom
+            26. tail -n 5 test4 - will last 5 -- will vary as per number
+            27. mv test4 test44 - will update file from test4 to test44
+            28. stat test44 - will show all file details like name, size, access, uid, modify etc...
+            27. cat test4- to display content of file
+            28. cat > test4 -- it will remove all content before and will add what ever we put now
+            29. cat >> test4 - this wont remove previous one but will add new lines
+            30. rm test4 -- it will remove test4 files
+            31. rmdir - will remove directory
+            32. grep "linux" test4 -- will check if this keyword present in the file or not
+            33. grep -n "linux" test4 -- will show which no of line this keyword exists
+            34. gre -r "linux" -- will search in all directories or given directory and shows which file this keyword exists.
+            35. pwd - shows current working directory
         </li>
     </p>
 </section>
