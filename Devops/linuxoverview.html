@@ -98,6 +98,34 @@
             33. grep -n "linux" test4 -- will show which no of line this keyword exists
             34. gre -r "linux" -- will search in all directories or given directory and shows which file this keyword exists.
             35. pwd - shows current working directory
+            36. cp 1.txt myfolder/ - this will copy 1.txt into myfolder
+              to see files after copy -- use - cd myfolder --> this will make u in myfolder directory then -- use -- ls in that u can see files
+              cp -r myfolder/ ourfolder - this will copy myfolder to ourfolder directory
+
+              we can use cp or mv to move one folder to another - difference is after copy that file or folder exists in original and copied folder where as with mv its permanant move
+
+           37. sudo apt update -- sudo (super user), apt (package tool) -- this command used update all packages, apt upgrade
+           38. package - contain all files required to run the app
+           sudo apt install nginx -- this will install nginx package
+           39. ps aux - will list all active processors
+           40. which nginx -> will give where the package been installed
+           41. nginx -v --> will give version of the package
+           42. sudo service nginx status -> using this we can check this is active or not
+           43. sudo service nginx stop - will stop the package , to restart - sudo service nginx start 
+           44. sudo apt autoremove nginx -y -> will remove unnessary packages
+           45. sudo apt purge nginx - to remove particular package
+           46. sudo dpkg -- configure -a (to troubleshoot any issue with package)
+           47. ping www.google.com -> we can see website up or not 
+           48. wget https://azure.microsoft.com/en-us/ (wget will download the resource from the url)
+           49. sudo adduser myuser (i gave pwd - Test123@)
+           50. id myuser -> will show the user details
+           51. sudo groupadd mygroup
+           52. sudo adduser myuser mygroup (this will add user to group)
+           53. groups myuser -> to check which group myuser belongs to
+           54. getent group mygroup - will show group details
+           55. sudo deluser myuser - will delete user
+           56. sudo groupdel mygroup -> will delete group
+
         </li>
     </p>
 </section>
