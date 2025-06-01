@@ -8,9 +8,12 @@
       <title>Azure Resources</title>
       <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
   </head>
-  <body>
+  <html>
       <header>
         SalesForce
+        <a href="https://www.tutorialspoint.com/salesforce/index.htm"> Salesforce notes</a>
+        <a href="https://www.salesforce.com/commerce/">Salesforce commerce cloud</a>
+        
       </header>
       <section>
         <h3>
@@ -27,20 +30,83 @@
           when u buy the product then only called that user called customer.
 
         </h3>
+        <p>
+          In 1990 Thomas introduced Siebel Call center as first CRM software.
+          siebel is expensive licence. -- thi is on premise software 
+
+          In 2000 - SFDC - salesforce.com introduced this is a .com app
+          when they started wwww, then http then https
+
+          initially salesforce datacenter in usa, now urope and multiple coutries now they
+          ties with amazon which helps them to establish datacenters in across global regions
+
+          Now it just called as Sales salesforce
+          now it is called as business technology company
+       </p>
       </section>
-         <p>
-            In 1990 Thomas introduced Siebel Call center as first CRM software.
-            siebel is expensive licence. -- thi is on premise software 
+         <section>
 
-            In 2000 - SFDC - salesforce.com introduced this is a .com app
-            when they started wwww, then http then https
+          salesforce in 2000 when introduced its called as CRM on .com by default it gives 3 application
+          1. marketing application (salesforce marketing cloud ) 2. Sales application (this comes with salesforce salescloud) 3. Service application(service cloud)
+          <h3> Salesforce Marketing Application </h3>
+          <h3> important terms - Campain, Lead</h3>
 
-            initially salesforce datacenter in usa, now urope and multiple coutries now they
-            ties with amazon which helps them to establish datacenters in across global regions
+          1. only when person buys the product then only called as customer
+                2. when person needs to buy he should aware of the product 
+                multiple  ways business can educate .. All these called different ways of Advertising (group of adbertisements categorized under a Campain)
+                1. conference
+                2. tradeshow
+                3. TV ads
+                4. Movie commercials
+                4. Banner Ads
+                5. Digital marketing
+                6. Banner Ads
+                All these will be managed in salesforce under marketing application.
 
-            Now it just called as Sales salesforce
-            now it is called as business technology company
-         </p>
+        <h3> Salesforce Sales Application </h3>
+        <h3> important terms - Account, contact,oppurtunity, product, price, book, quote, contract, order, Asset</h3>
+        2. when a person comes and sees the product who are intrested in ur product called as - Leads
+        3. The job of sales person interact with Lead, clarrify all questionaire, demo the product and helps to convert leads to customers
+        
+        <h3> Service application </h3>
+        <h3> Case, Solution </h3>
+        1. information about the service, warrenty info all 
+         </section>
+         <section>
+            salesforce admin we going to learn how do we going to make changes to salesforce application.
+            here Admin is the one who builds the application
+            end user - who uses those (business user / customer who provdes requirements)
+            with the salesforce u can configure ur app(declarative means drag and drop, no programming) by salesforce admin/app builder, customize the app (pro code(Apex), UI design (VF, LWC) by salesforce developer)
+          salesforce adm 201(this is recommanded certificate ), salesforce platform app builder 
+         </section>
+         <section>
+          <h3> Salesforce commerce cloud</h3>
+          1. front end javascript knowedge enough
+          2. fir backend we need appbuilder and salesforce developer knowledge 
+          trailhead account we can explore
+
+          e.g - sudha needs a laptop she goes and buy from croma (local ) companay here croma is seller and sudha is buyer it is -> b2c transaction
+          now - croma needs to buy laptops from vendor called Dell here dell is the seller , croma is the buyer - called b2b transaction - here dell needs CRM
+
+          usecase - sudha wants buy laptops for company around 100 people, she visits HP, dell
+          them Dell -
+          responsibility of sales rep to carryforward lead info(sudha info),
+          sales rep will ask - firstname(sudha), lastname(s), mobile(12345555), company(link.com), address(tx), industry(communications), annual revenue(134000)
+          here - actual customer is link.com to dell(seller) means B2B transaction.
+
+          once link.com converts to customer sudha info and comp info will be disintegrated (under first name and lastname as lead) convert to contact as below
+          link.com info will be entered under Account ->
+
+          Account -> Name(link.com) , Industry(communications), Annual revenue(134000), contact (is the person who is responsible doing business with company)
+          Contact - firstname(sudha), lastname(s), mobile(12345555)
+          Oppurtunity - Name (150 laptops) - an oppurtunity is potential revenue generating event
+
+          in reality if u want to buy  licensed version u need to have authorized spark (in above case - sudha)
+
+          if the lead sead they not going to buy then sales person change status to cold and update Lead status as not converted
+
+         </section>
+         </html>
    
       <footer>
 
