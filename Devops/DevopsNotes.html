@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Devops</title>
+</head>
+<body>
+  <!-- New Section: Types of Cloud Models -->
+  <section>
+  <h3> waterfall model vs Agile? </h3>
+ <p>
+ here a scenario
+ 1. Citi bank wants to develop car loan app
+ 2. they will hire infosys
+ 3. they will meet on zoom for a planning call
+ 4. then there are meetings will be conducted on planning and analysis
+ 5. once all analysis complete they freeze the requirements
+ 6. then infy will come with some design
+ 7. then citi bank go and check all ok or any changes
+ 8. once all finalized then start implementation 
+ 9. then inside infy lot of testing will happen
+ 10. after all done citi will do relase and do publicity
+ 11.but citi doesnt know the product well until testing complete in water fall model.(
+  water fall model go one direction from requiremts-> design-> development -> testing -> deployment -> maintanance (no feed  back machanism)
+  after a while and world of cloud this doesnt work 
+ )
+ 12. where as in agile they will get regular feedbacks and make changes. (here is for eg there are 4 models in app - after one monthe model 1  infy will get feedback from model, they srart model 2 at parallel they will work on model 1)
+ </p>
+
+</section>
+<section>
+  <h3>what is devops</h3>
+  <p>
+    let say in infy development completes he needs to deploy on server that will take care by sys  admin
+    here dev maangaer different from sys admin mgr, sys admin doesnt know what changes done by dev they both had a conflict got delayed for deployments
+
+    here is what devops - its methodology where - Dev + ops team together under same maangaer (means dev + sysadmin in same team)
+    delivering high quality product quickly by learn multiple tools.
+    <img src="/Assets/Devops/whatisDevops.png" alt = "devops"/>
+   here is what multiple tools
+   developer - use version control (git and github) to push the changes -> then create CI/CD pipeline using (Jenkins) > then create containers comes under (Kubernetes) -> 
+   IAC(infrastructure as code) -> (Terrafom)-> Configmanagement is (Ansible)
+   -> monitoring (EF stack)
+    
+  </p>
+  <h3> what is version control system? </h3>
+ <p>
+  A Version Control System (VCS) is a software tool that helps developers track and manage changes to a project's codebase over time. 
+  we can keep history of changes and revert to particular version as needed.
+  it allows mutliple people to colloborate, keep a history of changes, revert earliar versions if needed.
+ </p>
+ <p>
+  <h3> Different Architecture  (type of) version control systems? </h3>
+  1. Local VCS  - install on local machine - if its fails then we loose all - this is called - GIT
+  2. Central VCS - managed through central storage - this is called - GIT Hub 
+  3. disctributed VCS  - local verion control connected to central called distributed
+ </p>
+ <p>
+  Package manager install s/w + dependendencies
+  1. install git
+  apt install git (on linux)
+  2. then configure git -> configure git
+  git config --global user.name
+
+ </p>
+ <p>
+  home work - https://github.com/discover-devops/Linux
+  setup Linux
+  git commands - https://git-scm.com/doc - documentations
+  go to  discoverDevops github - and go over git commands
+  https://git-scm.com/book/en/v2
+ </p>
+</section>
+</body>
+<footer>
+  discoverDevops github
+  <a href="https://github.com/discover-devops/DevOps_Course">Kumars Devops google drive</a>>
+</footer>
+</html>
