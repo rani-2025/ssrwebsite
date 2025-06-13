@@ -132,6 +132,41 @@ collaborate (see also: git help workflows)
 
 </section>
 <section>
+  <h3>  git commands </h3>
+  <a href="https://github.com/discover-devops/Git_Commands/blob/main/01_GItRest_Introduction.md">kumar trainer git notes</a>
+ 
+  1. git branch is a powerful feature that allows create an independent line of development branch- seperate from main/master  branch.
+  2. after commitng changes you can do ... 
+  git log 
+  it will show the commit id and the branch name.
+
+  1. after creatig directory do .. git init -- initialization
+  1. git branch
+  2. ls -- show all lines added
+  3. cat story.txt - create file if not there else show the content if its there
+  4. echo "hello" > story.txt
+  5. git add story.txt (to stage the changes)
+  6. git commit -m "updated" (to commit changes)
+  4. git diff master featurebranch
+  5. git merge faturebranch 
+  6. while merging featutre branch into master if no new changes in master then git does fast forward /linear merge ..
+  here u can see same commitID bcs no changes made in between
+  7. while merging if there is a change on same line from master and feture one - 
+  then git will complain there is a conflict
+  8. vi story.txt will open file and show conflict.. then Update as per
+  9.wq! - will save and exit.. then do git commit to push (this is called three way merge)
+  10. git log -- it will show both commit nos 
+  7. git branch -d featurebranch -- will delete branch
+  8. revert the changes ->
+     a) soft --> git reset --soft (git reset --soft HEAD~1) -- WILL RESET to that staging level just to confirm
+     git restore <file> to discard changes in working dir -- this will discard changes
+     b) mixed -->  git reset --mixed (git )
+     c) hard --> git reset --hard
+
+  9. let say u have commit 1, 2, 3 --> if u do revert on commit 2 -> 4th commit have 3rd commit exclude 2
+  10. let say u have commit 1, 2, 3 --> if u do reset on commit 2 -> it will go back to commit 1 both 2 & 3 will be excluded means go to initial version 
+</section>
+<section>
   3 type of SDLC 
   1. water fall
   2. Agile
