@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Section</title>
+</head>
+<body>
+<section>
+<h3>Trainer Notes</h3>
+    <section>
+    <p>
+        1.install git from https://git-scm.com/downloads
+        2. mkdir myproj, cd myproj
+        3. initialize the git -> git init
+        4. create afile untracckedfile
+        5. git status - will track things what all activities 
+        6. ls -lart - list all files with permissions in folder 
+</p>
+<p>
+<h3> Git references</h3>
+  git commands - https://git-scm.com/doc - documentations
+  go to  discoverDevops github - and go over git commands
+  https://git-scm.com/book/en/v2
+
+  also another reference - https://about.gitlab.com/images/press/git-cheat-sheet.pdf
+</p>
+</section>
+<section>
+  <h3>  git commands </h3>
+  <a href="https://github.com/discover-devops/Git_Commands/blob/main/01_GItRest_Introduction.md">kumar trainer git notes</a>
+ 
+  1. git branch is a powerful feature that allows create an independent line of development branch- seperate from main/master  branch.
+  2. after commitng changes you can do ... 
+  git log 
+  it will show the commit id and the branch name.
+
+  1. after creatig directory do .. git init -- initialization
+  1. git branch
+  2. ls -- show all lines added
+  3. cat story.txt - create file if not there else show the content if its there
+  4. echo "hello" > story.txt
+  5. git add story.txt (to stage the changes)
+  6. git commit -m "updated" (to commit changes)
+  4. git diff master featurebranch
+  5. git merge faturebranch 
+  6. while merging featutre branch into master if no new changes in master then git does fast forward /linear merge ..
+  here u can see same commitID bcs no changes made in between
+  7. while merging if there is a change on same line from master and feture one - 
+  then git will complain there is a conflict
+  8. vi story.txt will open file and show conflict.. then Update as per
+  9.wq! - will save and exit.. then do git commit to push (this is called three way merge)
+  10. git log -- it will show both commit nos 
+  7. git branch -d featurebranch -- will delete branch
+  8. revert the changes ->
+     a) soft --> git reset --soft (git reset --soft HEAD~1) -- WILL RESET to that staging level just to confirm
+     git restore <file> to discard changes in working dir -- this will discard changes
+     b) mixed -->  git reset --mixed (git )
+     c) hard --> git reset --hard
+
+  9. let say u have commit 1, 2, 3 --> if u do revert on commit 2 -> 4th commit have 3rd commit exclude 2
+  10. let say u have commit 1, 2, 3 --> if u do reset on commit 2 -> it will go back to commit 1 both 2 & 3 will be excluded means go to initial version 
+</section>
+</section>
+ 
+ <section>
+ <h3>Git Assignment </h3>
+ <p>
+ Task-1
+
+Based on what you have learnt in the class, do the following steps:
+a. Create a new folder
+b. Put the following files in the folder
+● Code.txt
+● Log.txt
+● Output.txt
+c. Stage the Code.txt and Output.txt files
+d. Commit them
+
+Answer :
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents
+$ mkdir git-a-17-06
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents
+$ cd git-a-17-06
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ lsgi
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ mkdir task1
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ cd task1
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1
+$ ls
+code.txt  log.txt  output.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1
+$ git status
+fatal: not a git repository (or any of the parent directories): .git
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1
+$ git init
+Initialized empty Git repository in C:/Users/DELL/Documents/git-a-17-06/task1/.git/
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git add code.txt output.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   code.txt
+        new file:   output.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        log.txt
+
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git commit -m "commiting code.txt and output.txt"
+[master (root-commit) 9ed1723] commiting code.txt and output.txt
+ 2 files changed, 2 insertions(+)
+ create mode 100644 code.txt
+ create mode 100644 output.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        log.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git add log.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   log.txt
+
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git rm --cached log.txt
+rm 'log.txt'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        log.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+Task-2
+1. Create a Git working directory with feature1.txt and feature2.txt in the master branch
+2. Create 3 branches develop, feature1 and feature2
+3. In develop branch create develop.txt, do not stage or commit it
+4. Check out to feature1 branch
+5. Create new.txt file in feature1 branch, stage and commit this file
+6. Checkout to develop, stage this file and commit
+
+Answer:
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ cd ..
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ mkdir task-2
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ ls
+task-2/  task1/
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ cd task-2
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2
+$ notepad feature1.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2
+$ nano feature1.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2
+$ notepad feature2.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2
+$ git branch
+fatal: not a git repository (or any of the parent directories): .git
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2
+$ git init
+Initialized empty Git repository in C:/Users/DELL/Documents/git-a-17-06/task-2/.git/
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch master
+fatal: not a valid object name: 'master'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git add .
+warning: in the working copy of 'feature1.txt', LF will be replaced by CRLF the next time Git touches it
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   feature1.txt
+        new file:   feature2.txt
+
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git commit -m "commiting 2 files feature1.txt and feature2.txt"
+[master (root-commit) 008afd2] commiting 2 files feature1.txt and feature2.txt
+ 2 files changed, 2 insertions(+)
+ create mode 100644 feature1.txt
+ create mode 100644 feature2.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch
+* master
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch
+* master
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch develop
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch
+  develop
+* master
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch feature1
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch feature2
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git branch
+  develop
+  feature1
+  feature2
+* master
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (master)
+$ git checkout develop
+Switched to branch 'develop'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ touch develop.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ ls
+develop.txt  feature1.txt  feature2.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ git checkout feature1
+Switched to branch 'feature1'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ ls
+develop.txt  feature1.txt  feature2.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ git status
+On branch feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        develop.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ touch new.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ git add new.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ git commit -m "commiting new.txt file"
+[feature1 2b399b1] commiting new.txt file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 new.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ ls
+develop.txt  feature1.txt  feature2.txt  new.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ git checkout develop
+Switched to branch 'develop'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ git add develop.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ git commit -m "commiting develop.txt file"
+[develop 0abf123] commiting develop.txt file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 develop.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ ls
+develop.txt  feature1.txt  feature2.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (develop)
+$ git checkout feature1
+Switched to branch 'feature1'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task-2 (feature1)
+$ ls
+feature1.txt  feature2.txt  new.txt
+ </p>
+ </section>
+
+</body>
+</html>
