@@ -14,9 +14,41 @@
         1.install git from https://git-scm.com/downloads
         2. mkdir myproj, cd myproj
         3. initialize the git -> git init
-        4. create afile untracckedfile
+        4. then 
+               use git config --global user.name "test" // this helps to know the people who commited 
+               use git config --global user.email "test@email.com"
+        4. create afile using -> touch 1.txt then do git add .. -> it will stash the changes
         5. git status - will track things what all activities 
-        6. ls -lart - list all files with permissions in folder 
+        6. ls -lart - list all files including hidden with permissions in folder 
+        7. after commit do git log --it will name, email
+        8. git show 'commitid' -> we can get commit id from log 
+        9. local git commit on local, global one on cloud 
+        10. remote repositories can be managed using multiple ways (github, gitlab, bitbucket etc..) -- 
+        if mutiple devs needs to work then we need to push to remote repos
+        12. on git hub -> settings -> developersettings -> tokens -> generate token -> given name of token -> give permissions on token
+        -> best proctice expire on 30 days -> u can set as per ur preference -> personal access tokens -> save the token it wont show again ->
+        then it wont ask password 
+
+        11. to add from local to remote repository
+          git remote -v --> will show linked remote repos
+          git remote add origin "add remote .git path here" --> it will link remote repo to ur local, 
+          here rather origin u can give other name but best practice is to use this --> origin in alias to remote repo url
+
+          to push the changes -> git push origin "branch name" before push to git pull origin "branch name" / git pull .. to make sure u get latest updates
+        
+          to merge changes to main branch ->
+           a. git checkout main
+           b. git merge featureA -> to merge featureA changes with main 
+           c. git push origin main 
+
+          12. to make changes on existing files and do merge
+              git checkout main
+              git v1.txt (will open files -> enter data do  ->wq!)
+              git add . and do git commit 
+              git merge featureA -> resolve commit then do push
+
+          13. 
+
 </p>
 <p>
 <h3> Git references</h3>
