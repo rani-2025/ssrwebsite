@@ -20,7 +20,7 @@
         4. create afile using -> touch 1.txt then do git add .. -> it will stash the changes
         5. git status - will track things what all activities 
         6. ls -lart - list all files including hidden with permissions in folder 
-        7. after commit do git log --it will name, email
+        7. after commit do git log --it will display name, email which were given on git config
         8. git show 'commitid' -> we can get commit id from log 
         9. local git commit on local, global one on cloud 
         10. remote repositories can be managed using multiple ways (github, gitlab, bitbucket etc..) -- 
@@ -42,7 +42,7 @@
            c. git push origin main 
 
           12. to make changes on existing files and do merge
-              git checkout main
+              git checkout main -> if any conflict on file then do
               git v1.txt (will open files -> enter data do  ->wq!)
               git add . and do git commit 
               git merge featureA -> resolve commit then do push
