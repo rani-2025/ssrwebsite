@@ -79,7 +79,7 @@
 10. remote repositories can be managed using multiple ways (github, gitlab, bitbucket etc..) -- 
 if mutiple devs needs to work then we need to push to remote repos
 12. on git hub -> settings -> developersettings -> tokens -> generate token -> given name of token -> give permissions on token
--> best proctice expire on 30 days -> u can set as per ur preference -> personal access tokens -> save the token it wont show again ->
+-> best practice expire on 30 days -> u can set as per ur preference -> personal access tokens -> save the token it wont ask credentials everytime ->
 then it wont ask password 
 
 11. to add from local to remote repository
@@ -104,10 +104,13 @@ then it wont ask password
   14. git log --oneline -> will show local commits
   15. git log --oneline --graph --all --decorate -- it will show all commits in graphical way
   16. git fetch vs git pull -> let say 1.txt file one user does local git commit at same time another user does same line change directly in github
-  git fetch -> it still pull to main but not to original will compain as main branch diverged 
+  git fetch -> it still pull to local but not to original will compain as main branch diverged 
   then do git pull -> here it will show conflict fix and push 
   17. scenario test1 created a branch 1 and did 4 commits, at same time main branch do 1 commit -> when i try to merge it will conflicts
   do -> git merge main -> then main changes will merge on to branch 1 then i will push branch1 -> merge preserves the history 
+  git fetch -> Downloads changes (commits, branches, tags) from the remote repository, but does not merge or modify your local working branch.
+  git merge -> Essentially runs git fetch followed by git merge,  It will automatically attempt to integrate the fetched changes into your current branch.
+
   18. Merge vs Rebase - 
   git merge main - it will create new commit id with merge along with merge commit history,
   where as in rebase it will merge main commit with commited id and all other commits on top of it merge with new id so we lost the commit history.
@@ -117,7 +120,7 @@ then it wont ask password
         --> git fetch -> will fetch changes onto local
       --> do git rebase origin/featureA --> then it will add origin branch changes on top of it will add ur local changes --> 
       issue is it will change ur local commit id but still safe bcs its ur branch
-  19. git reset --hard HEAD~1 --> it will remove head(first commit)
+  19. git reset --hard HEAD~1 --> it will remove (first latest commit)
 
   20. merge multiple commits into single commit -> 
       a. git rebase -i HEAD~5 --> then it squash first 5 commits -> it will open up editor shows pick
@@ -132,6 +135,17 @@ then it wont ask password
     d. develop -> its sourch of truth for all developers
     e. feature -> as per features feature branches will be created - once done merge into develop branch
 
+  23. git fork vs clone 
+  🍴  git fork (on GitHub, GitLab, etc.)
+      What it does: Creates a copy of a repository under your own GitHub (or other Git hosting) account
+      Happens on the server (e.g., GitHub.com).
+      You can make changes in your fork and submit pull requests back to the original repo.  
+      Useful for contributing to projects you don’t own.
+
+      git clone : 
+      What it does: Makes a local copy of a remote repository (whether it's the original or a fork).
+      Happens on your local machine.
+      You use this to start working on code.      
   
   </div>
 
