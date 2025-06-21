@@ -54,6 +54,29 @@
             </p>
         </section>
 
+        <section>
+            <h3> React redux flow</h3>
+            <p>
+            When 
+            store.dispatch(action) is called, the control flow goes through the Redux architecture:
+            
+            1. Reducers - First, the action goes to all reducers to update the state
+            2. Middleware - Any middleware (like redux-saga middleware) intercepts the action
+            3. Sagas - If there's a matching saga watcher, it triggers the corresponding saga
+            For your 
+            PRODUCTDETAILS_GET_REQUEST action, the control would go to:
+            
+            1. ProductDetails Reducer - Updates loading state
+            2. Redux-Saga Middleware - Intercepts the action
+            3. ProductDetails Saga - Handles the API call to fetch product details
+            The saga would typically:
+            * Make an API call with the ppid from the payload
+            * Dispatch success/failure actions based on the response
+            * Update the store with the fetched product data
+            This is the standard Redux + Redux-Saga flow for handling async operations like API calls.
+        </p>
+        </section>
+
         </p>
     </header>
 
