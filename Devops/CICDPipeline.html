@@ -60,6 +60,7 @@
 </head>
 <body>
  <h2>CICD pipeline</h2>
+ <a href="https://github.com/puneetgavri/cicd-world"> trainer notes on cicd pipeline </a>
 <section>
     <p>
         <h2>old CICD pipeline</h2>
@@ -74,14 +75,27 @@
     <img src="Assets/traditionalcicdpipeline.png" alt="old CICD pipeline"/>
     </p>
 </section>
-<ection>
+<section>
+    <p>
         <h2>
             new CICD pipeline
         </h2>
         1. continuos integration - even small change will go through complete life cycle and new package generated 
         here copilation into package automated
         2. operation team trigger scrpts for deployment / else they create automated scripts to do this process called as continues delivery
-        <img src="Assets/newCICDPipeline.png" alt = "new CICD pipeline">
+        <img src="Assets/newCICDPipeline.png" alt = "new CICD pipeline"/>
+    </p>
+    <p>
+        <h2>
+            Jenkins pipeline
+        </h2>
+        <img src="Assets/jenkinsintegration.png" alt="Jenkins integration" />
+        in my project -> using Jenkins pipeline we will - continues integration (compile, sonarqube, veracode scan, check coverage, package(create artifact), store into artifactory (nexus) )
+                    (recently people are moving github integration)
+                    --> continues deployment (gitflux) to direct prod deployment --> called continuos deployment
+                    --> if there is a manual intervention -- approval/merge called -- continues delivery
+
+       in my work we do continues integration and delivery (here aws / cloud environment comes into picture) then continues monitoring will happen by SRE team
     </p>
 </section>
 </body>
