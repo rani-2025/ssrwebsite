@@ -64,6 +64,7 @@
     <div class="section">
         <h3>Trainer Notes</h3>
         <a href="https://github.com/puneetgavri">Punnet trainer notes</a>
+        <a href="https://github.com/puneetgavri/Devops-interview-prep">git notes</a>
         <div class="command-list">1.install git from https://git-scm.com/downloads
 2. mkdir myproj, cd myproj
 3. initialize the git -> git init
@@ -147,9 +148,16 @@ then it wont ask password
       Happens on your local machine.
       You use this to start working on code.     
 
-   24. git stash
-   a. git add .. , then do git stash // for creating stash
-   b. git stash List, git stash apply stashid (u get stash id from stsh list) -- to apply stash
+   24. git stash  -- store value to local 
+   a. create a file using .. touch hello.txt
+   b. do ... git add .. , 
+   c. do.. vi hello.txt // enter something then do :wq! to save
+   d. then do .. git stash push -m "r18feature" // for creating stash
+   e. do.. git stash -- will show clean 
+   f. git stash List -- will show ur list
+   e. git stash apply stashid (u get stash id from stsh list) -- to apply stash
+   f. git stash clear -- to clear all stash 
+   g. git stash drop stashid -- to drop particular stash id
   
   </div>
 
