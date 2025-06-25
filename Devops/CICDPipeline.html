@@ -81,21 +81,41 @@
             new CICD pipeline
         </h2>
         1. continuos integration - even small change will go through complete life cycle and new package generated 
-        here copilation into package automated
+        here copilation into package automated -- this is called build phase
+        (in market we have build tools which helps to automate the process of transforming sourcode into runnable package by following these steps
+        there are different softwares this might dependent on language use to write ur code, c# uses .net sdk)
+        1. compile source code
+        2. resolve / down load dependencies
+        3. run unittests
+        4. package application
+        5. generate documentation
+        5. statc code analyss and liniting
+        6. deploy or publish artifacts
+        )
         2. operation team trigger scrpts for deployment / else they create automated scripts to do this process called as continues delivery
         <img src="Assets/newCICDPipeline.png" alt = "new CICD pipeline"/>
+        3. Different build tools in market- they have certain stards we should follow while creating build process
+        <img src="Assets/cicdbuildtools.png" alt="CICD build tools"/>
     </p>
     <p>
         <h2>
             Jenkins pipeline
         </h2>
         <img src="Assets/jenkinsintegration.png" alt="Jenkins integration" />
-        in my project -> using Jenkins pipeline we will - continues integration (compile, sonarqube, veracode scan, check coverage, package(create artifact), store into artifactory (nexus) )
-                    (recently people are moving github integration)
+        in my project -> we used node.js laguage -> part of it  used webpack, node scripts for packaging, using Jenkins pipeline we will - continues integration (compile, sonarqube, veracode scan, check coverage, package(create artifact), store into artifactory (nexus) )
+                    (recently people are moving github integration) -- this is called build phase
                     --> continues deployment (gitflux) to direct prod deployment --> called continuos deployment
                     --> if there is a manual intervention -- approval/merge called -- continues delivery
+                    --> after continues monitoring --for any issues 
 
        in my work we do continues integration and delivery (here aws / cloud environment comes into picture) then continues monitoring will happen by SRE team
+    </p>
+</section>
+<section>
+    <p>
+        <a href="https://github.com/puneetgavri/cicd-world/tree/main">install server and steps from Puneet notes</a>
+        1. created a EC2 server on aws with some configuration
+        2. install required softwares 
     </p>
 </section>
 </body>
