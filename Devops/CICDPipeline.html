@@ -126,5 +126,56 @@
          install and configure plugins 
     </p>
 </section>
+<section>
+    <p>
+        with Maven and jenkins we can achieve build and packaging.
+        mavin make sure application should follow particular standards
+        with maven everything needs to be taken care manually and also package deployed in m2 folder local environment.
+
+        <p>
+        with Jenkins we can automate all the process and we can store the package in cloud artifactory.
+        similar to jenking we have gitlabs, github, circleCI, TravisCI also.
+        by default jenkins run on port 8080, we can change port using configuration.
+        once installed it will ask  to enter apssword with path, copy the path do cat "enter password".
+        once done it will prompt to selected plugins to install or install suggested plugins --> select install suggested plugins
+        cd /var/lib/jenkins# -> deafult jenkins path all plugins install here.
+        once installation complete it will ask to create first admin user 
+        then click on start using jenkins.
+        eslint plugin also available will make code proper structure-> it does static code analysis ->proper folder , class names, spacing etc..
+        if any errors will show warnings in a good visual way this also achievable with a plugin like warning
+        plugin to check code coverage ->  coverage 
+
+        dashboard -> manage jenkins -> tools -> u can configure which tool jenkins interact with 
+        if already java installed -> command line -> echo JAva_home -> take the path and enter under java_home 
+    
+        git path configured by default
+
+        mvn -> un select install automat -> since its already installed -> enter maven home by getting from terminal mvn path 
+
+        with jenkins we use mavins to do packaging but here we have an option to automate the process.
+
+        jenks -> managejenkins -> security -> add details > all created users saved on to jenkins path 
+        in my company we used jenkins.
+
+        in company we can login jenkins using company credentials thats possible by selecting ldap under  jenks -> managejenkins -> security
+        after login what u can do or not define by authorization.
+
+        under authorization ->select matrix based security u can visual representationyes
+
+        jenks -> create project -> configure -> u can configure when it should run like the moment commit or periodic 
+                here u have option to add build step using scripts / comman
+
+        jenkins -> create pipeline -> where we define all comiplation steps -> 
+        dashboard -> all -> new item -> pipeline -> create new -> mycipipeline -> theb do configure -> script -> u can define  steps under each stage 
+        if u dont know select pipeline syntax -> add all options -> click on generate script -> copy that value and add under pipeline syntax 
+        jenkins - u can even try with free style project as well
+
+        jenkins -> install pipeline stage view plugin -> it will show graphical view of ur pipeline
+
+        google -> jenkins plugin pipeline 
+
+    </p>
+    </p>
+</section>
 </body>
 </html>
