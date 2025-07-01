@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h2>Docker Notes</h2>
+        <p>
+             1. container is mini server on its own it contain all required softwares to run the app it can be installed on any server.
+             2. Hypervisor -> a program used to run and manage one or more virtual machines on a computer/ its a software that creates and runs virtual machines (VMs).
+             3. vm is rented by datacenters in cloud environment - starting and stopping server time taking, backup of vm also expensive, 
+             4. we can use vm in a better way using containeration -- we can create multiple containers on one vm --> they share vm's OS container doesnt have any OS ->
+             container backup image will be created in articatory
+             backup of container doesnt contain OS only contain libraries to run the app.
+             5. vm -> everything been packaged in a image 
+             6. docker desktop is software - contains a light weight virtual machine to run linux kernal
+            
+        </p>
+        <p>
+            <h3> steps to create docker instance </h3>
+            <p>
+                1. create ec2 instance on amazon / azure vm
+                2. install docker engine - https://docs.docker.com/engine/install/ - go to ubuntu - since ec2 instance on it.
+                3. install docker packages 
+                4. docker ps -> command gives u how many containers running
+                5. if i dont want to use sudo docker ps again again
+                6. sudo usermod -aG docker ubuntu -> this command will add ubuntu user to the docker session (ag means - adding to group)
+                7. docker images -> will list all docker images - after immediate u dont see anything here get docker image from one of artifactory e.g - docker hub
+                8. docker hub -> is the set of already existing images -> u can see jenkins image also here
+                9. docker pull nginx -> will pull nginx image / docker pull jenkins -> then jenkins will be installed
+                10. docker run -it -> command will run container in interactive mode
+                11. docker run -it --name c1 nginx /bin/bash -> here c1 container created by pulling nginx from docker hub image then it will enter into c1 container ,
+                /bin/bash  -- will open terminal in container
+                12. run exit command here to exit from container
+                12. now it created a container -> u can install anything u want
+                13. docker ps -a -> will give all the containers which are active or not as well / docker ps -> list only active once
+            </p>
+        </p>
+    </section>
+</body>
+</html>
