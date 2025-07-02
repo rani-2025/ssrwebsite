@@ -82,14 +82,40 @@
                 5. if i dont want to use sudo docker ps again again
                 6. sudo usermod -aG docker ubuntu -> this command will add ubuntu user to the docker session (ag means - adding to group)
                 7. docker images -> will list all docker images - after immediate u dont see anything here get docker image from one of artifactory e.g - docker hub
-                8. docker hub -> is the set of already existing images -> u can see jenkins image also here
-                9. docker pull nginx -> will pull nginx image / docker pull jenkins -> then jenkins will be installed
+                8. docker hub -> is the global container having set of already existing images -> u can see jenkins image also here
+                9. docker pull nginx -> will pull nginx image / docker pull jenkins -> then jenkins will be downloaded on ec2 instanse filesystem/ then run -> docker images -> it will show downloaded image
                 10. docker run -it -> command will run container in interactive mode
                 11. docker run -it --name c1 nginx /bin/bash -> here c1 container created by pulling nginx from docker hub image then it will enter into c1 container ,
-                /bin/bash  -- will open terminal in container
+                /bin/bash  -- will open terminal in container -- here if we dont do docker pull and execute run command directly then it will pull from docker hub then istall 
                 12. run exit command here to exit from container
                 12. now it created a container -> u can install anything u want
                 13. docker ps -a -> will give all the containers which are active or not as well / docker ps -> list only active once
+                14. docker images -> will list all images
+                docker rmi "imageid" // image id from above command - will delete the container
+                15. we can't create container without any image
+                16. docker run -dt --name c1 ubuntu - it will run the command in detach mode, in dt mode i can run multiple containers
+                17. docker exec -it c2 bash -> it will take u again into c2 container (Exec - exit current process and enter into c2)
+                18. docker exec c3 df -h (exec 'container name' then add what ever the command u want to execute in that container)
+                19.docker run --it --name c4 nginx -> after installation
+                curl http://localhost:80 -> will hit nginx --> 
+                if i want to access from out side machine -> then we need to do port mapping between container and ec2 instance -> then using ec2 IP we can access outside
+                20. docker run -dt --name test11 portmappedcontainer -p 8000:80 nginx -> using container created with port mapping after this allow port using security group as below
+                21.edit inboundrules on ec2-> custom tcp -> add 8000 -> then with ec2IP:8000 -> we can access nginx -> this will serve nginx from container 
+                22. while creating container only we have to do port mapping (8000 is random port)
+                23. to restart docker - docker start c2
+                24. docker rm c2 -> to remove docker container - we cant remove running container -> but we can kill - docker kill c2 - will remove / kill running container as well
+                25. to do all these we need to create account in docker hub 
+                26. if wants to create a container from running image 
+                docker commit c1 appleimage ->  its called custom image
+                push ur custom image to docker hub repository by using following command(follow -> 27 to 29 steps)
+                27. in ur dockerhub -> repositories -> create repository -> 
+                docker tag appleimage(imagename):latest(by default latest else give version) punnetguari/mywebsite(docerhub repo name):v1 (image name)
+
+                28. docker login -u punnetguari (username) -> then it will prompt password
+                29. docker push punnetguari/mywebsite:v1 -> it will push v1 image
+                push container image (follow steps 30 -> 31)
+                30. docker container c1 punnetguari/mywebsite:new 
+                31. docker push punnetguari/mywebsite:new
             </p>
         </p>
     </section>

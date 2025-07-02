@@ -99,6 +99,32 @@
         3. In React, the state is described as immutable that means - state cant be changes directly; updates must be made using a special function.
         4. const [greeting, setGreeting] = React.useState('Hello world');
     </p>
+    <p>
+        <h3> sample code on state </h3>
+        <code>
+            import React, { useState } from 'react';
+
+                export default function Books() {
+                // Initialize state with 3 book titles
+                const [books, setBooks] = useState([
+                    { title: 'HarriPortar' },
+                    { title: 'C#' },
+                    { title: 'AI' }
+                ]);
+
+                return (
+                    <div>
+                    <h1>Books list goes here</h1>
+                    <ul>
+                        {books.map((book, index) => (
+                        <li key={index}>{book.title}</li>
+                        ))}
+                    </ul>
+                    </div>
+                );
+                }
+        </code>
+    </p>
     </section>
     <footer>
        
