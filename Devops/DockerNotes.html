@@ -116,6 +116,46 @@
                 push container image (follow steps 30 -> 31)
                 30. docker container c1 punnetguari/mywebsite:new 
                 31. docker push punnetguari/mywebsite:new
+                32. docker images are builtin layers -> when we pull image that image has multiple layers will be downloaded automatically
+                32. go killercoda.com select -> playground -> ubuntu -> we have already docker instlled -> 
+                we can practice any commands -> its free environment with all platforms
+                33. few times images are very large then use -> docker pull alpine-> to make lighter 
+                34. ephemeral -> is a temporary storage it will be wipe our when we kill or remove container --> container doesnt have its own storage it will shared from ec2 instanse
+                35.creating a docker volumme -> docker volume create my_volume -> its a logical volume 
+                docker run -td --name c1 -v my_volume:/data ubuntu --> it will create logical volume at data directory -> that means what ever created under data directory getting stored in my volume
+                when we dont specify my volume then it will store in overlay folder
+                we can share same volume with multiple containers
+                36. let say in ec2 instance -> pwd -> list all directories
+                    1. creating a folder1 -> mkdir folder1, do cd folder1, create -> touch dev-config.text, qa-cofig.tx
+                    2. create container -> docker run -td --name c1 -v /folder1:/data ubuntu -> here data directory on container mapped with ec2 folder1 -> this is called bind mount here container and host folders are tightly coupled
+                    not recommanded rather docker volume map is recommanded option 
+
+                37. custom image will be created using -> docker exec -it c2 bash-> then -> docker commit c2 my_image
+                38. create custom image with step by step approach -> // this is to help to create custom image with automation steps with all commands what ever requires
+                     1. v1 Dockerfile // open dockerfile
+                     2. cat Dockerfile
+                        FROM ubuntu // ubuntu is a base image this is mandatory .. u can use jenkins what ever u want
+                        RUN apt update && apt install -y phython3
+                        RUN touch hello.txt
+                        COPY file1.txt 
+                        VOLUME v1
+                        docker build -t appleimage .
+
+                this will create appleimage with all these steps.
+
+                now u can create container from this appleimage 
+                docker run -it --name applecont appleimage (by default it goes to root directory)
+
+                39. another custom image creation with steps
+                
+                FROM appleimage
+                    WORKDIR /tmp --> from root to cd /tmp here
+                    RUN echo "hello"
+
+                once save exit run
+                docker build -t bananaimage // this will create bananaimage
+
+                40. as a devops engineer u will be creating dockerfile --> its very very important
             </p>
         </p>
     </section>
