@@ -38,8 +38,107 @@
                  for standard platform user - custom spu,
                  along with this create jsr and legal profiles.
 
+      <p>
+        <h3>
+          helpfule note to access ur account across globe
+        </h3>
+        <p>
+          go tp user profiles - select ur profile -> add Login IP ranges -> 0.0.0.0 -> start address
+                                                      255.255.255.255 -> end address
+
+          in world all ip addrss fall between this range if we do this any one across globe knows my username and password
+          can access my account other wise it always ask 2 factor authentication
+        </p>
+      </p>
+
       </section>
-   
+      <section>
+       1.  secuity - object level, record level, field level
+       2. profiles define the accessibility of data to users and the actions that can be performed by the users within the application.
+       when we create users will assign profile to each one.
+       3. 2 type of profiles- standard/ custom
+
+       There are various type of standard profiles
+         1. readonly, standarduser, marketinguser, contract manager, solution manager, system administrator.
+          2. custom profiles created by adimn, if no users assigned to this then the profile will be deleted.
+    
+    permission set is a collection of permissions and settings that allow users to perform certain actions in salesforce.
+    all users with sameprofile will see sane UI but the data they see might be different.
+
+      </section>
+      <section>
+        <p>
+        <h3>app level secuity</h3>
+        <p>
+          1. user assigned to a profile
+          2. app assigned to a profile
+          3. only the users whose profile matches to the app profile can able to view the app is called app level security.
+        </p>
+      </p>
+      </section>
+      <section>
+        <p>
+        <h3>object level secuity</h3>
+        <p>
+          1. created an object with one tab
+          2. tab assigned to the app
+          3. even though user has access to the app he cant access the tab until the tab assigned with same profile as user
+        </p>
+      </p>
+      </section>
+      <section>
+        <p>
+        <h3>filed level secuity</h3>
+        <p>
+          1. created an object with salary filed
+          2. tab created with object and assigned to the app
+          3. even though user has access to the app he cant access the field until the filed assigned with same profile as user.
+          4. even though profile matches if thats not added in page layout also user cannt access.
+        </p>
+      </p>
+      </section>
+      <section>
+        <h3>creating custon profile</h3>
+        <p>
+          1. search -> profile -> user profiles -> select standard profile -> click on clone -> enter ur profile name and save
+        </p>
+      </section>
+      <section>
+        <h3>creating users and permission sets --</h3>
+        <p>
+          1. search -> users -> select users -> click om new user (no hirarchy at this point every one is individual uset)
+          firname, lastname, nickname, email, username, license, profile 
+        </p>
+        <p>
+          
+          1. we can create multiple permission sets
+          also create permission set group with multiple permission sets
+        </p>
+        <p>
+          1.(org)organization wide details - object level - public read/write, public read only, private, controlled by parent, public read/write/transfer
+          2.Manual sharing - record level - if test 1 goes on vacation they can do manual assignment to other user at record level
+          3.permission sets, permission set groups - helps to over write org permissions
+          4.Roles 
+            <p>
+              <h3>user roles - this is to define role hirarchy</h3>
+              <p>
+                1. quick finder - users -> roles -> setup roles (legal team is a seperate role al together)
+                2. then go to users -> edit one of the user -update the role
+                as per the role -> they can see the records
+              </p>
+          </p>
+          5. share settings -> new rule -> add criteria -> e.g industry equals biotech
+                                                                industry equals chemical
+                                                                select users share with -> select role -> legal -> then legal team can see all records
+       
+          6. for approval process -> filds & relations -> create picklist filed -with approve reject, other field text area with some comments
+          7. now for sales manager can do any edits to the records to prevent this -> page layout -> account layout -> make legal status and comments read only 
+          8. restrict the user what users can see or not                                                     
+        </p>
+      </section>
+      <section>
+       
+      </section>
     <footer>
 
     </footer>
