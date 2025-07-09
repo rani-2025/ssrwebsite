@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Kubernetes Notes</h2>
+    <section>
+        <h3>
+            container orchestration - way to manage containers
+        </h3>
+        <p>
+            docker inc - came with docker swam -> this helps container orchestration  (but dont waste time to learn)
+            bcs now kuberneties created by google helps to manage container orchestration also it does lot of other things - its very popular
+          </p>
+        <p>
+            <p> docker does basic things but to manage advance stuff we need other tools docker came up with docker swam now after kuberneties this become old</p>
+            // kuberneties 
+            in prod environments we deploy the app in mutiple containers 
+            1. if any of container crashes other will serve as backup - self healing
+            2. need a load balancer will distribute the traffic to all containers - load balancing
+            3. let say traffic increases in peak time - we want automatically noof containers increases
+            and decrease when not needed - auto scaling
+            4. to manage the deployments
+            5. advance networking 
+        </p>
+       <section>
+        <h3> Kuberneties(k8s) 
+             - docker logo - ship carry containers , kubernities -> steering -> means kubernities carry orchestration of containers
+
+        </h3>
+        <p>
+            <h3> users </h3>
+            1. devops engineers - create/manage & deploy the app
+            2. customers - people who uses the app
+
+        </p>
+        <p>
+            we have following tools in market does container orchestration
+                1. kuberneties // thus is very very popular
+                2. aws ecs
+                3. CNCF 
+        </p>
+        <p>
+            containers are like mini server where my app is runnig
+        </p>
+        <p> 
+            1. smallets unit in kubernities is called pod (pod word came from peas)
+            2. mulitple containers can run in pod
+            3. cluster -> contains one or more following nodes - > means its a group of servers
+               a. control plane or master  -> manges cluster 
+               b. data plane  -> where pods running (worker1)
+               c. data plane  -> worker2
+           4.  api server -> in control plane there is a component called api server- where all interactions happens
+           between devops engineer and customers // its very imp
+           5. devops engineers give commands using tool called kubeect (CLI) to api server 
+           6. etcd -> source of truth -> it stores cluster state -> all node details, pod details etc...
+           7. let say devops says -> using kubecet to api server-> i need 5 pods -> then etcd will strod this data
+
+        </p>
+        <p>
+            certifications
+            CKA -- good kuberneties beginner
+        </p>
+       </section>
+       <section>
+
+       </section>
+    </section>
+</body>
+</html>

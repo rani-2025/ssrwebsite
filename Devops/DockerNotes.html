@@ -157,7 +157,92 @@
 
                 40. as a devops engineer u will be creating dockerfile --> its very very important
             </p>
+           
         </p>
     </section>
+    <section>
+        <h3>docker compose</h3>
+        <p>
+            <p>
+                let say in real time app - u have UI, businees logic, DB layer all three needs to interacted and deployed 
+                instead repeating commands to create container for each
+
+                we can achieve throguh docker compose
+                this can be achieved through yml -> here we write all the code  in a declarative way to get all the apps and deploy
+            </p>
+            <p>
+                <h3> creating yml file</h3>
+                <p>
+                    YML stands for YAML Ain't Markup Language (originally "Yet Another Markup Language")
+                    YAML is a human-readable data serialization standard commonly used for:
+                    Configuration files
+                    Docker Compose files
+                    Kubernetes manifests
+                    CI/CD pipelines
+                    API specifications
+                    It uses indentation and simple syntax to represent data structures like lists, dictionaries, and key-value pairs.
+                </p>
+                e.g -> we have this docker command ->
+                1. docker volume create myvol
+                2. docker network create --driver bridge mynet
+                docker run -td --name c1 --network mynetwork -p 8081:80 -v myvol:/data ubuntu
+
+                in yml all these converted into strcture way
+                1. create yml file -> vi compose.yml
+                2. docker-compose up -> it will execute all commands -> u dont need to give in same order automatically this command take care order of tags
+                3. in yml we need to add depends on if something depends on others to create e.g create db before -> then under web write depends-on:db
+                4. in yml file indentation is very important.
+                  e.g u need to created -> services: db: image
+                  services: // for each child give one identation
+                   db:
+                    image: ubuntu 
+
+                5. this is how u can identation in yml using vscode ->
+                        Enable "Format on Save" in VS Code settings
+                        Set default formatter to Prettier for YAML files
+                        Configure tab size to 2 spaces for YAML
+            </p>
+        </p>
+    </section>
+    <section>
+        <h3>
+            container orchestration - way to manage containers
+        </h3>
+        <p>
+            docker inc - came with docker swam -> this helps container orchestration  (but dont waste time to learn)
+            bcs now kuberneties created by google helps to manage container orchestration also it does lot of other things - its very popular
+          </p>
+        <p>
+            <p> docker does basic things but to manage advance stuff we need other tools docker came up with docker swam now after kuberneties this become old</p>
+            in prod environments we deploy the app in mutiple containers 
+            1. if any of container crashes other will serve as backup - self healing
+            2. need a load balancer will distribute the traffic to all containers - load balancing
+            3. let say traffic increases in peak time - we want automatically noof containers increases
+            and decrease when not needed - auto scaling
+            4. to manage the deployments
+            5. advance networking 
+        </p>
+       <section>
+        <h3> Kuberneties </h3>
+        <p>
+            we have following tools in market does container orchestration
+                1. kuberneties // thus is very very popular
+                2. aws ecs
+                3. CNCF 
+        </p>
+       </section>
+    </section>
 </body>
+<footer>
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+        <p>
+            <h2> following is the docker compose material</h2>
+            <a href="https://github.com/puneetgavri/awesome-compose/tree/master"> punnet docker notes</a>
+           
+        </p>
+    </footer>
+</footer>
 </html>
