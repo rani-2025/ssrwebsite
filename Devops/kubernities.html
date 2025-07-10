@@ -60,6 +60,7 @@
 </head>
 <body>
     <h2>Kubernetes Notes</h2>
+    <a href="https://github.com/puneetgavri/kubernetes-world">Punnet trainer notes on kuberneties</a>
     <section>
         <h3>
             container orchestration - way to manage containers
@@ -98,8 +99,15 @@
         </p>
         <p>
             containers are like mini server where my app is runnig
+            <p>
+                kuberneties components 
+                1. pods
+                2. control plane - management - it has -> controll manager(cloud, node, volume, replication etc ..), api - server, etcd, kube schedular
+                3. data plane  - working app - it contains->multiple pods, one kubelet, one CRI(container runtime interface), kube-proxy
+            </p>
         </p>
         <p> 
+            <h3> kuberneties architecture </h3>
             1. smallets unit in kubernities is called pod (pod word came from peas)
             2. mulitple containers can run in pod
             3. cluster -> contains one or more following nodes - > means its a group of servers
@@ -109,18 +117,61 @@
            4.  api server -> in control plane there is a component called api server- where all interactions happens
            between devops engineer and customers // its very imp
            5. devops engineers give commands using tool called kubeect (CLI) to api server 
-           6. etcd -> source of truth -> it stores cluster state -> all node details, pod details etc...
-           7. let say devops says -> using kubecet to api server-> i need 5 pods -> then etcd will strod this data
-
+           6. etcd -> source of truth -> it stores cluster state -> all node details, pod details, every signdle detail of cluster etc...
+           7. let say devops says -> using kubecet to api server-> i need 5 pods -> then etcd will strod this data -> 
+           api server will check etcd and send results to control manager-> then control manager(there are different control managerd) ->
+           checks what user expects how many available (actual == desired) -> then these results send to api server -> kube schedular listens this
+           and take care of creating pods -> using kublet schedular -> in data plane -> kublet agent interacts with api server to get details on pod specification details (images, network volume, port etc...) ->
+           then it tells to CRI (container runtime interface) this gets data from docker interface and create the pods.
+           kube proxy - is the one help to have communication between pods -> when user requested.
         </p>
+        <p> when any request comes -> control plane -> api server -> authenticate -> then api server -> connect with etcd get the pod detaila </p>
         <p>
             certifications
             CKA -- good kuberneties beginner
         </p>
        </section>
        <section>
-
+        <h3>different ways of deploying cluster - most popular is cloud</h3>
+        following are ways - u can manage control plane and pods (most of the time we use cloud)
+        1. kubeadm -> where the dev has control on the master and data plane. here dev has headache to manage everything.
+        2. cloud (EKS, AKS, GKE ...) these are cloud managed services -> they will provide abstraction (u dont get as much of control like kubeadm) but it will take care of
+        managing control plane.
+        3. openshift - kind of kuberneties cluster 
+        4. minikube, k3c etc ...
        </section>
+    <section>
+        <h3> different kubernuties commands </h3>
+        1. go killercode
+        -> select kubernetes 1.33 two node(here 2 node means control and data plane) 
+        1. enter kubectl -> is the way to interact with api server
+        2. kubectl get nodes -> list the number of nodes
+        3. kubectl get nodes -> list the number of nodes -o wide -> give extra details on nodes 
+        4. kubectl get pods -> will pull pod details
+        5. kubectl run app1-pod --image=nginx:latest -> this will create app1-pod will be created 
+        6. kubectl get pods -> give how many containers running in pod
+        7. kubectl get pods -o wide -> gets more details on pod
+        8. kubectl describe pod app1-pod -> it tells everything about the pod  ->  will say namespace default
+        9.  kubectl run app1-pod --image=ngnx:latest -> let say if we gave wrong image name still it will create pod with image error.
+        10. kubectl logs app1-pod -> gives the log
+        11. kubectl exec -it app1-pod -- /bin/bash -> get u inside container of pod as a root user 
+        12. exit -> back to control panel 
+    </section>
     </section>
 </body>
+<footer></footer>
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+        <p>
+            <h2> following is the kuberneties material</h2>
+            <a href="https://github.com/puneetgavri/kubernetes-world"> punnet kuberneties notes</a>
+           
+        </p>
+    </footer>
+</footer>
+<footer>
+   
+</footer>
 </html>
