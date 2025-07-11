@@ -157,6 +157,58 @@
         11. kubectl exec -it app1-pod -- /bin/bash -> get u inside container of pod as a root user 
         12. exit -> back to control panel 
     </section>
+    <section>
+       <h3> pod - namespace </h3>
+        <p>
+            by default pods get default namespaces
+            kubectl get namespaces // list namespaces
+            kubernaties specific namespaces started with -- kube
+            // kube-node-lease, kube-public, kube-system
+            kubectl get pods // get default namespace pods
+            kubectl get pods --namespace kube-system // list down all pods running in kube-system namespace
+            kubectl get pods --all-namespaces  // will give pods from all namespaces
+            kubectl create namespace dev // will create dev namespace
+            kubectl get ns // will get all namespaces
+            kubectl create namespace test // will create test namespace
+            kubectl run pod1 --image=nginx:latest --namespace dev // create pod1 in dev
+            kubectl run pod2 --images=nginx:latest --namespace test // create pod2 in test
+            kubectl get pods --namespace dev // get allpods from dev
+        </p>
+    </section>
+    <section>
+        <h3> pod - labeling </h3>
+        <p>
+            1. label is an identifier for a pod 
+            2. by default when create a pod it will give run=pod name
+            3. kubectl get pods --show-labels // list all labels
+            4. kubectl label pods app1-pod project=banking // here project banking kind of tagging resource
+            5. kubectl get pods -l project=banking // will show all pods with this lable
+            6. kubectl label pods pod1 project=ecomm --namespace dev // will show all pods with this lablel in dev
+        </p>
+    </section>
+    <section>
+        <h3>cluster - with auto healing</h3>
+
+        1. kubectl api-resources // will show all the api resources
+        2. deployment creates / manages the pods
+        kubectl create deployment nginx-deploy --image=nginx:1.24 --replicas=3 // deployment will create 3 pods with default name under nginx-deploy name
+        3. kubectl get deployment // will list all 3 pods
+        4.kubectl delete pod podname // here get the pod from above list then pod will be deleted
+        5. now do kubectl get deployment // again u will get 3 bcs deployment does auto healing
+        6. kubectl create deployment nginx-deploy --image=nginx:1.24 --replicas=3 --namespace dev // it will 3 pods to dev namespaces if it exists else through an error
+        7. kubectl get pods --show-labels --namespace -o dev // 
+        8.kubectl get nodes // list all nodes like master, dataplan
+        9. kubectl get deployment // list 3 pods
+        10.kubectl scale deployment --replicas=5// u want increase no of pods // here it always manages 5 pods //scale out //auto scaling // increase the number of replicas
+        11.kubectl scale deployment --replicas=2 // scale in // decrease the no of pods to 2
+        12. kubectl set image deployment/nginx-deploy nginx=nginx:1.25 // here old pods deleted and new pods created with this latest image
+        13. kubectl rollout status deployment/nginx-deploy // update to new image in deployment 
+        14. kubectl rollout history deployment/nginx-deploy  // list down rollout history
+        15. kubectl rollout undo deployment/nginx-deploy // if any issues with roll out images we can undo like this
+        // when pod deleted in deployment even it creates new pod but data will be lost
+        
+
+    </section>
     </section>
 </body>
 <footer></footer>
