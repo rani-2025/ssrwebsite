@@ -18,13 +18,51 @@
        business process automation
       </h3>
       <p>
-        workflows
+        workflows --
+
         process builder workflows
         Approval process
+      </p>
+      <p>
+        business process workflow (deprecated)
+        process builder
+        flow (present and future)
+
+        case --
+        annual revenue greater that  100 thousand set rating filed to 
+        120 - rating hot
+        100 - rating warm
+        90 - cold
+
+        business process workflow - 4 actions - one object only
+        process builder - 11 actions - one object and detail / child objects
+        Flow - (unlimited) - multiple actions, multiple objects related or unrelated
+
+        approval workflow - 
+
+        requirement -
+        1. creates an account (assume JSR -> sr -> smn-> sd)
+        2. Annual revenue greater than equal to 120 milion - no approval 
+        3. Annual revenue greater than equal to 100 milion - mgr approval (here if sr approves only goes to mgr approval)
+        4. Annual revenue greater than equal to 90 milion - sr approval 
+        5. Annual revenue greater than equal to 60 milion - sr -> sm -> sd (approvals required)
+        here only if sr approves go to sm after his approval goes to sd -> this is known sequential approval process
+
+        let say Ar >= 100 then only goes at same time called SR/SM/SD -> parallel approval process (there are 2 approval processes in this)
+
+        1. unanimous -> means all must approves in workflow
+        2. firstapproval/ rejection -> in this who ever does the first action (approve/ reject) is considered
+
+        now create 
+        annual revenue >=100 - SR - sequential
+        AR >= 90 -> SR -> sequential after his approval -> should go to SD/SM -> at parallel
       </p>
     </section>
    
     <footer>
+     To refer venkat notes go here 
+
+     hr onboard -> employee - archi -> notes & attachments -> uploaded latest doc
 
     </footer>
 </body>
