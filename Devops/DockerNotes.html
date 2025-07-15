@@ -232,6 +232,91 @@
         </p>
        </section>
     </section>
+    <section>
+        <p>
+            <h3> docker assignment</h3>
+            <p>
+                <h3>what is virtualization?</h3>
+                its a process of running multiple virtual systems or resources on top of single physical machine. resources could be OS , software, storgae, network etc..
+                adv - 
+                reduce spending on intial server setup.
+                faster setup time
+                resources utilized more efficiently
+                easily to scale and maintain.
+            </p>
+            <p>
+                1. what is Docker?
+                a. its a containeration tool.
+                b. it can be used to create custom images.
+                c. it can be used to containerize and pack the entire dependencies / libraries.
+
+                2. why docker is required?
+                sometimes everyone is not having same kind of configuration in that case we can use docker.
+
+                3. what is EC2 instance?
+                Ec2 instance is a virtual server created in AWS cloud with requested configuration.
+                we use this to install all required softwares to run my application.
+
+            </p>
+            <p>
+                <h3>what is containerization? </h3>
+                <p>
+                    1. its on OS-level virtualization method used to deploy and run distributed applications with out launching an entire VM for each app.
+                    2. with containers, all the environment issues were solved. The developer could easily wrap their code in a leightweight container and pass on to operations team.
+                    adv - they are not resource hungry 
+                    they are leightweight and hence portable.
+                    they are developer friendly and can be configured through the code.
+                </p>
+                <p>
+                    <h3>Containerization tools? </h3>
+                     1. mesos 
+                     2. rkt
+                     3. docker
+
+                     docker is the most famous among all
+                </p>
+                <p>
+                    <h3>  what is docker? </h3>
+                    <p>
+                        docker is a computer program that performs os level - virtualization, also known as "containerization".
+                        first release in 2013 developed by docker Inc. 
+
+                        docker is used to run software packages called "containers."
+
+                        docker written in go language which is from google.
+                    </p>
+                    <h3> docker lifecycle?</h3>
+                    <p>
+                        docker engine pull the image docker hub
+                        create container based on the image
+                        then manage run, start , stop of containers.
+                    </p>
+                    <h3> components of docker eco system </h3>
+                    <p>
+                        docker hub - public docker registry
+                        docker engine -its heart of docker eco system,  responsible for managing and running containers, 
+                                       store custom docker images,works on top of os level, utlizes kernal of the underlying OS.
+                        docker images - containers created based on it, its free and public, its like a template of a container, its created in layers, 
+                                        any new change in image results in creating a new layer.
+                                        one can launch multiple containers from a single docker image.
+                        containers -    its a lightweight software environment.
+                                        works on top of underlying OS kernal.
+                                        its small in size and highly portable.
+                                        created using docker image.
+                                        they cant persist the data.
+                                        to persist data we use docker volume.
+                        docker volumes - this is to persist data.
+                                         it can connect to multiple containers simultaniously.
+                                         if not created explicitly, volume automatically  created when we create a container.
+                        docker file -  its YAML file used to create custom containers.
+                                        it can include commands that have to be run on the command line.
+                                        this can be used to built custom container images.
+
+                    </p>
+                </p>
+            </p>
+        </p>
+    </section>
 </body>
 <footer>
     <footer>
@@ -242,6 +327,12 @@
             <h2> following is the docker compose material</h2>
             <a href="https://github.com/puneetgavri/awesome-compose/tree/master"> punnet docker notes</a>
            
+        </p>
+        <p>
+            <h2> for uploading images onto dockerhub</h2>
+            <a href="https://app.docker.com/">docker hub</a>
+            gmail - rlearnings24@gmail.com pwd: Learning24@
+            username - devopslearning125
         </p>
     </footer>
 </footer>
