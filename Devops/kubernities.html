@@ -209,6 +209,62 @@
         
 
     </section>
+    <section>
+        <h3> manifest file -- never modify manifest file manually always use documentation do copy.. even in exam also they will provide doc</h3>
+        <a href="https://kubernetes.io/docs/home/">kubereties documentation</a>
+        <p>
+            1.  its written in yml.
+            2. manifest file is a declarative way of creating kubernative resources.
+            3. u dont need to remember syntax.
+            search kuberneties pods -> will gave a link where u can find manifest code as well
+            4. use -> kubectl api-resources // it will list all kubernative resources
+            5. in yml indentation place an important role - it should be proper case sensitive 
+            6. in yml -if its list wii be started with -
+            7. all commands will run through - kubectl
+            8. kubectl get pods -o wide // will list all the pod details
+            9. kubectl create deployment mydeployment ---image=nginx:latest replicas=3 // it will create mydeployment with 3 pods
+            10. in manifest -> kind is what kind of manifest (e.g -pods / deployement)
+            11. in manifest meatadata - details about kind
+            12. kubectl scale deployment mydeployment --replicas=5 // using this command we can increase the number of pods
+            13. how to do this in manifest file -> go to ur deployment.yml and update replicas count
+
+        </p>
+        <p>
+          <h3> create multiple containers using metafile</h3>
+          <p>
+            1. create vi multi.yml
+            2. kubectl apply -f multi.yml 
+            3. kubectl get pods -o wide // will list all pods
+            4. curl 192.168.1.5:80 // to access app in pod .. it wont access from browser only with in cluster u can aceess
+          </p>
+        </p>
+        <p>
+            <h3> services</h3>
+            1. let say create 1 node(13.14.15.6) with 2 pods -> when pod created it will create with an ip (e.g - 10.0.1, 10.0.2)
+            2. let say create 2 node(14.14.15.6) with 2 pods -> when pod created it will create with an ip (e.g - 11.0.1, 11.0.2)
+            3. here after deployment step 4 with curl command u access app 
+            4. in real time we dont expose ips to everyone. this can be achieved through load balancer where load balancer have single ip which will distribute traffic.
+            5. let say one pod failed 10.0.1 then replica will creare another pod of 10.0.3 now how load balancer knows the new IP.
+            
+            <p>This is where services going to help.
+                they do load balance
+                expose application to outside of world.
+                this will use labels to distribute the traffic.
+                e.g - here load balancer and all pods can  use labels like -> env:dev then services will made to distribute using this label  
+            </p>
+            <p>
+                there are 3 type of services
+                1. cluster IP (default)
+                2. Nodeport
+                3. Load balancer
+
+                kubectl get service -> see the cluster ip service details
+                curl 10.96.236.2:80 // to will give pod name but not ip address 
+
+                i can give my client to cluster IP that will take care of ditributing traffic to multiple pods
+            </p>
+        </p>
+    </section>
     </section>
 </body>
 <footer></footer>
