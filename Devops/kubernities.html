@@ -240,6 +240,7 @@
         </p>
         <p>
             <h3> services</h3>
+
             1. let say create 1 node(13.14.15.6) with 2 pods -> when pod created it will create with an ip (e.g - 10.0.1, 10.0.2)
             2. let say create 2 node(14.14.15.6) with 2 pods -> when pod created it will create with an ip (e.g - 11.0.1, 11.0.2)
             3. here after deployment step 4 with curl command u access app 
@@ -262,9 +263,47 @@
                 curl 10.96.236.2:80 // to will give pod name but not ip address 
 
                 i can give my client to cluster IP that will take care of ditributing traffic to multiple pods
+
+                services will identify through labels and selectors.
+            </p>
+            <p>
+                <h3>cluster IP service</h3>
+                <p>
+                    cluster ip can help only the people inside the cluster. some one outside cant use.
+                    this only use for internal communication.
+
+                    front end ip pod will send request to cluster IP then it will take care of distributing backend pods.
+                    since cluster ip cant access outside world thats what we want with back end pods. so it will be helpful in these usecases.
+
+                    kubectl get services // will give u all services 
+                    kubctl describe service clipservice // will give endpoints along with detialed info on clipservice-- where which pods will serve behind this 
+                    in manifest file if no type of service given means its cluster
+                </p>
             </p>
         </p>
     </section>
+    <section>
+        <h3>node port service</h3>
+        node port cluster -> people from outside cluster also can access node if their port falls with in defiled node port cluster range
+        1. this will be accessed through only by accessing server ip from browser so u end up exposing server ip outside
+        2. e.g the node accessing outside crashed then new node with ip will be replaced also draw back
+        3. port range difficult to remember to access node u need to use physical server ip which is common : port id (this is from prot range)
+        </section>
+        <section>
+            with load balancer we can resolve issues of node part but if noof microservices increases cost will increase bcs each microservice we need to buy load balanceservices
+        
+        </section>
+        <section>
+            <h3>Nginx - Ingress controller -> Ingress service smart way of accessing the pods</h3>
+            <p>
+             1. internally uses load balancer - outside its url based 10.0.01/app1,10.0.01/app2 like 
+             2. different type of ingress controllers- gives cluster advanced capabilitues i.e - path based routing
+             3. multiple ways to install - manifest 
+             4. ingress comes with 2 components - ingress controller, ingress service 
+             5. ingress controller -> will check ingress rules - based on it traffic disributes
+             6.eksctl - with single command we can create everything
+            </p>
+        </section>I
     </section>
 </body>
 <footer></footer>
@@ -275,6 +314,7 @@
         <p>
             <h2> following is the kuberneties material</h2>
             <a href="https://github.com/puneetgavri/kubernetes-world"> punnet kuberneties notes</a>
+            <a href="https://github.com/puneetgavri/kubernetes-world/blob/main/installation/manifest_files/load_balancer.yml">loadbancer</a>
            
         </p>
     </footer>
