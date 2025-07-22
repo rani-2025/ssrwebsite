@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Terraforms Notes</h2>
+    <section>
+        <p>
+            <h3>To run App we need following</h3>
+
+            problem statement - 
+            for each environment - dev, test we need to create manually (we can forgot, mistakes in config, time consume, deletion also time taken)
+            1. services
+            2. storages
+            3. LBs
+            4. networking (vpc, subnet)
+            5. autoscaking
+            6. Databases
+            7. s3 bucket
+            8. iam roles, policies
+            
+            solution - 
+            solution to this problem is create infrastructure as a code (IAC)
+            - all required configurations write as a code -> when ever needs to be executed we can execute code with environment val
+
+            to create this we have different tools
+            1. cloudformation (aws)
+            2. azure resource manager (arm)
+            3. Terraform (using this we can infrastructure independent to environment like aws, azure etc...)
+
+        </p>
+        <p>
+            <h3> how to create terraform</h3>
+            <p>
+                    1. its a tool
+                    2. install it some where (https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+                    3. Harshicorp is the company who created terraform
+                    4. aws console - for programatic access we need to following setup
+                      a. create IAM user -> IAM - users -> create terraforn_user , unselect console access then save
+                      b. add permission in cole -> attach plicy directory-> select administrator access -> add permission
+                      c. create access key -> add some tag value -> create access key for cli , Description tag value(terraforn_tag)
+                      accesskey - AKIA4VT6SW7UZRZD6QUU secretaccesscode - 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
+
+                  5. once done go vs code - install aws cli (https://docs.aws.amazon.com/cli/v1/userguide/install-macos.html)
+                  6. go to vs code - aws configure enter aws access key id, secret accesskey, region name - us-east-1, outputformat - json
+                  7. aws ec2 stop-instances \ 'instance id' (command from vscode to stop ec2)
+                  8. how does terraform know u writing script for aws / azure -> u need to install terraform provider (depends on aws/azure/gcp u need to install related providers)
+                  (https://registry.terraform.io/browse/providers)
+                  in vscode folder -> create provider.tf (name not important extension should be .tf --> inside content is important p-> add )
+                  terraform {
+                    required_providers {
+                        aws = {
+                            source = "hashicorp/aws"
+                            version = "6.4.0"
+                        }
+                    }
+                  }
+
+                  provider "aws" {
+                    region = "us-east-1"
+                    access_key = "" // not a good practice but needed we can 
+                  }
+
+                    once done -- in terminal run 
+                    a. terraform init // initialize the code by scan all .tf and try to find required providers and download on laptop
+            </p>
+        </p>
+    </section>
+</body>
+<footer>
+    <h3>devops credentials</h3>
+    devops course will be taught on aws account as its free account
+    <p>https://aws.amazon.com/</p>
+    <p><strong>email:</strong> rlearnings24@gmail.com</p>
+    <p><strong>uname:</strong> sandyaws</p>
+    <p><strong>Password:</strong> CristoLane2025!</p>
+
+    <h3>IAM teraform credentials created in above aws console</h3>
+    <p><strong>username:</strong> terraforn_user </p>
+    <p><strong>description tag:</strong> terraforn_tag </p>
+    <p><strong>accesskey:</strong> AKIA4VT6SW7UZRZD6QUU </p>
+    <p><strong>secretaccesscode:</strong> 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 </p>
+</footer>
+</html>
