@@ -90,7 +90,8 @@
             <p>
                     1. its a tool
                     2. install it some where (https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-                    3. Harshicorp is the company who created terraform
+                    3. Hashicorp is the company who created terraform
+                    4. language we use terraform is HCL (hashicorp language) here we can define as block
                     4. aws console - for programatic access we need to following setup
                       a. create IAM user -> IAM - users -> create terraforn_user , unselect console access then save
                       b. add permission in cole -> attach plicy directory-> select administrator access -> add permission
@@ -107,7 +108,7 @@
                     required_providers {
                         aws = {
                             source = "hashicorp/aws"
-                            version = "6.4.0"
+                            version = "6.4.0" // its good practice to provide version if we skip it always downloads latest version
                         }
                     }
                   }
@@ -116,9 +117,41 @@
                     region = "us-east-1"
                     access_key = "" // not a good practice but needed we can 
                   }
-
+                  
                     once done -- in terminal run 
                     a. terraform init // initialize the code by scan all .tf and try to find required providers and download on laptop
+
+                    when we do init -> it will create terraform.lock.hcl -> it includes locked version so by using this it will download specific version 
+            </p>
+            <p>
+                <h3>terraform commands</h3>
+                <p>
+                    1.  a. terraform init // initialize the code by scan all .tf and try to find required providers and download on laptop
+
+                    when we do init -> it will create terraform.lock.hcl -> it includes locked version so by using this it will download specific version 
+                    2. terraform plan // will go through all tf files and create resources by refering resource block its just creates blue print
+                     terraform apply // then it creates actual resource as per the plan.
+                     this will create .tfstate file it helps to manage the state 
+                     .tfstate is very crusial file should not be deleted 
+                    3.  .tfstate plays a key rule when terrofrm apply like below
+                        when we do  - terraform create -> terraform does following steps
+                            a. scan all files for resources 
+                            b. check whats there in tfstate then match actual file configuration state 
+                            c. then it will just create what ever added now // then -> terraform apply -> only apply state what ever updated
+                    4. terraform destroy - destroy all resources
+                    5. teffaform destroy target "resource" // it will destroy particular resource
+                    6. when we create resource if we depends-on then it will create dependent one first then actual one
+                    7. variable "bucket_name" { // in tf we can add this variable then  who apply my terraform needs to pass the bucket_name rather hardcoding data
+                        type = string
+                    }
+                     resource "aws_s3_bucket" "mys3" {
+                        bucket = var.bucket_name
+                     }
+                     when we do terraform apply .. it will ask provide val for bucket_name
+
+                     or 
+                     terraform apply -var="bucket_name=testval" // this is another way of applying applying variable va
+                </p> 
             </p>
         </p>
     </section>
