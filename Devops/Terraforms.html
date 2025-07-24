@@ -123,6 +123,7 @@
 
                     when we do init -> it will create terraform.lock.hcl -> it includes locked version so by using this it will download specific version 
                 9.HashiCorp Terraform - its a vs code extension helps to format terraform file
+                10. multiple terraform blocks -> 
               
             </p>
             <p>
@@ -140,6 +141,9 @@
                             a. scan all files for resources 
                             b. check whats there in tfstate then match actual file configuration state 
                             c. then it will just create what ever added now // then -> terraform apply -> only apply state what ever updated
+
+                    let say we have team of 10 -> to manage tfstate we will manage in global state called (github)  to avoid multiple users update at same time
+                    while terroform apply initiated then -> tfstate file will be locked once its done that will be released 
                     4. terraform destroy - destroy all resources
                     5. teffaform destroy target "resource" // it will destroy particular resource
                     6. when we create resource if we depends-on then it will create dependent one first then actual one
@@ -149,10 +153,55 @@
                      resource "aws_s3_bucket" "mys3" {
                         bucket = var.bucket_name
                      }
+                     resource "aws_instance" "myec2" { // it will create 2 ec2 instances based on count
+                        count = 2
+                        ami = var.ami_id
+                        instance_type = var.i_type
+                     }
                      when we do terraform apply .. it will ask provide val for bucket_name
 
                      or 
                      terraform apply -var="bucket_name=testval" // this is another way of applying applying variable va
+                     
+                     or 
+                     .tfvars -> create a file with extension .tfvars and declare and pass all the params
+                     terraform apply -var-file="dev.tfvars"
+
+                     8. how r u managing tfstate -> ans - through state locking remote backend 
+                        1. i dont do local
+                        2. i will apply through backend like below - create .tf file  -- it is safest bcs highly available 
+                        terraform {
+                            backend "s3" {
+                              bucket = "terraform-july-tfstate"
+                              key = "terraform.tfstate"
+                              region = "us-east-1"
+                              encrypt = true
+                              use_lockfile = true // in 2024 added this, before.. dynamob_table = "value" // by adding lock true when we apply tfstate lock file will be created and will be released once done 
+                            }
+                          }
+
+                          // this s3 bucket should be highly secure - manage all precautions to make it secure
+
+                          // output "ec2_ip" {
+                            value = aws_instance.myec2[0].public_ip  // when we do terraform apply -- it will print instance public ip as output 
+                          }
+                     
+                    9. terraform destroy // will delete all resources 
+                    10. how to creare seperare tf files as per environment .. workspace allows you to deploy different infrastrucure as per environment
+                        terraform workspace list  // gives as default
+                       a. workspace is like logical area 
+                       b. terraform workspace new dev // will create new workspace for dev
+                       c. terraform workspace new test // will create new workspace for test
+                       d. terraform workspace new prod // will create new workspace for prod
+
+                       teraform workspace select dev  // this will create dev folder with dev resources
+                       then terraform apply -var-file="dev.tfvars"
+
+                       teraform workspace select test  // this will create test folder with dev resources
+                       then terraform apply -var-file="test.tfvars"
+                       terraform destroy -var-file="test.tfvars" // this will delete test workspace resources
+
+
                 </p> 
             </p>
         </p>
@@ -162,5 +211,7 @@
     <h3>IAM teraform credentials created in above aws console</h3>
     <p><strong>username:</strong> terraforn_user </p>
     <p><strong>description tag:</strong> terraforn_tag </p>
+    <a href="https://github.com/puneetgavri/Devops-interview-prep"> puneet notes for devops interview questions</a>
+    <a href="https://github.com/puneetgavri/terraform-world"> punnet terraform notes</a>
 </footer>
 </html>
