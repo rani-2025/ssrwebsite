@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ansible Notes</h2>
+    <section>
+        <p>
+            its a open source tool helps to configuration management.
+
+            1. we have a controller where ansible will be installed only here. wih the puppet, cheff controlers needs to install on all servers.
+            2. its a agentless
+            3. it works over only SSH
+            4. all serevers who needs to connect controller they need to setup SSH support.
+            5. SSH atively built for linux.
+            6. but Ansible supports windows server as well by using winrm (windows resource manager)
+
+        </p>
+        <p>
+            <h3> controller - </h3>
+            1. contains hostable inventory.
+            2. playbooks - running the code. (its like a file where we write all the commands need to be executed)
+
+            scenario 
+            1. create 3 ec2 instances 
+            2. name as ec1 controller, 2 and 3 as host 1 and host2
+            3. on controller install ansible
+            4. useradd -m ansible // add this user as previleged user on controller
+            password -ansible 
+            5. on host add ansible user to  as a previliged user with out passowrd required
+            6. in Ansible eveything will be managed through controller.
+        </p>
+        <p>
+            <h3> ansible adhoc commands </h3>
+            i can add hosts under one group 
+            1. example myhosts group - added host1, host 2
+            2. ansible myhosts -m ping --> u will get ping response from both hosts // ping called as module
+            3. ansible all -m shell -a "ls -atr" -> shell module runs on all hosts with ls and atr attributes 
+            4. touch hello.txt // have hello file
+            5. ansible all -m copy  heelo.txt // this will copy helo file to both hosts // check copy module ansible documentation for attributes no need to remember
+            6. ansible all -m shell -a "apt install git" // u will get permission deniee bcs this commands needs sudo // what ever command u running requires higher previliege then we need to use sudo
+            7. ansible all -m apt -a "name=apache2 state=present" -b // state = present means it will install, state = abscent means un install, here -b same as sudo
+            8. ansible all -, shell -a "sudha service apache2 status"
+            9. ansible all -m service -a "name=apache2 state=stopped" -b 
+            10. ansible all -m setup // give every detail about my host
+        </p>
+        <p>
+            <h3> ansible playbooks - indentation is very important in yml file</h3>
+            1. written in yml format
+            2. go to controller write and trigger
+            3. controller -> vi pbl.yml --> will open playbook
+            4. ansible all -m shell -a "ls -lstr" -> how u write in play book
+            5. playbook starts with ---
+            6.   ---
+                 name: play1
+                 hosts: myhosts
+                 become: yes // -b 
+                 tasks :// smallest unit of playbook , what playbook performs
+                   - name: checkind date on service
+                     shell: date
+
+                   - name: create a file called a abc.txt
+                     shell: touch abc.txt 
+                   - name: copying file
+                     copy: 
+                       src: hello.txt
+                       dest: /home/Ansible
+                    vars: 
+                    package_name: apache2
+                   - name: install the package
+                     apt:
+                     name: "{{ package_name}}" // it will take apache2 
+       
+        </p> 
+        once saved to excute 
+        anisble -plybook pbl.yml
+    </section>
+</body>
+</html>
