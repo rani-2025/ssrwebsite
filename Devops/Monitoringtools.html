@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Monitoring and Observalability</h2>
+    <section>
+        <p>
+            1. Monitoring means checking what is wrong. (reactive)
+            2. Observalability means why the issue happening. (proactive)
+        </p> 
+        <p>
+            <h3> pillars of Observalability</h3>
+            1. Metrices - are things which u can measure - let say i want to monitor ec2 instance - what i will do how much memory, storage, network, data, throughput, cpuutilization
+            2. Logs - every application running produce logs -
+            3. Traces - how to much it took time start to end will be measured
+            
+            4- golden signals - using these u can determine ur system is healthy or not
+            1. Latency  - delay between action and response
+            2. Traffic - request / sec - 
+            3. Error
+            4. Saturation - the state or process that occurs when no more of something can be absorbed,
+
+           
+        </p>
+        <p>
+            <h3> Different monitoring tools</h3>
+
+            in AWS - cloudwatch u have all these options
+            Azure - Azure Monitor
+            <h3> popular tools for each Observalability</h3>
+            metrics - prometheus, Datadog, cloudwatch
+            Logs - cloudwatches, logs, elastic stack
+            Traces - aws xray, opentelemetry
+            dashboard - kibana, grafana, dynatrace 
+        </p>
+        <p>
+            <h3> ELK </h3>
+            e -> Elastc search
+            l -> logstash, flentd
+            k - kibana
+
+            Eks - elastic kubereties service - helps to create and monitor cluster - this is the one abstract thinkds
+            Aks - in azure we have in azure kubereties service 
+
+            in real time we use EKS, AKs etc..
+        </p>
+        <p>
+            <h3> creating EKS</h3>
+            1. easier way using EKS commandline (eksctl)
+            
+           
+            1. do aws configure
+            2. install kubectl (kuberneties ) - to create pod communicate we need 
+            3. install eksctl - for logging
+            2. on aws console - for IAS rootuser -> add policy  access policy -> amazoneksadminpolicy -> access scope (cluster) all clusters
+            4. install fluentd 
+            5. all these needs to be installed - refer punnets notes
+
+        </p>
+        <p>
+            requirement elastc search log stash in kibana (ELK)
+            1. wants to store all data into elastic search db
+            2. servers where my applications deployed
+            3. stores  the app logs which are created using fluentd  in elastic search
+            4.log stash is heavy weight -> which also used to store logs in elastic search (we can use either logstash or fluentid)
+            4. fluentd will be installed on every node, this will gsther all the data happeing on node this will ship data into elastic search
+            4. visualize data in kibana dashboard
+            6. once kubectl cluster created do kubectl get pods - will list down all pods
+
+        </p>
+    </section>
+</body>
+<footer>
+    <a href=" https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html"> install kubectl and eksctl </a>
+
+   
+
+</footer>
+</html>
