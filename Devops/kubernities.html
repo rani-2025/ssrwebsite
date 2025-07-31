@@ -303,6 +303,28 @@
              5. ingress controller -> will check ingress rules - based on it traffic disributes
              6.eksctl - with single command we can create everything
             </p>
+            <p>
+
+                What is the difference between deployment and DaemonSet?
+            A Deployment manages a replicable set of Pods and ensures the desired number are running, 
+            typically across the cluster. It's ideal for stateless applications,
+             with built-in rollout and rollback capabilities. 
+             A DaemonSet ensures a Pod runs on every node (or a subset via node selectors).
+            </p>
+            <p>
+                what is stateful and stateless application
+                1. In stateless
+                These applications do not store any client-specific data or session information on the server.
+                Each request is treated independently, and no information from previous interactions is retained.
+
+                2. In stateful
+                These applications maintain a persistent state or data that needs to be preserved across restarts and re-deployments. 
+                They often require unique identities for their instances.
+
+                3. A Kubernetes Headless Service is a type of service that does not allocate a ClusterIP. Unlike a standard Kubernetes Service, which provides a single, stable IP address for load balancing traffic across a set of pods, a Headless Service exposes each individual pod through its own unique DNS record. 
+                This allows applications to directly address and communicate with specific pods,
+                 bypassing the service's built-in load balancing mechanism. 
+            </p>
         </section>I
     </section>
 </body>

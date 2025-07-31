@@ -98,6 +98,7 @@
 
             Eks - elastic kubereties service - helps to create and monitor cluster - this is the one abstract thinkds
             Aks - in azure we have in azure kubereties service 
+            efk - elastic search , fluentd, kibana
 
             in real time we use EKS, AKs etc..
         </p>
@@ -123,14 +124,36 @@
             4. fluentd will be installed on every node, this will gsther all the data happeing on node this will ship data into elastic search
             4. visualize data in kibana dashboard
             6. once kubectl cluster created do kubectl get pods - will list down all pods
+            7. always one pod of fluentd should be running on node it should be deployed kind is daemonset (means always one replica should be managed)
+            8. in statefulset each pod will have uniquename
+            9. elastci search will be deployed kind as statefulset.
+            10. from puneet notes - deploy - manifest files in this order whuch 
+
+                 a. kubectl apply -f elf.yaml
+                 b. kubectl apply -f kibana.yaml 
+                 c. kubectl apply -f fluentd.yaml 
+
+            11. rolebased access control - we can decide who can do what 
+            12. once all created u can access kibana using publicIP and node part - 
+            make sure elastic instance add security group to allow traffic from allports
+
+            13. fluentd will send all information about pods to elastic search 
+            14. kibana will get all data from elastic search and display
+            15. we can configure fluentd what information can be sent
 
         </p>
     </section>
 </body>
 <footer>
     <a href=" https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html"> install kubectl and eksctl </a>
+    <a href="https://github.com/puneetgavri">puneet notes, puneet.gavri@gmail.com (puneet email) </a>
+    
 
-   
+    cloud certification architect
+    kubereties
+    terraform 
+
+   <a href="https://github.com/puneetgavri/DevOps-Projects">punnet Devops projects</a>
 
 </footer>
 </html>
