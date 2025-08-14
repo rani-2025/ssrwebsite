@@ -595,6 +595,39 @@ function MyComponent() {
             </pre>
         </p>
     </section>
+    <section>
+        <p>
+            <h3> React router -> help to navigate to different pages</h3>
+            steps - 
+            1. install the router module - npm i react-router-dom@6.22.3 
+            2.import browserRouer as Router {Routes,Route, path }
+            <Router>
+                <nva>
+                    <ul>
+                        <li>
+                            <link to="/">Home</li> //this will create home link and map to home route path
+                        </li>
+                        <li>
+                            <link to="/watchlist">Watchlist</li> //this will create watchlist link and map to watchlist path
+                        </li>
+                    </ul>
+                </nva>
+                <Routes>
+                <Route path = '/' element = {</Home}> // here when landed home component wil load
+                <Route path = '/watchlist' element = {</watchlist}> // here when user navigate /watchlist  then watch list will be loaded
+                </Routes>
+            </Router>
+        </p>
+        <p>
+            <h3> example of useState in advance way</h3>
+            1. this is how we srt -> const[watchList, setWatchList] = useState([]) // assign empty array
+            2. const toogleWatchList = (movieId) => {
+                setWatchList(prev => 
+                 prev.includes(movieId) ? prev.filter(id => id !== movie) : [...prev, movieId] // prev -> means previous state of watchlist if it already had movie id remove else add 
+                )
+            }
+        </p>
+    </section>
     <footer>
        
     </footer>
