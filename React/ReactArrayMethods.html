@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>React Array Methods – Interview Notes</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #0f1530;
+      --text: #e7ecff;
+      --muted: #9fb0ff;
+      --accent: #7aa2ff;
+      --code-bg: #0a0f1f;
+      --code-border: #1c2447;
+      --chip: #19224a;
+      --ok: #70e070;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b1020, #0a0e1a);
+      color: var(--text);
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(11,16,32,.9), rgba(11,16,32,.6));
+      border-bottom: 1px solid #1e264d;
+    }
+    header .inner { max-width: 980px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+    h1 { font-size: 1.6rem; margin: 0; }
+    .chip { font-size: .8rem; padding: 4px 10px; border-radius: 999px; background: var(--chip); color: var(--muted); border: 1px solid #2a3370; }
+    .toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 18px 0 28px; }
+    .toc a { text-decoration: none; color: var(--muted); padding: 10px 12px; border: 1px solid #273064; border-radius: 12px; background: #0e1430; display: block; }
+    .card { border: 1px solid #1c2447; background: var(--panel); border-radius: 16px; padding: 18px; margin-bottom: 22px; }
+    .card h2 { margin-top: 0; font-size: 1.3rem; }
+    .summary { color: var(--muted); margin-top: 6px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 14px;
+      padding: 14px 14px 14px 14px;
+      overflow: auto;
+      position: relative;
+      margin: 14px 0 8px;
+    }
+    .copy-btn {
+      position: absolute; top: 8px; right: 8px;
+      border: 1px solid #2a3570; background: #101841; color: var(--text);
+      padding: 6px 10px; border-radius: 10px; font-size: .8rem; cursor: pointer;
+    }
+    ul { margin-top: 6px; }
+    li { margin: 6px 0; }
+    .tip { border-left: 4px solid var(--accent); padding: 10px 12px; background: #0e1536; border-radius: 10px; }
+    .footer { margin-top: 28px; color: var(--muted); font-size: .9rem; text-align: center; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="inner">
+      <h1>React Array Methods – Interview Notes</h1>
+      <span class="chip">find • forEach • filter • map</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <p class="summary">Quick, practical React-flavored examples of core JavaScript array methods with short explanations and interview tips. Save this file and keep it as your reference.</p>
+      <div class="toc">
+        <a href="#find">1) array.find()</a>
+        <a href="#foreach">2) array.forEach()</a>
+        <a href="#filter">3) array.filter()</a>
+        <a href="#map">4) array.map()</a>
+        <a href="#tips">Interview Tips</a>
+        <a href="#senior">Senior Engineer Q&A</a>
+      </div>
+    </div>
+
+    <section id="find" class="card">
+      <h2>1) <code>array.find()</code></h2>
+      <p class="summary">Returns the <strong>first matching element</strong> in the array, or <code>undefined</code> if none match.</p>
+
+      <pre><button class="copy-btn" title="Copy">Copy</button><code class="language-jsx">import React from "react";
+
+export default function FindExample() {
+  const users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 3, name: "Charlie" }
+  ];
+
+  // Find the user with id = 2
+  const foundUser = users.find((user) =&gt; user.id === 2);
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Array.find()&lt;/h2&gt;
+      &lt;p&gt;Found User: {foundUser ? foundUser.name : "Not Found"}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+      <ul>
+        <li><code>find()</code> stops at the first match and returns the element itself.</li>
+        <li>Use when you need a <strong>single object</strong> (e.g., user by id).</li>
+      </ul>
+    </section>
+
+    <section id="foreach" class="card">
+      <h2>2) <code>array.forEach()</code></h2>
+      <p class="summary">Iterates over items for <strong>side effects</strong> (logging, updating an external variable). It <em>does not</em> return a new array.</p>
+
+      <pre><button class="copy-btn" title="Copy">Copy</button><code class="language-jsx">import React from "react";
+
+export default function ForEachExample() {
+  const fruits = ["🍎 Apple", "🍌 Banana", "🍊 Orange"];
+  let fruitList = "";
+
+  // Build a string using forEach
+  fruits.forEach((fruit) =&gt; {
+    fruitList += fruit + " | ";
+  });
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Array.forEach()&lt;/h2&gt;
+      &lt;p&gt;{fruitList}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+      <ul>
+        <li><code>forEach()</code> is great for actions, not for producing values.</li>
+        <li>Prefer <code>map()</code> when you need a transformed array.</li>
+      </ul>
+    </section>
+
+    <section id="filter" class="card">
+      <h2>3) <code>array.filter()</code></h2>
+      <p class="summary">Returns a <strong>new array</strong> containing elements that pass the test.</p>
+
+      <pre><button class="copy-btn" title="Copy">Copy</button><code class="language-jsx">import React from "react";
+
+export default function FilterExample() {
+  const numbers = [1, 2, 3, 4, 5, 6];
+
+  // Keep only even numbers
+  const evens = numbers.filter((num) =&gt; num % 2 === 0);
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Array.filter()&lt;/h2&gt;
+      &lt;p&gt;Even Numbers: {evens.join(", ")}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+      <ul>
+        <li>Non-matching items are excluded; the original array is unchanged.</li>
+        <li>Often paired with <code>map()</code> for rendering filtered lists.</li>
+      </ul>
+    </section>
+
+    <section id="map" class="card">
+      <h2>4) <code>array.map()</code></h2>
+      <p class="summary">Creates a <strong>new array</strong> by transforming each element; length is unchanged.</p>
+
+      <pre><button class="copy-btn" title="Copy">Copy</button><code class="language-jsx">import React from "react";
+
+export default function MapExample() {
+  const numbers = [1, 2, 3, 4];
+
+  // Multiply each number by 2
+  const doubled = numbers.map((num) =&gt; num * 2);
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Array.map()&lt;/h2&gt;
+      &lt;p&gt;Doubled: {doubled.join(", ")}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+      <ul>
+        <li>Primary tool for <strong>rendering lists</strong> in React.</li>
+        <li>When rendering components in a loop, remember a stable <code>key</code> prop.</li>
+      </ul>
+    </section>
+
+    <section id="tips" class="card">
+      <h2>Interview Tips</h2>
+      <div class="tip">
+        <ul>
+          <li><strong>find()</strong> → returns a <em>single element</em> (first match).</li>
+          <li><strong>forEach()</strong> → <em>iterates</em>, no returned array (use for side effects).</li>
+          <li><strong>filter()</strong> → returns a <em>subset</em> (new array, ≤ length).</li>
+          <li><strong>map()</strong> → returns a <em>transformed array</em> (same length).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="senior" class="card">
+      <h2>Senior Engineer Interview Q&A</h2>
+      <div class="tip">
+        <h3>Q1. Difference between <code>map()</code> and <code>forEach()</code> in React rendering?</h3>
+        <p><strong>A:</strong> <code>map()</code> returns a new array, so it's perfect for generating React elements in JSX. <code>forEach()</code> doesn’t return a new array, making it unsuitable for rendering directly. Use <code>map()</code> for rendering lists, and <code>forEach()</code> for side effects.</p>
+
+        <h3>Q2. Performance considerations when using <code>filter()</code> + <code>map()</code>?</h3>
+        <p><strong>A:</strong> Chaining <code>filter().map()</code> is common but creates intermediate arrays. For large datasets, consider a single <code>reduce()</code> pass or memoization with <code>useMemo</code> to avoid unnecessary recalculations on re-renders.</p>
+
+        <h3>Q3. Why is <code>key</code> important when mapping lists in React?</h3>
+        <p><strong>A:</strong> Keys help React identify which elements changed, added, or removed. A stable key improves reconciliation performance and prevents issues like input losing focus. Avoid using array index as key unless the list is static.</p>
+
+        <h3>Q4. How does immutability affect array methods in React state?</h3>
+        <p><strong>A:</strong> Methods like <code>map()</code> and <code>filter()</code> return new arrays, preserving immutability, which is essential for React’s state change detection. Mutating methods (e.g., <code>push()</code>, <code>splice()</code>) should be avoided on state arrays.</p>
+
+        <h3>Q5. Can <code>find()</code> and <code>some()</code> be used interchangeably?</h3>
+        <p><strong>A:</strong> No. <code>find()</code> returns the actual element, while <code>some()</code> returns a boolean indicating existence. Use <code>some()</code> for checks, <code>find()</code> for retrieval.</p>
+
+        <h3>Q6. When would you prefer <code>reduce()</code> over <code>map()</code>/<code>filter()</code>?</h3>
+        <p><strong>A:</strong> When you want to perform multiple operations in one pass (e.g., filter + transform + aggregate). <code>reduce()</code> provides flexibility but can be less readable, so balance clarity and performance.</p>
+      </div>
+    </section>
+
+    <p class="footer">Pro tip: Pair <code>filter()</code> then <code>map()</code> to efficiently render only what you need in React lists. For senior-level roles, be ready to discuss immutability, performance trade-offs, and keys in React rendering.</p>
+  </div>
+
+  <script>
+    // Add copy buttons functionality for each code block
+    document.querySelectorAll('pre').forEach((pre) => {
+      const btn = pre.querySelector('.copy-btn');
+      const code = pre.querySelector('code');
+      btn?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code.innerText);
+          const old = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.style.borderColor = '#2aa34a';
+          btn.style.background = '#0f2a1a';
+          setTimeout(() => { btn.textContent = old; btn.style.borderColor=''; btn.style.background=''; }, 1200);
+        } catch (e) {
+          alert('Copy failed. You can still select the text manually.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

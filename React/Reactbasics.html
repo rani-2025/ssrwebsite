@@ -598,9 +598,10 @@ function MyComponent() {
     <section>
         <p>
             <h3> React router -> help to navigate to different pages</h3>
+            
             steps - 
             1. install the router module - npm i react-router-dom@6.22.3 
-            2.import browserRouer as Router {Routes,Route, path }
+            2.import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
             <Router>
                 <nva>
                     <ul>
@@ -613,19 +614,46 @@ function MyComponent() {
                     </ul>
                 </nva>
                 <Routes>
-                <Route path = '/' element = {</Home}> // here when landed home component wil load
+                <Route path = '/' element = {<Home movies={movies}/>} // here when landed home component wil load
                 <Route path = '/watchlist' element = {</watchlist}> // here when user navigate /watchlist  then watch list will be loaded
                 </Routes>
             </Router>
+            <p>
+                <h3> routing Q&A</h3>
+                1. Why are we using a router in React? To manage the navigation between different parts of the application without reloading the page.
+                2. Which element is used in React Router to navigate a user to a different route? - "<Link>" because it is specifically designed in React Router to create navigational links to different routes in your application, making it the correct choice for routing.
+                3. How can we tell a React Router <Route> element to display a specific component? - <Route path='/home' element = {<Home/>}/>
+            </p>
         </p>
         <p>
             <h3> example of useState in advance way</h3>
+            // in react state is immutable so that to update state we did [...prev, movieId]  using spread operator take complete state and add the new one into new state 
             1. this is how we srt -> const[watchList, setWatchList] = useState([]) // assign empty array
             2. const toogleWatchList = (movieId) => {
                 setWatchList(prev => 
                  prev.includes(movieId) ? prev.filter(id => id !== movie) : [...prev, movieId] // prev -> means previous state of watchlist if it already had movie id remove else add 
                 )
             }
+        </p>
+    </section>
+    <section>
+        <h3>React FAQs on Arrays</h3>
+        <p>
+            1. What is a “default export” in JavaScript?
+            Ans - A module that exports a single main value.
+            2. How does a “named export” differ from a “default export”?
+            Ans - named exported must be imported using their exact named
+            3. what are template literals (blacktics) used in javascript?
+            Ans - To embed variables directly inside strings.
+            4. what does the map() method do in javascript arrays?
+            Ans - it creates new array with transformed values.
+            5. what does the find() method return in an arrays?
+            Ans - the first element that matches the condition.
+            6. What is the purpose of the filter() method in JavaScript arrays?
+            Ans - creates a new array with elements that pass a test.
+            7. What does the forEach() method do in JavaScript?
+            Ans - it executes a function for each element without returning anything.
+            (The forEach() method in JavaScript executes a provided function for each element in an array but does not return a new array or value. )
         </p>
     </section>
     <footer>
