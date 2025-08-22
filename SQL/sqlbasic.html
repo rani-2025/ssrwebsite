@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>SQL Notes</h2>
+    <section>
+        <p>
+            1. SQL is a structured language
+            2. it contains structured data - we define types for each col.      
+            3. This structure called client - server architecture
+            4. server is central location where data will be stored 
+            5. all client machines connected to server
+            6. MS SQL - serevr (when we install) , SSMS - sql server management studio - client
+            7. if server doesnt work check services - MS SQL Server - should be running
+            8. odbc - open database connection - using which SSMs will connect to serevr  
+            9. data stored in server in database.
+            10. Relational database management system   
+            11. let say in employee table - emp id - primary key if it has aadhar , pan 
+            since they should be unique always we need to create them as candidate keys
+            12. in primary key we cant store null but in candidate key null is allowed
+            13. orphan record means it doesnt have parent record in parent table
+        </p>
+        <p>
+            1. create database retail // it will create retail
+            2. use retail -> this will allow to use retail
+         </p>
+         <p>
+            <h2>Different ways of inserting data </h2>
+            1. INSERT INTO salespeople VALUES (1002, 'Serres', 'San Jose', 0.13); 
+            // adding multiple values
+            2. INSERT INTO salespeople VALUES (1004, 'Motika', 'London', 0.11), (1007, 'Rifkin', 'Barcelona', 0.15), (1003, 'AxelRod', 'New York', 0.10), (1005, 'Fran', 'London', 0.26);
+            // adding with given column name
+            3. INSERT INTO salespeople(snum, sname, comm, city) VALUES (1008, 'Serres', 0.13, 'San Jose'); 
+         </p>
+         <p>
+            1. select * from salespeople; // get all records // here ; not required but good practice for readability
+            2. select snum, sname from salespeople; // get only 2 columns data //column wise filtering
+            3. select * from salespeople where city = 'London'; // all records who live in london // row wise filter
+            4. select * from salespeople where city = 'London' or city = 'new york'; // will give all records who lives in both london and newyork
+            // here no and bcs one person cant stay both london and new york 
+
+            5. select * from salespeople where city in ('London','new york') // this also gives all people lives in london also new york same  as or result; 
+            6. select * from salespeople where city = 'London' and comm < 0.5 // this will result all people who lives in lodon and their comm < 0.5 // it should match both conditions
+            7. select * from salespeople where (city = 'London' or city='new york') and comm < 0.5 // here it will filter london, newyork city people with comm < 0.5
+            8. select * from salespeople where comm > 0.10 and comm < 0.18 // this will list all people whose comm range between 0.11 to 0.17, its above 0.10 and less tgan 18
+            9. select * from salespeople where comm >= 0.10 and comm <= 0.18 // this will list all people whose comm range between 0.10 to 0.18
+            10. select * from salespeople where comm between 0.10 and 0.18; //  this will list all people whose comm range between 0.11 to 0.17 same as row 8
+            11. select * from salespeople where city ='London' and sname = 'peel' // this list people who lives in london and their sname should be peel
+
+            12.update salespeople set sname = 'bob' where snum = 1001 // update always give where condition
+            13. update salespeople set sname = 'bob', comm = 0.16 where snum = 1001 // both sname and comm will be  updated
+            14. update salespeople set comm = 0.20 where snum in(1001, 1002) // this will update 1001 and 1002 records
+
+            15. delete salespeople where snum = 1002 // this will delete 1002 record
+
+            16. when we have child record we cant delete from parent table until we delete from child record
+
+            17. select * into temp from sakespeople; // create temp table
+            18. drop table temp // it will drop temp
+
+            19. CREATE TABLE customer (  // foriegn key syntax
+                cnum INT NOT NULL,
+                cname VARCHAR(30) NOT NULL,
+                city VARCHAR(30) NOT NULL,
+                rating int not null,
+                snum int NOT NULL,
+                PRIMARY KEY (cnum),
+                FOREIGN KEY (snum) REFERENCES salespeople(snum)
+                );
+
+            20. exec sp_help customer; // by executing sp_help stored proc will give complete details including foreign key
+           
+        </p>
+        <p>
+            <h3> where clauses</h3>
+            1. fnd by
+            2. groupby
+            3. countby 
+
+           
+        </p>
+        <p>
+            1.select count(cnum) from customer // give total records 
+            2 select count(cnum) as 'count of customers' from customer  // / give total records  under this alias count of customers
+            
+            3. select count(cnum) from customer where city = 'London' // give total records under london 
+
+            4. select city, count(cnum) from customer group by city; // find count of customers in each city * heavily used one
+            5. select rating, count(cnum) from customer group by rating; // group by first segregate then filer the data
+
+            6.select city, count(cnum) from customer where city in ('London', 'Rome') group by city; // find the count of customers living in rome and london
+            7. where - filter raw data, group by - aggregate data, having - filter aggregated data
+            8. where comes before group by
+
+            9. find count of cust in cities where customer count is 1
+            select city, count(cnum) from customer group by city having count(cnum) = 1; 
+
+            10. order by - sorting data , we can apply on raw data or aggregated data it always comes end.
+            select * from customer order by city; default asc order no need to mention asc, means low to high / a - z
+
+            select * from customer order by city desc; // high to low / z- a
+
+            select rating, count(cnum) from customer group by rating order bt count(cnum); this do order by on aggregated count 
+
+            10. syntax of clauses 
+            where -> group by -> having-> order by 
+
+            11. having always work with group by 
+
+
+        </p>
+    </section>
+    <footer>
+        https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG
+
+        https://www.geeksforgeeks.org/sql/sql-exercises/ -- sql samples for practice
+    </footer>
+</body>
+</html>
