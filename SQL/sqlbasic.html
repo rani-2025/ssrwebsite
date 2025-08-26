@@ -166,9 +166,60 @@
 
 
         </p>
+        <p>
+            Joins 
+            1. inner 
+            2. left
+            3. right
+            4. outer
+
+            in our example - customer contains snum foriegnkey from salespeople. so here for customer salespeople is the lookup table.
+            always in join give the main table then lookuptable as the order.
+
+            <p>
+                <h3>Inner join</h3>
+            inner join - joins 2 tables on common values - 2 tables like a and b 
+            common recors a intersection b
+
+            select * from tableA join tableB on tableA.id = tableB.id 
+
+            select * from customer join salespeople on customer.snum = salespeople.snum;
+            here we see all columns from both tables and matching rows.
+
+            select c.snum, sname, count(cnum) from customer c join salespeople s on c.snum = s.snum group by c.snum, sname;
+
+            here join will execute frist, then group by, then count 
+         </p>
+         <p>
+            <h3> left outer join </h3>
+
+            get all data from left and mathing data from right table.
+            if no match records at right table will print null with left table data 
+
+         </p>
+
+         <p>
+            <h3> right outer join </h3>
+
+            get all data from right and mathing data from left table.
+            if no match records at left table will print null with right table data 
+
+            select * from customer right outer join salespeople on customer.snum = salespeople.snum;
+         </p>
+
+         <p>
+            <h3> full  join </h3>
+
+            get all data from right and left hand side. like a union b - common data wont be repeated.
+
+         </p>
+
+        </p>
     </section>
     <footer>
-        https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG
+        https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG - sandeep tutor link 
+
+        https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG?usp=drive_link - assignments link
 
         https://www.geeksforgeeks.org/sql/sql-exercises/ -- sql samples for practice
     </footer>
