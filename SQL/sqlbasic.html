@@ -215,6 +215,47 @@
          </p>
 
         </p>
+
+        <p>
+            <h3> functions</h3>
+            <p>
+
+                2 type of functions inbuilt and userdefined 
+                    1. inbuilt functions are in built programs. e.g count, sum, aggregator, string, math, date etc .. 
+                    2. alwats return something.
+                     
+                    3. user-defined needs to be created
+                    they will have round bracket
+                    functions will have parameter.
+
+                    count, sum, max, min, avg - are aggregate functions
+                
+            </p>
+            <p>
+                1. select sum(amt) as totalorders from orders; // find total amount
+                2. select cnum, sum(amt) from orders group by cnum; // find orders made by each customer
+                3. select customer.cnum,cname,sum(amt) as tot_order_amt from orders join customer on orders.cnum = customer.cnum group by customer.cnum,cname; // find orders made by each customer also display customer name
+                4. in above query if we use alias then tablename. wont work u need to use alias
+                5. in 3rd query if we want to receive whose orders most as first then we need to append same query with order by sum(amt) desc;
+                select customer.cnum,cname,sum(amt) as tot_order_amt from orders join customer on orders.cnum = customer.cnum group by customer.cnum,cname order by tot_order_amt desc; // find orders made by each customer also display customer name
+
+            </p>
+        </p>
+    </section>
+    <section>
+        <p>
+            <h3> join more then 2 tables e.g orderd, customer, sales</h3>
+            (table1 join table2 on top of whole result join table 3 -- follow the order of main and look up )
+
+            select * from orders o join customer c on o.cnum = c.cnum join salespeople s on c.snum = s.num;
+
+            // calculate comm payable to each salesperson 
+            // here when no data null
+             select s.snum, sname,  sum (comm * amt) as "total commision" from orders o join customer c on o.cnum = c.cnum join salespeople s on c.snum = s.snum group by s.snum, s.sname;
+
+            // here nul display zero
+            select s.snum, sname,  coalesce(sum (comm * amt), 0) as "total commision" from orders o join customer c on o.cnum = c.cnum right outer join salespeople s on c.snum = s.snum group by s.snum, s.sname;
+        </p>
     </section>
     <footer>
         https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG - sandeep tutor link 
