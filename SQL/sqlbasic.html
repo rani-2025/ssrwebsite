@@ -62,7 +62,7 @@
     <h2>SQL Notes</h2>
     <section>
         <p>
-            1. SQL is a structured language
+            1. SQL is a structured language and its not case sensitive
             2. it contains structured data - we define types for each col.      
             3. This structure called client - server architecture
             4. server is central location where data will be stored 
@@ -256,6 +256,90 @@
             // here nul display zero
             select s.snum, sname,  coalesce(sum (comm * amt), 0) as "total commision" from orders o join customer c on o.cnum = c.cnum right outer join salespeople s on c.snum = s.snum group by s.snum, s.sname;
         </p>
+        <p>
+            <h3>string functions</h3>
+            https://learn.microsoft.com/en-us/sql/t-sql/functions/string-functions-transact-sql?view=sql-server-ver17
+            1. select snum, upper(sname), lower(city) from salespeople;
+            2. select concat(sname, city) from salespeople; // it will concat sname and city
+            
+            3. update salespeople set city = ' London' where snum = 1009;
+              select * from salespeople where city='London'; // only give 2 even three exists due to space
+
+              select * from salespeople where trim(city)='London'; // always recommended trim with string comparison // this will give three results  // trim function removes extra leading places at end.
+            4.  select value from string_split('hello how r u', ' '); -- will split based on space
+
+            5. substring function will take 3 params , 1. actual string, 2 nd one is starting position where u starts, 3rd one no of characters
+
+            select SUBSTRING('hello', 1, 2) // returns he
+            select SUBSTRING('habbit', 4, 3) // return bit .. 4 starting position, 3 no of characters
+            select CONCAT(SUBSTRING(sname, 1, 1), ' ',SUBSTRING(city, 1, 1)) from salespeople // print frist character of sname and city in single string
+
+
+            5. like command use for pattern search 
+            select * from salespeople where sname like '%r%';  // find all snames which contain letter r // like command (pattern search)
+        
+            6. -- extract first letter from james, first letter from mark then combine with smith
+
+            select concat(substring('james', 1, 1), ' ', substring('mark',1,1), ' ', 'smith'); 
+        </p>
+        <p>
+            <h3> mathematical functions</h3>
+            https://learn.microsoft.com/en-us/sql/t-sql/functions/mathematical-functions-transact-sql?view=sql-server-ver17
+            ROUND(number, decimal_places)
+            Purpose:
+            Rounds a number to the nearest value using standard rounding rules.
+
+            How it works:
+
+            If the next digit is 5 or more, round up.
+
+            If it's less than 5, round down.
+
+            Examples:
+
+            ROUND(25.755, 1) → 25.8      -- Look at 2nd decimal (5), round up
+            ROUND(25.415, 2) → 25.42     -- Look at 3rd decimal (5), round up
+            ROUND(5.45, 1) → 5.5  
+            ROUND(5.44, 1) → 5.4  
+            ROUND(5.5, 0) → 6
+            ⬆️ 2. CEILING(number)
+            Purpose:
+            Always rounds up to the next highest whole number, no matter the decimal part.
+
+            Examples:
+
+            CEILING(5.1) → 6  
+            CEILING(5.9) → 6  
+            CEILING(-5.1) → -5    -- Still "up" toward zero
+            ⬇️ 3. FLOOR(number)
+            Purpose:
+            Always rounds down to the previous whole number, regardless of the decimal.
+
+            Examples:
+
+            FLOOR(5.9) → 5  
+            FLOOR(5.1) → 5  
+            FLOOR(-5.1) → -6    -- Down (further from zero)
+            🧠 Interview Tip:
+            "ROUND() gives you the nearest value based on regular rounding rules.
+            CEILING() always rounds up (toward positive infinity).
+            FLOOR() always rounds down (toward negative infinity).
+            These functions are especially useful in billing, pagination, or quantity calculations where direction of rounding matters."**
+        </p>
+        <p>
+            <h3> few more math functions</h3>
+            select round(25.95, 1); -- round up to 2 decimals .. 26.00
+
+            select square(9); -- 81
+
+            select sqrt(81); -- 9
+
+            select power(2,3); -- 8
+
+            select pi() * square(7);  -- area of circle - radius 7
+
+            select round(pi() * square(7), 0);  -- area of circle - radius 7 -- 154
+        </p>
     </section>
     <footer>
         https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG - sandeep tutor link 
@@ -263,6 +347,9 @@
         https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG?usp=drive_link - assignments link
 
         https://www.geeksforgeeks.org/sql/sql-exercises/ -- sql samples for practice
+        
+        https://ci-ceit.edu.ck/wp-content/uploads/2021/01/sql-the-complete-reference-third-edition-sep-2009.pdf
+        
     </footer>
 </body>
 </html>
