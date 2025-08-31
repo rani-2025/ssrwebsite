@@ -70,6 +70,22 @@
           we can use that for handling custom exceptions
 
           6. to customize we need to throw the exception.
+
+          7. various kind exceptions type we can add catch block -- listException, NullpointerException, objectException, QueryException and generic one which is Exception 
+          8. using throw keyword we can handle custom Exception, the moment we create class ending Exception automatically extends Exception class 
+
+        
+          public calss ApexCustomException extends Exception {
+
+          }
+          then in class like AplexExceptionDemp {
+            try {
+
+            }
+            catch(ApexCustomException ex){
+
+            }
+          }
         </p>
     </section>
 
@@ -78,6 +94,11 @@
             <h3> Salesforce Testfiles</h3>
             1. Testhamering - salesforce run testcases aganist ur application if those pass new release wont effect.
             if any new release happens and testclass fails admin will be notified immediately then developwe needs to take care of fixing.
+
+            @isTest
+            public calss ApexMathUtilTest {
+                @testMethod 
+            }
 
         </p>
     </section>

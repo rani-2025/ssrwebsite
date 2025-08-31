@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+      SalesForce Asynchronous Apex
+    </header>
+   <section>
+    <p>
+      <h3> Asynchronous apex</h3>
+      1. it wont get executed immediatly.
+      2.there are 2 types 1. method level 2. class level -- we need to define as Asynchronous by providing attribute as @Future
+      like below
+
+      @Future
+      public static void updateAccounts(List<Id> accountIds) // this will execute as Asynchronous
+
+      3. first 1 is schedulable , quable, batch or future
+
+    </p>
+    
+    <p>
+
+     <h3>schedulable syntax </h3> 
+
+      public class ApexSchedulable implements Schedulable {
+         public void execute(SchedulableContext sc){
+
+         }
+      }
+
+      /* 
+      * here in expression 0 0 12 * * ?
+      * first zero - sec, second - min, third - hour, * day of the month, * mon of the year, ? day of week
+      */
+
+      // while execution
+      ApexSchedulable aps = new ApexSchedulable();
+      String exp = '0 0 12 * * ?'; // cron expression // The CRON time is not absolute UTC, it’s relative to the time zone of the user who schedules the job.
+      System.schedule('My job', exp, aps);
+    </p>
+
+    <p>
+
+      <h3>quable syntax </h3> 
+ 
+       public class ApexQueueable implements Queueable {
+          public void execute(QueueableContext qc){
+ 
+          }
+       }
+ 
+       /* 
+       * 
+       * 
+       */
+ 
+       // while execution
+       ApexQueueable apq = new ApexQueueable();
+       System.enqueueJob(apq);
+     </p>
+     <p>
+      <h3> batch Apex</h3> 
+      1. This is heavily used
+      2. here batch of jobs will be executed at certain point of time.
+      3. e.g - 
+      4. here we create external Id in salesforce using filed and relationships and map this with external system
+      5. mobile data in sales force , bill payment in payment gate way these 2 system connected through external ID's
+
+      // syntax .. sales force allow max upto 50 milion records
+      public class ApexBatch implements Database.Batchable<SObject>{
+
+        public Database.QueryLocator Start(Database.BatchableContext bc){
+          return Database.getQueryLocator('SELECT Id, Name FROM Account');
+        }
+
+        public void execute(Database.BatchableContext bc, List<Account> ds)
+        {
+            for(Account a: ds){
+              a.description = 'update via batch job..';
+            }
+
+            update ds;
+        }
+
+        public void finish(Database.BatchableContext bc)
+        {
+          System.debug('Batch job completed..');
+        }
+     }
+
+     // execution 
+     ApexBatch a = new ApexBatch(); // in total account table 44 records there
+     Database.executeBatch(ab , 200); // if we give 200 means will go at one time , if give 11 will go as batches , if we give 1 44 batches will be executed
+     let say there are 4 batches if error happens at second one then only records in that batch will be reverted remaining all will continue . 
+     </p>
+   </section>
+   
+    <footer>
+
+    </footer>
+</body>
+</html>
