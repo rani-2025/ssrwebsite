@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>salesforce visualforce (MVC architecture)</h2>
+    <section>
+        <p>
+            <h3>salesforce visualforce</h3>
+            1. salesforce has classic and lightining modes
+            2. we can add / update classic pages using visual force.
+            3. visual force page is combination of apex + html programming
+            4. 2 ways we can do through 
+                a. developer console 
+                b. classical interface (thus is html and css based)
+            5. to work with classical interface -> go to finder -> enter users -> select ur username -> click on edit -> select development mode -> on
+            https://cheta1234-dev-ed.develop.lightning.force.com/lightning/setup/ManageUsers/home 
+            6. once enable check this page -> https://cheta1234-dev-ed--c.develop.vf.force.com/apex/vfpintro
+            7. <apex:page></apex:page> <!-- every apex page shoud start with this-->
+            <apex:form></apex:form> <!-- this is optional but mandatory when input/output commands are used-->
+            <apex:pageblock></apex:pageblock> <!-- group of tags that delivar particular functionality-->
+            <apex:pageblock>
+                <apex:commandbutton value="Button"> <!--every tag has multiple attributes value is one such attribute-->        
+                </apex:commandbutton>
+            </apex:pageblock>
+
+            8. when user request data e.g accounts in browser -> it goes to apex controller -> controller will talk to database (sql) returns data to browser.
+            9. when ever u create the object sales force immediatly creates apex controller for it.
+            
+        </p>
+        <p>
+            <h3> format to get user data </h3>
+                        <apex:page>
+            <h1> Apex global variables </h1>
+            <apex:pageBlock >
+            <apex:pageBlockSection Title="User information" columns="1">
+            <apex:pageBlockSectionItem >
+            <apex:outputLabel value="user name: ">
+            </apex:outputLabel>
+            <apex:outputText value="{!$User.FirstName} {!$User.LastName}"></apex:outputText>
+            </apex:pageBlockSectionItem>
+            <apex:pageblockSectionItem >
+            <apex:outputLabel value="user Email: ">
+            </apex:outputLabel>
+            <apex:outputText value="{!$User.Email}"></apex:outputText>
+            </apex:pageblockSectionItem>
+            </apex:pageBlockSection>
+            </apex:pageBlock>
+            </apex:page>
+        </p>
+        <p>
+            <h3> users u can get like but if u want to get for account u need to make as standardcontroller</h3>
+            <apex:page standardController="Account"></apex:page>
+                <h1> Apex global variables </h1>
+                <apex:pageBlock >
+                    <apex:pageBlockSection title="Course information" columns="1">
+                    
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Account name:" />
+                            <apex:outputText value="{!Account.Name}" />
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Account rating:" />
+                            <apex:outputText value="{!Account.Rating}" />
+                        </apex:pageBlockSectionItem>
+                        
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+        </apex:page>
+        </p>
+        if we have mutiple it wont show any data then go to accounts object get id and append on url 
+        https://cheta1234-dev-ed--c.develop.vf.force.com/apex/vfpglobalvariables1?id=001aj000018dEh8AAE
+
+        to avoid manually passing id to the url  we can go to setup -> object managet -> 
+        https://cheta1234-dev-ed.develop.lightning.force.com/lightning/setup/ObjectManager/home -> here select accounts -> click on 
+        buttons, links and Actions -> 
+        New button or Link -> give label -> select detail page button and then go to -> content source -> select visual force page -> 
+        ig no content found then -> do following -> then refresh u can see vsf page
+                Open your Visualforce page in Setup.
+                Make sure the checkbox "Available for Lightning Experience, Lightning Communities, and the mobile app" is selected.
+                Without this, the page won’t show up when you create a button.
+
+        once it complete u need to go home-> object manager-> account -> pagelayout -> account layout -> buttons -> select show_details and place on green highlighted area
+        <p>
+            <h3> format to get accounts data </h3>
+        </p>
+        <p>
+            1. https://cheta1234-dev-ed--c.develop.vf.force.com/apex/vfpglobalvariables
+
+        </p>
+        <p>
+            1. create from developer console -> file -> new -> pages  -> apex:forn , if standard controller access like this {!Account.Industry}" else {!$User.FirstName}
+            <apex:page standardController="Account">
+                <apex:form>
+                <h1> Apex form </h1>
+                <apex:pageBlock tabStyle="Account">
+                    <apex:pageBlockSection title="Account information">
+                        <apex:inputField value="{!Account.Name}" />
+                        <apex:inputField value="{!Account.Rating}" />   
+                        <apex:inputField value="{!Account.Industry}" />    
+                        <apex:inputField value="{!Account.Annualrevenue}" />    
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        <apex:commandButton Value="Save" action="{!Save}"/>
+                        <apex:commandButton Value="Cancel" action="{!Cancel}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+               </apex:form>
+            </apex:page>
+        </p>
+        
+    </section>
+  <section>
+    <h3> apex class with getter setter methods(MVC architecture)</h3>
+    <p>
+        <h3> apex controller</h3>
+        <p>
+            public class ApexGetSet {
+                String AccName;
+                   public apexGetSet(){
+                       AccName = 'Enter the account name...';
+                   }
+               }
+        </p>
+        <p>
+            <h3>Apex page</h3>
+            
+        </p>
+
+    </p>
+  </section>
+</body>
+</html>
