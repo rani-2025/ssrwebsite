@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Advanced SQL</h2>
+    <section>
+        <p>
+            <h3> Triggers </h3>
+            1. triggers called internal - when some event happens like insert, update, delete
+            2. called based on the event - adding a record in orders table 
+            3. on triggers there are 2 system tables inserted , deleted.
+        
+            e.g - > orders, customers table -> the momemt order been placed new row will be inserted in orders table, 
+            then update custimer table total amount should be updated 
+
+
+            --create insert trigger-- when order been inserted into orders it will update into customers
+            CREATE TRIGGER update_amount ON orders  
+            AFTER INSERT  
+            AS  
+            BEGIN  
+            SET NOCOUNT ON; -- it will not return total records affected messages
+            declare @amt decimal(7,2); -- local variables
+            declare @cnum int;
+
+            select @cnum=cnum, @amt=amt from inserted; --inserted is a system table in triggers which will have last inserted data
+
+
+            update customer
+            set total_orders = total_orders + @amt
+            where customer.cnum = @cnum;
+            END;
+
+            select * from orders;
+            select * from customer;
+
+            insert into orders values(3051, 1000, '2025-09-03', 2001); 
+
+           
+        </p>
+
+        <p>
+            <h3> Stored Procedues </h3>
+            1. its a program script.
+            2. this will be executed using exec 
+            2. external command - exec 
+            3. no need to compile as its pre compiled 
+           
+        </p>
+
+        <p>
+            <h3>
+                <p>userdefined Functions</p>
+                2 type of udf  -- all created functions we can see under programability section in SSMS 
+                1. scaler - it will take one or more param but return single value - here we can use function part of select query as a column
+                2. inline table valued functions (ITVF) - it will return table - multiple values - here we can use function as a table means -- select * from (ITVF function name)
+                3. in ITVF we can modify output as per requirement where as stored procedure returns fixed output.
+
+            </h3>
+        </p>
+    </section>
+</body>
+<footer>
+    https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG -- triggers
+    https://drive.google.com/file/d/1cRjcuMGrS8sCeSoSIFk_LGAhglrTTqq5/view -- sql statements
+</footer>
+</html>
