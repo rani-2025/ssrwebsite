@@ -255,6 +255,9 @@
 
             // here nul display zero
             select s.snum, sname,  coalesce(sum (comm * amt), 0) as "total commision" from orders o join customer c on o.cnum = c.cnum right outer join salespeople s on c.snum = s.snum group by s.snum, s.sname;
+        
+            // this is the order of select when given aggrgation functions needs to use
+            select...from ...join ...where ..group .. having --- order by
         </p>
         <p>
             <h3>string functions</h3>
@@ -339,6 +342,21 @@
             select pi() * square(7);  -- area of circle - radius 7
 
             select round(pi() * square(7), 0);  -- area of circle - radius 7 -- 154
+        </p>
+        <p>
+            <h3> ranking functions</h3>
+            <p>
+                1.2 types
+                rank , dense rank 
+                
+                a. let say 4 students a - 100 - 1st rank, b - 90, c - 90, d - 85 
+                 here rank results as a -1, b & c - 2, d - 4th rank (it will skip 3 bcs 3rd one allocated 2)
+
+                 with dense ranking
+                 here rank results as a -1, b & c - 2, d - 3rd rank (it wont skip like rank)
+
+                 if we want to get Top 5 customers as per sales which one will u use -> dense rank - bcs we done give gap if 2 customers have same sales
+            </p>
         </p>
     </section>
     <section>

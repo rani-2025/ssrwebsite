@@ -116,6 +116,17 @@
             </h3>
         </p>
     </section>
+    <section>
+        <p>
+            <h3> bulk data insert</h3>
+            1. need to upload file on c drive 
+            2. exec sp_columns customer; // sp_columns is the system stored procedure will list down all customer table columns
+            3. exec sp_help customer; // will show all details about customer table
+            4. bulk insert customer from 'c:\cust.txt' with ( FIELDTERMINATOR = ',', ROWTERMINATOR = '\n'); // here cust.txt stores in server side 
+            
+            5. let say if there is any issue with cust.txt then no records will be inserted.
+        </p>
+    </section>
 </body>
 <footer>
     https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG -- triggers
