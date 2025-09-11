@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brooks Brothers SFCC Project Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
+        h3 { color: #7f8c8d; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        code { background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px; }
+        pre { background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .toc { background-color: #ecf0f1; padding: 20px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<h1>Brooks Brothers Salesforce Commerce Cloud (SFCC) Project Documentation</h1>
+
+<div class="toc">
+<h2>Table of Contents</h2>
+<ul>
+    <li><a href="#overview">Project Overview</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#development-environment">Development Environment</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#sfra-technical">SFRA Technical Architecture</a></li>
+    <li><a href="#core-cartridges">Core Cartridges</a></li>
+    <li><a href="#integrations">Integration Cartridges</a></li>
+    <li><a href="#bb-features">Brooks Brothers Core Features</a></li>
+    <li><a href="#development">Development Environment</a></li>
+    <li><a href="#deployment">Deployment & CI/CD</a></li>
+    <li><a href="#configuration">Configuration Files</a></li>
+    <li><a href="#features">Key Features</a></li>
+    <li><a href="#guidelines">Development Guidelines</a></li>
+</ul>
+</div>
+
+<h2 id="overview">Project Overview</h2>
+<table>
+    <tr><th>Property</th><th>Value</th></tr>
+    <tr><td>Project Name</td><td>Brooks Brothers SFCC E-commerce Platform</td></tr>
+    <tr><td>Architecture</td><td>Storefront Reference Architecture (SFRA) 5.1.0</td></tr>
+    <tr><td>Framework</td><td>Salesforce Commerce Cloud</td></tr>
+    <tr><td>Developer</td><td>BORN Group</td></tr>
+    <tr><td>Repository</td><td>c-arias-brooks-brothers-sfcc-3d7985d6f777</td></tr>
+</table>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<h3>Prerequisites</h3>
+<table>
+    <tr><th>Requirement</th><th>Version</th><th>Installation</th></tr>
+    <tr><td>Node.js</td><td>12.13.1</td><td><code>nvm install 12.13.1 && nvm use 12.13.1</code></td></tr>
+    <tr><td>NPM</td><td>Latest</td><td>Included with Node.js</td></tr>
+    <tr><td>SFCC Sandbox Access</td><td>N/A</td><td>Contact SFCC Administrator</td></tr>
+</table>
+
+<h3>Quick Start Steps</h3>
+<table>
+    <tr><th>Step</th><th>Command</th><th>Description</th></tr>
+    <tr><td>1</td><td><code>npm install</code></td><td>Install project dependencies</td></tr>
+    <tr><td>2</td><td>Create <code>dw.json</code></td><td>Configure sandbox connection</td></tr>
+    <tr><td>3</td><td><code>npm run build</code></td><td>Compile JavaScript and CSS</td></tr>
+    <tr><td>4</td><td><code>npm run deploy</code></td><td>Upload cartridges to sandbox</td></tr>
+    <tr><td>5</td><td>Configure Business Manager</td><td>Set cartridge path and activate code</td></tr>
+</table>
+
+<h3>Required Configuration Files</h3>
+
+<h4>dw.json (Sandbox Connection)</h4>
+<pre>
+{
+    "hostname": "your-sandbox.demandware.net",
+    "username": "your-username",
+    "password": "your-password",
+    "version": "BB-SPRINT-REV001",
+    "cartridges": "cartridges"
+}
+</pre>
+
+<h4>Cartridge Path Configuration</h4>
+<pre>
+int_powerreviews_sfra:int_epsilon_loyalty:plugin_applepay:plugin_instorepickup:
+plugin_specialhandling:plugin_giftcertificate:app_brooksbrothers_core:
+int_globale_sfra:app_accelerator_core:app_storefront_base
+</pre>
+
+<h3>Development Commands</h3>
+<table>
+    <tr><th>Command</th><th>Purpose</th><th>When to Use</th></tr>
+    <tr><td><code>npm run build</code></td><td>Compile all assets</td><td>Before deployment</td></tr>
+    <tr><td><code>npm run build:js</code></td><td>Compile JavaScript only</td><td>JS changes only</td></tr>
+    <tr><td><code>npm run build:css</code></td><td>Compile SCSS only</td><td>Style changes only</td></tr>
+    <tr><td><code>npm run watch</code></td><td>Auto-build and deploy</td><td>Active development</td></tr>
+    <tr><td><code>npm run deploy</code></td><td>Upload to sandbox</td><td>After building</td></tr>
+    <tr><td><code>npm test</code></td><td>Run unit tests</td><td>Before commits</td></tr>
+</table>
+
+<h3>Business Manager Setup</h3>
+<table>
+    <tr><th>Step</th><th>Location</th><th>Action</th></tr>
+    <tr><td>1</td><td>Administration > Sites > Manage Sites</td><td>Select your site</td></tr>
+    <tr><td>2</td><td>Settings Tab</td><td>Configure cartridge path</td></tr>
+    <tr><td>3</td><td>Administration > Site Development > Code Deployment</td><td>Activate code version</td></tr>
+</table>
+
+<h3>Development Workflow</h3>
+<pre>
+1. Make code changes in cartridges/app_brooksbrothers_core/
+2. Run: npm run watch (auto-builds and deploys)
+3. Test changes in sandbox
+4. Commit to version control
+5. Deploy to staging/production
+</pre>
+
+<h3>Key Development Directories</h3>
+<table>
+    <tr><th>Directory</th><th>Purpose</th><th>File Types</th></tr>
+    <tr><td>/cartridge/controllers/</td><td>Server-side logic</td><td>.js files</td></tr>
+    <tr><td>/cartridge/models/</td><td>Data models</td><td>.js files</td></tr>
+    <tr><td>/cartridge/templates/</td><td>Frontend templates</td><td>.isml files</td></tr>
+    <tr><td>/cartridge/client/default/js/</td><td>Client-side JavaScript</td><td>.js files</td></tr>
+    <tr><td>/cartridge/client/default/scss/</td><td>Stylesheets</td><td>.scss files</td></tr>
+    <tr><td>/cartridge/static/</td><td>Static assets</td><td>Images, fonts</td></tr>
+</table>
+
+<h3>Access URLs</h3>
+<table>
+    <tr><th>Environment</th><th>URL Pattern</th><th>Purpose</th></tr>
+    <tr><td>Storefront</td><td>https://sandbox.demandware.net/s/SiteGenesis/</td><td>Customer-facing site</td></tr>
+    <tr><td>Business Manager</td><td>https://sandbox.demandware.net/on/demandware.store/Sites-Site</td><td>Admin interface</td></tr>
+</table>
+
+<h3>Troubleshooting</h3>
+<table>
+    <tr><th>Issue</th><th>Solution</th></tr>
+    <tr><td>Build errors</td><td><code>rm -rf node_modules && npm install</code></td></tr>
+    <tr><td>Deploy errors</td><td>Check dw.json credentials and sandbox access</td></tr>
+    <tr><td>Site not loading</td><td>Verify cartridge path in Business Manager</td></tr>
+    <tr><td>Code not updating</td><td>Ensure code version is activated</td></tr>
+</table>
+
+<h3>What You Need From Your Team</h3>
+<ul>
+    <li><strong>Sandbox credentials</strong> - hostname, username, password</li>
+    <li><strong>Business Manager access</strong> - Admin permissions</li>
+    <li><strong>Code version name</strong> - Active deployment version</li>
+    <li><strong>Environment details</strong> - Dev/staging/prod configurations</li>
+</ul>
+
+<h2 id="development-environment">Development Environment Explained</h2>
+
+<h3>Understanding SFCC Development Environment</h3>
+<table>
+    <tr><th>Component</th><th>What It Is</th><th>Purpose</th></tr>
+    <tr><td>Sandbox</td><td>Your development server in the cloud</td><td>Where your code runs and gets tested</td></tr>
+    <tr><td>Business Manager</td><td>Admin interface for the sandbox</td><td>Configure settings, manage data, set cartridge paths</td></tr>
+    <tr><td>Storefront</td><td>Customer-facing website</td><td>Where you see your changes live</td></tr>
+    <tr><td>Local Project</td><td>Code on your computer</td><td>Where you write and edit code</td></tr>
+</table>
+
+<h3>dw.json Configuration Explained</h3>
+<p><strong>Purpose:</strong> Connects your local computer to the SFCC sandbox for code deployment.</p>
+
+<h4>dw.json Template</h4>
+<pre>
+{
+    "hostname": "dev01-brooksbrothers.demandware.net",  // Which sandbox to connect to
+    "username": "john.doe",                             // Your SFCC login username
+    "password": "yourpassword",                         // Your SFCC login password
+    "version": "BB-SPRINT-REV001",                      // Code version to deploy to
+    "cartridges": "cartridges"                          // Local folder containing cartridges
+}
+</pre>
+
+<h4>How dw.json Works</h4>
+<table>
+    <tr><th>When You Run</th><th>What Happens</th><th>dw.json Role</th></tr>
+    <tr><td><code>npm run deploy</code></td><td>Uploads all cartridges to sandbox</td><td>Tells system WHERE to upload</td></tr>
+    <tr><td><code>npm run watch</code></td><td>Auto-uploads file changes</td><td>Provides connection details</td></tr>
+    <tr><td>Build process</td><td>Compiles and syncs code</td><td>Specifies target environment</td></tr>
+</table>
+
+<h3>Business Manager Setup (Step-by-Step)</h3>
+
+<h4>1. Access Business Manager</h4>
+<table>
+    <tr><th>Step</th><th>Action</th><th>Example</th></tr>
+    <tr><td>1</td><td>Open Business Manager URL</td><td><code>https://dev01-brooksbrothers.demandware.net/on/demandware.store/Sites-Site</code></td></tr>
+    <tr><td>2</td><td>Login with SFCC credentials</td><td>Same username/password as dw.json</td></tr>
+    <tr><td>3</td><td>Navigate to site settings</td><td>Administration → Sites → Manage Sites</td></tr>
+</table>
+
+<h4>2. Configure Cartridge Path</h4>
+<pre>
+Navigation Path:
+Business Manager Dashboard
+↓
+Administration (top menu)
+↓
+Sites → Manage Sites
+↓
+Click your site name (e.g., "BrooksBrothers")
+↓
+Settings tab
+↓
+Find "Cartridge Path" field
+↓
+Paste cartridge path and save
+</pre>
+
+<h4>3. Cartridge Path Explained</h4>
+<p><strong>What it does:</strong> Tells SFCC which cartridges to load and in what order</p>
+<p><strong>Loading order:</strong> Left to right (leftmost cartridge wins if files conflict)</p>
+
+<pre>
+Brooks Brothers Cartridge Path:
+int_powerreviews_sfra:int_epsilon_loyalty:plugin_applepay:plugin_instorepickup:
+plugin_specialhandling:plugin_giftcertificate:app_brooksbrothers_core:
+int_globale_sfra:app_accelerator_core:app_storefront_base
+</pre>
+
+<table>
+    <tr><th>Cartridge Priority</th><th>Cartridge Name</th><th>Purpose</th></tr>
+    <tr><td>1 (Highest)</td><td>int_powerreviews_sfra</td><td>Product reviews integration</td></tr>
+    <tr><td>2</td><td>int_epsilon_loyalty</td><td>Loyalty program</td></tr>
+    <tr><td>7</td><td>app_brooksbrothers_core</td><td><strong>Main Brooks Brothers customizations</strong></td></tr>
+    <tr><td>9</td><td>app_accelerator_core</td><td>BORN Group framework</td></tr>
+    <tr><td>10 (Lowest)</td><td>app_storefront_base</td><td>Base SFRA framework</td></tr>
+</table>
+
+<h3>Development Workflow (Daily Process)</h3>
+
+<h4>Morning Setup</h4>
+<pre>
+# Navigate to project directory
+cd /Users/sjuloori/bbsalesforce/c-arias-brooks-brothers-sfcc-3d7985d6f777
+
+# Start development mode
+npm run watch
+
+# This starts auto-sync to sandbox
+</pre>
+
+<h4>Development Process</h4>
+<table>
+    <tr><th>Step</th><th>You Do</th><th>System Does</th><th>Result</th></tr>
+    <tr><td>1</td><td>Edit file in VS Code</td><td>Detects file change</td><td>File marked for upload</td></tr>
+    <tr><td>2</td><td>Save file (Cmd+S)</td><td>Auto-compiles if needed</td><td>JavaScript/SCSS processed</td></tr>
+    <tr><td>3</td><td>Wait 2-3 seconds</td><td>Uploads to sandbox</td><td>File live on server</td></tr>
+    <tr><td>4</td><td>Refresh browser</td><td>Loads updated code</td><td>See your changes</td></tr>
+</table>
+
+<h4>Real-time Development Flow</h4>
+<pre>
+Local File Edit → Save → Auto-build → Auto-upload → Test in Browser
+       ↓            ↓         ↓           ↓              ↓
+   VS Code → Webpack → SFCC Sandbox → Refresh Site → See Changes
+</pre>
+
+<h3>Testing Your Changes</h3>
+
+<h4>Access URLs</h4>
+<table>
+    <tr><th>Interface</th><th>URL Pattern</th><th>When to Use</th></tr>
+    <tr><td>Storefront</td><td><code>https://[sandbox]/s/SiteGenesis/</code></td><td>Test customer-facing changes</td></tr>
+    <tr><td>Business Manager</td><td><code>https://[sandbox]/on/demandware.store/Sites-Site</code></td><td>Configure settings, manage data</td></tr>
+</table>
+
+<h4>Example Development Session</h4>
+<pre>
+1. Edit controller file:
+   cartridges/app_brooksbrothers_core/cartridge/controllers/Product.js
+
+2. Save file → Watch process automatically:
+   - Detects change
+   - Uploads Product.js to sandbox
+   - File is live immediately
+
+3. Test at: https://your-sandbox.demandware.net/s/SiteGenesis/
+
+4. See changes instantly
+</pre>
+
+<h3>Key Development Directories</h3>
+<table>
+    <tr><th>Directory</th><th>File Types</th><th>What You Edit</th><th>When Changes Apply</th></tr>
+    <tr><td><code>/cartridge/controllers/</code></td><td>.js files</td><td>Server-side logic, API endpoints</td><td>Immediately after upload</td></tr>
+    <tr><td><code>/cartridge/templates/</code></td><td>.isml files</td><td>HTML templates, page structure</td><td>Immediately after upload</td></tr>
+    <tr><td><code>/cartridge/client/default/js/</code></td><td>.js files</td><td>Client-side JavaScript</td><td>After webpack compilation</td></tr>
+    <tr><td><code>/cartridge/client/default/scss/</code></td><td>.scss files</td><td>Styles and CSS</td><td>After SCSS compilation</td></tr>
+    <tr><td><code>/cartridge/models/</code></td><td>.js files</td><td>Data models, business logic</td><td>Immediately after upload</td></tr>
+</table>
+
+<h3>Development vs Production Environments</h3>
+<table>
+    <tr><th>Environment</th><th>How Code Gets There</th><th>When to Use</th><th>Who Has Access</th></tr>
+    <tr><td><strong>Development (Sandbox)</strong></td><td>npm run watch (auto-sync)</td><td>Daily coding, testing</td><td>Developers</td></tr>
+    <tr><td><strong>Staging</strong></td><td>Formal deployment process</td><td>QA testing, client review</td><td>QA team, stakeholders</td></tr>
+    <tr><td><strong>Production</strong></td><td>Approved releases only</td><td>Live customer site</td><td>Ops team, limited access</td></tr>
+</table>
+
+<h3>Common Development Scenarios</h3>
+
+<h4>Scenario 1: Adding New Feature</h4>
+<pre>
+1. Create new controller: cartridges/app_brooksbrothers_core/cartridge/controllers/MyFeature.js
+2. Create template: cartridges/app_brooksbrothers_core/cartridge/templates/default/myfeature.isml
+3. Add styles: cartridges/app_brooksbrothers_core/cartridge/client/default/scss/myfeature.scss
+4. Test at: https://sandbox.demandware.net/s/SiteGenesis/MyFeature-Show
+</pre>
+
+<h4>Scenario 2: Modifying Existing Page</h4>
+<pre>
+1. Find existing controller (e.g., Product.js)
+2. Edit controller logic
+3. Save → Auto-uploads
+4. Refresh product page to see changes
+</pre>
+
+<h4>Scenario 3: Styling Changes</h4>
+<pre>
+1. Edit SCSS file: cartridges/app_brooksbrothers_core/cartridge/client/default/scss/product.scss
+2. Save → Webpack compiles SCSS to CSS → Uploads to sandbox
+3. Refresh page → See style changes
+</pre>
+
+<h3>Troubleshooting Development Issues</h3>
+<table>
+    <tr><th>Problem</th><th>Likely Cause</th><th>Solution</th></tr>
+    <tr><td>Changes not appearing</td><td>Cartridge path incorrect</td><td>Check Business Manager cartridge path</td></tr>
+    <tr><td>Upload errors</td><td>dw.json credentials wrong</td><td>Verify sandbox access and credentials</td></tr>
+    <tr><td>Build errors</td><td>JavaScript/SCSS syntax errors</td><td>Check console output, fix syntax</td></tr>
+    <tr><td>Site not loading</td><td>Code version not activated</td><td>Activate code version in Business Manager</td></tr>
+    <tr><td>Watch not working</td><td>Node modules corrupted</td><td><code>rm -rf node_modules && npm install</code></td></tr>
+</table>
+
+<h2 id="architecture">Architecture</h2>
+
+<h3>Core Framework</h3>
+<ul>
+    <li><strong>SFRA-based</strong>: Built on Salesforce's reference architecture</li>
+    <li><strong>Layered cartridge approach</strong>: Base cartridge never modified, customizations layered on top</li>
+    <li><strong>Multi-cartridge system</strong>: 80+ cartridges for modular functionality</li>
+    <li><strong>Node.js build system</strong>: Webpack, Babel, SCSS compilation</li>
+</ul>
+
+<h3>Cartridge Structure</h3>
+<pre>
+cartridges/
+├── app_storefront_base/          # Base SFRA cartridge (never modified)
+├── app_brooksbrothers_core/      # Primary Brooks Brothers customizations
+├── app_accelerator_core/         # BORN Group accelerator framework
+├── app_custom_svs/               # Custom services
+└── [70+ integration cartridges]  # Third-party integrations
+</pre>
+
+<h2 id="sfra-technical">SFRA Technical Architecture</h2>
+
+<h3>SFRA Framework Overview</h3>
+<p>Storefront Reference Architecture (SFRA) is Salesforce Commerce Cloud's modern reference implementation that provides a layered, modular approach to e-commerce development.</p>
+
+<h3>MVC Architecture Pattern</h3>
+<table>
+    <tr><th>Component</th><th>Location</th><th>Purpose</th></tr>
+    <tr><td>Models</td><td>/cartridge/models/</td><td>Data representation and business logic</td></tr>
+    <tr><td>Views</td><td>/cartridge/templates/</td><td>ISML templates for UI rendering</td></tr>
+    <tr><td>Controllers</td><td>/cartridge/controllers/</td><td>Request handling and response logic</td></tr>
+</table>
+
+<h3>Cartridge Layering System</h3>
+<p>SFRA uses a cartridge path system where cartridges are loaded in order of priority:</p>
+<pre>
+Cartridge Path Priority (Left to Right):
+Custom Cartridges → Integration Cartridges → Base Cartridge
+
+Example:
+app_brooksbrothers_core : app_accelerator_core : app_storefront_base
+</pre>
+
+<h3>Request Processing Flow</h3>
+<table>
+    <tr><th>Step</th><th>Component</th><th>Description</th></tr>
+    <tr><td>1</td><td>URL Routing</td><td>Maps URLs to controller endpoints</td></tr>
+    <tr><td>2</td><td>Middleware</td><td>Processes authentication, caching, security</td></tr>
+    <tr><td>3</td><td>Controller</td><td>Handles business logic and data processing</td></tr>
+    <tr><td>4</td><td>Model</td><td>Retrieves and processes data</td></tr>
+    <tr><td>5</td><td>Template</td><td>Renders HTML response using ISML</td></tr>
+</table>
+
+<h3>Client-Side Architecture</h3>
+<table>
+    <tr><th>Technology</th><th>Purpose</th><th>Location</th></tr>
+    <tr><td>JavaScript (ES6+)</td><td>Client-side functionality</td><td>/cartridge/client/default/js/</td></tr>
+    <tr><td>SCSS</td><td>Styling and responsive design</td><td>/cartridge/client/default/scss/</td></tr>
+    <tr><td>Bootstrap 4</td><td>CSS framework</td><td>Included via npm</td></tr>
+    <tr><td>jQuery</td><td>DOM manipulation</td><td>Included in base</td></tr>
+</table>
+
+<h3>Server-Side JavaScript Architecture</h3>
+<pre>
+// Controller Structure
+server.get('Show', function (req, res, next) {
+    // Middleware chain
+    cache.applyDefaultCache,
+    consentTracking.consent,
+    
+    // Main handler
+    function (req, res, next) {
+        var model = new ProductModel(req.querystring.pid);
+        res.render('product/productDetails', {
+            product: model
+        });
+        next();
+    }
+});
+</pre>
+
+<h3>Data Layer Architecture</h3>
+<table>
+    <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+    <tr><td>Business Objects</td><td>SFCC API</td><td>Core commerce entities (Product, Order, Customer)</td></tr>
+    <tr><td>Custom Objects</td><td>SFCC Custom Objects</td><td>Custom business data storage</td></tr>
+    <tr><td>Models</td><td>JavaScript</td><td>Data transformation and business logic</td></tr>
+    <tr><td>Decorators</td><td>JavaScript</td><td>Extend base functionality without modification</td></tr>
+</table>
+
+<h3>Template Engine (ISML)</h3>
+<pre>
+&lt;!-- ISML Template Structure --&gt;
+&lt;iscontent type="text/html" charset="UTF-8" compact="true"/&gt;
+&lt;isinclude template="/common/htmlHead"/&gt;
+
+&lt;div class="container"&gt;
+    &lt;isloop items="${pdict.products}" var="product"&gt;
+        &lt;div class="product-tile"&gt;
+            &lt;isprint value="${product.name}" encoding="htmlcontent"/&gt;
+        &lt;/div&gt;
+    &lt;/isloop&gt;
+&lt;/div&gt;
+
+&lt;isinclude template="/common/footer"/&gt;
+</pre>
+
+<h3>Build System Architecture</h3>
+<table>
+    <tr><th>Tool</th><th>Purpose</th><th>Configuration</th></tr>
+    <tr><td>Webpack</td><td>Module bundling and compilation</td><td>webpack.config.js</td></tr>
+    <tr><td>Babel</td><td>JavaScript transpilation</td><td>babel.config.json</td></tr>
+    <tr><td>PostCSS</td><td>CSS processing and optimization</td><td>postcss.config.js</td></tr>
+    <tr><td>ESLint</td><td>JavaScript linting</td><td>.eslintrc.json</td></tr>
+    <tr><td>Stylelint</td><td>CSS/SCSS linting</td><td>.stylelintrc.json</td></tr>
+</table>
+
+<h3>Caching Strategy</h3>
+<table>
+    <tr><th>Cache Type</th><th>Duration</th><th>Use Case</th></tr>
+    <tr><td>Page Cache</td><td>24 hours</td><td>Static content pages</td></tr>
+    <tr><td>Include Cache</td><td>1 hour</td><td>Reusable template components</td></tr>
+    <tr><td>Remote Include</td><td>30 minutes</td><td>Third-party content</td></tr>
+    <tr><td>No Cache</td><td>0</td><td>Dynamic user-specific content</td></tr>
+</table>
+
+<h3>Security Architecture</h3>
+<ul>
+    <li><strong>CSRF Protection</strong> - Cross-site request forgery prevention</li>
+    <li><strong>Content Security Policy</strong> - XSS attack prevention</li>
+    <li><strong>HTTPS Enforcement</strong> - Secure data transmission</li>
+    <li><strong>Input Validation</strong> - Server-side data sanitization</li>
+    <li><strong>Session Management</strong> - Secure user session handling</li>
+</ul>
+
+<h3>API Integration Patterns</h3>
+<pre>
+// Service Integration Pattern
+var ServiceRegistry = require('dw/svc/ServiceRegistry');
+
+var service = ServiceRegistry.createService('PaymentService', {
+    createRequest: function(svc, params) {
+        svc.setRequestMethod('POST');
+        svc.addHeader('Content-Type', 'application/json');
+        return JSON.stringify(params);
+    },
+    parseResponse: function(svc, response) {
+        return JSON.parse(response.text);
+    }
+});
+</pre>
+
+<h3>Performance Optimization</h3>
+<table>
+    <tr><th>Technique</th><th>Implementation</th><th>Benefit</th></tr>
+    <tr><td>Code Splitting</td><td>Webpack dynamic imports</td><td>Reduced initial bundle size</td></tr>
+    <tr><td>Lazy Loading</td><td>Intersection Observer API</td><td>Faster page load times</td></tr>
+    <tr><td>Image Optimization</td><td>Responsive images with srcset</td><td>Optimized bandwidth usage</td></tr>
+    <tr><td>Minification</td><td>Webpack optimization</td><td>Smaller file sizes</td></tr>
+</table>
+
+<h3>Testing Architecture</h3>
+<table>
+    <tr><th>Test Type</th><th>Framework</th><th>Location</th></tr>
+    <tr><td>Unit Tests</td><td>Mocha + Chai</td><td>/test/unit/</td></tr>
+    <tr><td>Integration Tests</td><td>Mocha + Supertest</td><td>/test/integration/</td></tr>
+    <tr><td>Functional Tests</td><td>CodeceptJS</td><td>/test/acceptance/</td></tr>
+    <tr><td>Coverage</td><td>Istanbul</td><td>Generated reports</td></tr>
+</table>
+
+<h2 id="core-cartridges">Core Cartridges</h2>
+
+<h3>Primary Cartridges</h3>
+<table>
+    <tr><th>Cartridge</th><th>Purpose</th></tr>
+    <tr><td>app_storefront_base</td><td>Base SFRA framework (unmodified)</td></tr>
+    <tr><td>app_brooksbrothers_core</td><td>Brooks Brothers business logic</td></tr>
+    <tr><td>app_accelerator_core</td><td>BORN Group accelerator components</td></tr>
+    <tr><td>app_custom_svs</td><td>Custom services and utilities</td></tr>
+</table>
+
+<h3>Business Manager Cartridges</h3>
+<table>
+    <tr><th>Cartridge</th><th>Purpose</th></tr>
+    <tr><td>bm_amplience</td><td>Amplience CMS management</td></tr>
+    <tr><td>bm_bolt</td><td>Bolt payment management</td></tr>
+    <tr><td>bm_bynder</td><td>Bynder DAM management</td></tr>
+    <tr><td>bm_forter</td><td>Forter fraud management</td></tr>
+    <tr><td>bm_monetate</td><td>Monetate personalization</td></tr>
+    <tr><td>bm_paypal</td><td>PayPal configuration</td></tr>
+    <tr><td>bm_vertex</td><td>Vertex tax management</td></tr>
+</table>
+
+<h2 id="integrations">Integration Cartridges</h2>
+
+<h3>Payment Integrations</h3>
+<table>
+    <tr><th>Cartridge</th><th>Provider</th><th>Purpose</th></tr>
+    <tr><td>int_adyen</td><td>Adyen</td><td>Payment processing</td></tr>
+    <tr><td>int_adyen_overlay</td><td>Adyen</td><td>Custom Adyen modifications</td></tr>
+    <tr><td>int_adyen_SFRA</td><td>Adyen</td><td>SFRA-specific integration</td></tr>
+    <tr><td>int_amazonpay_sfra</td><td>Amazon</td><td>Amazon Pay integration</td></tr>
+    <tr><td>int_bolt_core</td><td>Bolt</td><td>Bolt checkout core</td></tr>
+    <tr><td>int_bolt_sfra</td><td>Bolt</td><td>Bolt SFRA integration</td></tr>
+    <tr><td>int_klarna_payments</td><td>Klarna</td><td>Klarna payment methods</td></tr>
+    <tr><td>int_paypal</td><td>PayPal</td><td>PayPal integration</td></tr>
+    <tr><td>plugin_applepay</td><td>Apple</td><td>Apple Pay integration</td></tr>
+</table>
+
+<h3>Marketing & Analytics</h3>
+<table>
+    <tr><th>Cartridge</th><th>Provider</th><th>Purpose</th></tr>
+    <tr><td>int_epsilon_loyalty</td><td>Epsilon</td><td>Loyalty program</td></tr>
+    <tr><td>int_marketing_cloud</td><td>Salesforce</td><td>Email marketing</td></tr>
+    <tr><td>int_metrical_sfra</td><td>Metrical</td><td>Analytics and optimization</td></tr>
+    <tr><td>int_monetate</td><td>Monetate</td><td>Personalization</td></tr>
+    <tr><td>int_gtm_core</td><td>Google</td><td>Google Tag Manager</td></tr>
+    <tr><td>int_yotpo</td><td>Yotpo</td><td>Reviews and ratings</td></tr>
+    <tr><td>int_powerreviews_sfra</td><td>PowerReviews</td><td>Product reviews</td></tr>
+</table>
+
+<h3>Shipping & Fulfillment</h3>
+<table>
+    <tr><th>Cartridge</th><th>Provider</th><th>Purpose</th></tr>
+    <tr><td>int_narvar_sfra</td><td>Narvar</td><td>Order tracking</td></tr>
+    <tr><td>int_shoprunner</td><td>ShopRunner</td><td>Premium shipping</td></tr>
+    <tr><td>int_globale_sfra</td><td>GlobalE</td><td>International shipping</td></tr>
+    <tr><td>plugin_instorepickup</td><td>Custom</td><td>Store pickup functionality</td></tr>
+</table>
+
+<h3>Content & Media</h3>
+<table>
+    <tr><th>Cartridge</th><th>Provider</th><th>Purpose</th></tr>
+    <tr><td>int_amplience_sfra</td><td>Amplience</td><td>Content management</td></tr>
+    <tr><td>int_bynder_custom</td><td>Bynder</td><td>Digital asset management</td></tr>
+    <tr><td>int_feedonomics</td><td>Feedonomics</td><td>Product feed management</td></tr>
+</table>
+
+<h3>Fraud & Security</h3>
+<table>
+    <tr><th>Cartridge</th><th>Provider</th><th>Purpose</th></tr>
+    <tr><td>int_accertify</td><td>Accertify</td><td>Fraud prevention</td></tr>
+    <tr><td>int_forter_sfra</td><td>Forter</td><td>Fraud detection</td></tr>
+    <tr><td>int_googlerecaptcha</td><td>Google</td><td>Bot protection</td></tr>
+</table>
+
+<h3>Tax & Compliance</h3>
+<table>
+    <tr><th>Cartridge</th><th>Provider</th><th>Purpose</th></tr>
+    <tr><td>int_vertex</td><td>Vertex</td><td>Tax calculation</td></tr>
+    <tr><td>int_vertex_sfra</td><td>Vertex</td><td>SFRA tax integration</td></tr>
+    <tr><td>int_vertex_ai_search</td><td>Vertex</td><td>AI-powered search</td></tr>
+</table>
+
+<h2 id="bb-features">Brooks Brothers Core Features</h2>
+
+<h3>Controllers</h3>
+<ul>
+    <li><strong>Account.js</strong> - Customer account management</li>
+    <li><strong>Cart.js</strong> - Shopping cart functionality</li>
+    <li><strong>Checkout.js</strong> - Checkout process</li>
+    <li><strong>Product.js</strong> - Product display and details</li>
+    <li><strong>Search.js</strong> - Product search functionality</li>
+    <li><strong>Order.js</strong> - Order management</li>
+    <li><strong>Cis.js</strong> - Customer Information System</li>
+    <li><strong>Employee.js</strong> - Employee portal</li>
+    <li><strong>Heritage.js</strong> - Brooks Brothers heritage content</li>
+</ul>
+
+<h3>Key Scripts & Helpers</h3>
+<ul>
+    <li><strong>accountHelpers.js</strong> - Account management utilities</li>
+    <li><strong>productHelpers.js</strong> - Product data processing</li>
+    <li><strong>searchHelpers.js</strong> - Search functionality</li>
+    <li><strong>cisHelpers.js</strong> - CIS integration</li>
+    <li><strong>fbCAPIHelpers.js</strong> - Facebook API integration</li>
+</ul>
+
+<h2 id="development">Development Environment</h2>
+
+<h3>Build System</h3>
+<pre>
+{
+  "build": "npm-run-all --parallel \"build:* -- {@}\" --",
+  "build:js": "webpack --progress --js",
+  "build:css": "webpack --progress --css",
+  "watch": "npm-run-all --parallel \"watch:* -- {@}\" --",
+  "deploy": "npm run build --"
+}
+</pre>
+
+<h3>Key Dependencies</h3>
+<ul>
+    <li><strong>@borngroup/born-build</strong> - BORN Group build tools</li>
+    <li><strong>@borngroup/born-sfcc-ci</strong> - CI/CD tools</li>
+    <li><strong>webpack</strong> - Module bundler</li>
+    <li><strong>babel</strong> - JavaScript compiler</li>
+    <li><strong>sfcc-ci</strong> - SFCC deployment tools</li>
+</ul>
+
+<h2 id="deployment">Deployment & CI/CD</h2>
+
+<h3>Deployment Commands</h3>
+<pre>
+npm run deploy          # Deploy all cartridges
+npm run activate-code   # Activate code version
+npm run deploy-data     # Deploy site data
+</pre>
+
+<h3>Environment Management</h3>
+<ul>
+    <li>Development sandbox</li>
+    <li>Staging environment</li>
+    <li>Production deployment</li>
+</ul>
+
+<h2 id="features">Key Features</h2>
+
+<h3>E-commerce Functionality</h3>
+<ul>
+    <li>Product catalog with variants</li>
+    <li>Shopping cart and wishlist</li>
+    <li>Multi-step checkout</li>
+    <li>Order management</li>
+    <li>Customer accounts</li>
+    <li>Store locator</li>
+    <li>Gift certificates</li>
+</ul>
+
+<h3>Brooks Brothers Specific</h3>
+<ul>
+    <li>Employee portal integration</li>
+    <li>CIS (Customer Information System)</li>
+    <li>Heritage content management</li>
+    <li>Custom product attributes</li>
+    <li>Loyalty program integration</li>
+</ul>
+
+<h2 id="guidelines">Development Guidelines</h2>
+
+<h3>Cartridge Path Order</h3>
+<pre>
+int_powerreviews_sfra, int_epsilon_loyalty, plugin_applepay::applepay, 
+plugin_instorepickup, plugin_specialhandling, plugin_giftcertificate, 
+app_brooksbrothers_core, int_globale_sfra, app_accelerator_core::core, 
+app_storefront_base::base
+</pre>
+
+<h3>Code Standards</h3>
+<ul>
+    <li>ESLint for JavaScript</li>
+    <li>Stylelint for SCSS</li>
+    <li>ISML templates for frontend</li>
+    <li>Server-side JavaScript controllers</li>
+    <li>JSON configuration files</li>
+</ul>
+
+<hr>
+<p><strong>Last Updated</strong>: Generated from project analysis<br>
+<strong>Version</strong>: Based on SFRA 5.1.0<br>
+<strong>Contact</strong>: Development team for updates and modifications</p>
+
+</body>
+<footer>
+    file:///Users/sjuloori/sudhawebsite/ssrwebsite/Salesforce/bbsfccdoc.html
+</footer>
+</html>
