@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Interview Questions & Answers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        .question {
+            background-color: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .answer {
+            background-color: #ffffff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .summary {
+            background-color: #d5f4e6;
+            border: 1px solid #27ae60;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .concept {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        .toc {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 5px 0;
+        }
+        .toc a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>SQL Interview Questions & Answers</h1>
+    
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#basics">1. SQL Basics</a></li>
+            <li><a href="#indexes">2. Indexes & Performance</a></li>
+            <li><a href="#joins">3. Joins</a></li>
+            <li><a href="#functions">4. Functions</a></li>
+            <li><a href="#advanced">5. Advanced SQL</a></li>
+            <li><a href="#cte">6. CTE vs Views vs ITVF</a></li>
+            <li><a href="#concepts">7. Key Concepts Summary</a></li>
+        </ul>
+    </div>
+
+    <section id="basics">
+        <h2>1. SQL Basics</h2>
+        
+        <div class="question">
+            <h3>Q1: What is SQL and what are its key characteristics?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li>SQL (Structured Query Language) is a structured language that is not case sensitive</li>
+                <li>It contains structured data where we define types for each column</li>
+                <li>Uses client-server architecture where server is central location for data storage</li>
+                <li>All client machines connect to the server</li>
+                <li>MS SQL Server (when installed) acts as server, SSMS (SQL Server Management Studio) acts as client</li>
+                <li>ODBC (Open Database Connection) is used for SSMS to connect to server</li>
+                <li>It's a Relational Database Management System (RDBMS)</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h3>Q2: Explain Primary Key vs Candidate Key</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Primary Key</th>
+                    <th>Candidate Key</th>
+                </tr>
+                <tr>
+                    <td>Cannot store NULL values</td>
+                    <td>NULL values are allowed</td>
+                </tr>
+                <tr>
+                    <td>Only one per table</td>
+                    <td>Multiple candidate keys possible</td>
+                </tr>
+                <tr>
+                    <td>Uniquely identifies each record</td>
+                    <td>Should be unique (like Aadhar, PAN)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="question">
+            <h3>Q3: What are different ways to insert data in SQL?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="code">
+-- Single record insertion
+INSERT INTO salespeople VALUES (1002, 'Serres', 'San Jose', 0.13);
+
+-- Multiple records insertion
+INSERT INTO salespeople VALUES 
+    (1004, 'Motika', 'London', 0.11), 
+    (1007, 'Rifkin', 'Barcelona', 0.15);
+
+-- Insertion with specific columns
+INSERT INTO salespeople(snum, sname, comm, city) 
+VALUES (1008, 'Serres', 0.13, 'San Jose');
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q4: Explain the SQL query execution order</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="concept">
+                <strong>Execution Order:</strong> SELECT → FROM → JOIN → WHERE → GROUP BY → HAVING → ORDER BY
+                <ul>
+                    <li><strong>WHERE:</strong> Filters raw data</li>
+                    <li><strong>GROUP BY:</strong> Aggregates data</li>
+                    <li><strong>HAVING:</strong> Filters aggregated data</li>
+                    <li><strong>ORDER BY:</strong> Sorts data (always comes at the end)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="indexes">
+        <h2>2. Indexes & Performance</h2>
+        
+        <div class="question">
+            <h3>Q5: What is the difference between Clustered and Non-Clustered Index?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Clustered Index</th>
+                    <th>Non-Clustered Index</th>
+                </tr>
+                <tr>
+                    <td>Created on Primary Key by default</td>
+                    <td>Created on other columns when needed</td>
+                </tr>
+                <tr>
+                    <td>Data is physically stored in order of CI</td>
+                    <td>Stores key + pointer to row</td>
+                </tr>
+                <tr>
+                    <td>Only one per table</td>
+                    <td>Multiple per table allowed</td>
+                </tr>
+                <tr>
+                    <td>Stores actual data</td>
+                    <td>Stores reference to data</td>
+                </tr>
+                <tr>
+                    <td>Doesn't need extra storage</td>
+                    <td>Requires extra storage</td>
+                </tr>
+                <tr>
+                    <td>Faster for range queries</td>
+                    <td>Faster for specific lookups</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="joins">
+        <h2>3. Joins</h2>
+        
+        <div class="question">
+            <h3>Q6: Explain different types of JOINs with examples</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            
+            <h4>1. INNER JOIN</h4>
+            <p>Returns only matching records from both tables (A ∩ B)</p>
+            <div class="code">
+SELECT * FROM customer 
+JOIN salespeople ON customer.snum = salespeople.snum;
+            </div>
+
+            <h4>2. LEFT OUTER JOIN</h4>
+            <p>Returns all records from left table and matching records from right table</p>
+            <div class="code">
+SELECT * FROM customer 
+LEFT OUTER JOIN salespeople ON customer.snum = salespeople.snum;
+            </div>
+
+            <h4>3. RIGHT OUTER JOIN</h4>
+            <p>Returns all records from right table and matching records from left table</p>
+            <div class="code">
+SELECT * FROM customer 
+RIGHT OUTER JOIN salespeople ON customer.snum = salespeople.snum;
+            </div>
+
+            <h4>4. FULL OUTER JOIN</h4>
+            <p>Returns all records from both tables (A ∪ B)</p>
+            <div class="code">
+SELECT * FROM customer 
+FULL OUTER JOIN salespeople ON customer.snum = salespeople.snum;
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q7: How to join more than 2 tables?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="code">
+-- Join 3 tables: orders, customer, salespeople
+SELECT * FROM orders o 
+JOIN customer c ON o.cnum = c.cnum 
+JOIN salespeople s ON c.snum = s.snum;
+
+-- Calculate commission payable to each salesperson
+SELECT s.snum, sname, COALESCE(SUM(comm * amt), 0) as "total commission" 
+FROM orders o 
+JOIN customer c ON o.cnum = c.cnum 
+RIGHT OUTER JOIN salespeople s ON c.snum = s.snum 
+GROUP BY s.snum, s.sname;
+            </div>
+        </div>
+    </section>
+
+    <section id="functions">
+        <h2>4. Functions</h2>
+        
+        <div class="question">
+            <h3>Q8: What are different types of SQL functions?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="concept">
+                <h4>1. Built-in Functions:</h4>
+                <ul>
+                    <li><strong>Aggregate Functions:</strong> COUNT, SUM, MAX, MIN, AVG</li>
+                    <li><strong>String Functions:</strong> UPPER, LOWER, CONCAT, SUBSTRING, TRIM</li>
+                    <li><strong>Mathematical Functions:</strong> ROUND, CEILING, FLOOR, POWER, SQRT</li>
+                    <li><strong>Date Functions:</strong> GETDATE, DATEADD, DATEDIFF</li>
+                    <li><strong>Ranking Functions:</strong> RANK, DENSE_RANK, ROW_NUMBER</li>
+                </ul>
+                
+                <h4>2. User-Defined Functions:</h4>
+                <ul>
+                    <li><strong>Scalar Functions:</strong> Return single value</li>
+                    <li><strong>Inline Table-Valued Functions (ITVF):</strong> Return table</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q9: Explain RANK vs DENSE_RANK with example</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="concept">
+                <strong>Example:</strong> 4 students with scores: A-100, B-90, C-90, D-85
+                
+                <table>
+                    <tr>
+                        <th>Student</th>
+                        <th>Score</th>
+                        <th>RANK()</th>
+                        <th>DENSE_RANK()</th>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td>100</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>90</td>
+                        <td>2</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>90</td>
+                        <td>2</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>85</td>
+                        <td>4 (skips 3)</td>
+                        <td>3 (no gap)</td>
+                    </tr>
+                </table>
+                
+                <p><strong>Use Case:</strong> For "Top 5 customers by sales", use DENSE_RANK to avoid gaps.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q10: Explain ROUND, CEILING, and FLOOR functions</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Function</th>
+                    <th>Purpose</th>
+                    <th>Example</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>ROUND()</td>
+                    <td>Rounds to nearest value using standard rules</td>
+                    <td>ROUND(5.45, 1)</td>
+                    <td>5.5</td>
+                </tr>
+                <tr>
+                    <td>CEILING()</td>
+                    <td>Always rounds up to next whole number</td>
+                    <td>CEILING(5.1)</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>FLOOR()</td>
+                    <td>Always rounds down to previous whole number</td>
+                    <td>FLOOR(5.9)</td>
+                    <td>5</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="advanced">
+        <h2>5. Advanced SQL</h2>
+        
+        <div class="question">
+            <h3>Q11: What are Triggers and when are they used?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li>Triggers are called internally when events like INSERT, UPDATE, DELETE happen</li>
+                <li>They have access to two system tables: <strong>inserted</strong> and <strong>deleted</strong></li>
+                <li>Used for automatic actions like updating related tables</li>
+            </ul>
+            
+            <div class="code">
+-- Example: Update customer total when order is inserted
+CREATE TRIGGER update_amount ON orders  
+AFTER INSERT  
+AS  
+BEGIN  
+    SET NOCOUNT ON;
+    DECLARE @amt DECIMAL(7,2);
+    DECLARE @cnum INT;
+    
+    SELECT @cnum=cnum, @amt=amt FROM inserted;
+    
+    UPDATE customer
+    SET total_orders = total_orders + @amt
+    WHERE customer.cnum = @cnum;
+END;
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q12: What are Stored Procedures?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li>Pre-compiled program scripts stored in database</li>
+                <li>Executed using EXEC command</li>
+                <li>No need to compile as they are pre-compiled</li>
+                <li>Improve performance and security</li>
+                <li>Can accept parameters and return values</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h3>Q13: Explain User-Defined Functions types</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="concept">
+                <h4>1. Scalar Functions:</h4>
+                <ul>
+                    <li>Take one or more parameters but return single value</li>
+                    <li>Can be used as column in SELECT query</li>
+                </ul>
+                
+                <h4>2. Inline Table-Valued Functions (ITVF):</h4>
+                <ul>
+                    <li>Return table with multiple values</li>
+                    <li>Can be used as table in FROM clause</li>
+                    <li>Can modify output as per requirement</li>
+                    <li>More flexible than stored procedures</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q14: What are Views and their advantages?</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li>View is extraction of data at runtime (virtual table)</li>
+                <li>Temporary table in memory with data generated at runtime</li>
+                <li>Stores SQL query, not physical data</li>
+                <li>Can join tables, apply filters, and aggregate data</li>
+                <li>Enhances security by exposing only specific columns/rows</li>
+                <li>Simplifies complex queries for users</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="cte">
+        <h2>6. CTE vs Views vs ITVF</h2>
+        
+        <div class="question">
+            <h3>Q15: Compare CTE, Views, and ITVF</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>CTE</th>
+                    <th>View</th>
+                    <th>ITVF</th>
+                </tr>
+                <tr>
+                    <td>Reusability</td>
+                    <td>❌ Single query only</td>
+                    <td>✅ Across queries</td>
+                    <td>✅ Across queries</td>
+                </tr>
+                <tr>
+                    <td>Parameters</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Recursive</td>
+                    <td>✅</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>⚠️ Sometimes</td>
+                    <td>⚠️ Sometimes</td>
+                    <td>✅ Often better</td>
+                </tr>
+                <tr>
+                    <td>Use Case</td>
+                    <td>Complex one-time queries</td>
+                    <td>Simple reusable queries</td>
+                    <td>Dynamic parameterized queries</td>
+                </tr>
+            </table>
+            
+            <div class="code">
+-- CTE Example
+WITH CustomerOrders AS (
+    SELECT CustomerID, COUNT(*) as OrderCount
+    FROM Orders
+    GROUP BY CustomerID
+)
+SELECT * FROM CustomerOrders;
+
+-- View Example
+CREATE VIEW CustomerOrderView AS
+SELECT CustomerID, COUNT(*) as OrderCount
+FROM Orders
+GROUP BY CustomerID;
+
+-- ITVF Example
+CREATE FUNCTION GetCustomerOrders(@CustomerID INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT OrderID, OrderDate
+    FROM Orders
+    WHERE CustomerID = @CustomerID
+);
+            </div>
+        </div>
+    </section>
+
+    <section id="concepts">
+        <h2>7. Key Concepts Summary</h2>
+        
+        <div class="summary">
+            <h3>SQL Query Patterns</h3>
+            <div class="code">
+-- Basic filtering
+SELECT * FROM table WHERE condition;
+
+-- Grouping and aggregation
+SELECT column, COUNT(*) FROM table GROUP BY column;
+
+-- Having clause for filtered aggregation
+SELECT column, COUNT(*) FROM table 
+GROUP BY column HAVING COUNT(*) > 1;
+
+-- Pattern matching
+SELECT * FROM table WHERE column LIKE '%pattern%';
+
+-- Range queries
+SELECT * FROM table WHERE column BETWEEN value1 AND value2;
+
+-- Multiple conditions
+SELECT * FROM table WHERE column IN ('value1', 'value2');
+            </div>
+        </div>
+
+        <div class="summary">
+            <h3>Performance Tips</h3>
+            <ul>
+                <li>Use appropriate indexes (clustered for range queries, non-clustered for lookups)</li>
+                <li>Use COALESCE() to handle NULL values in calculations</li>
+                <li>Use TRIM() for string comparisons to handle extra spaces</li>
+                <li>Use DENSE_RANK() instead of RANK() when you need continuous ranking</li>
+                <li>Use ITVF over multi-statement functions for better performance</li>
+                <li>Use WHERE before GROUP BY to filter raw data first</li>
+            </ul>
+        </div>
+
+        <div class="summary">
+            <h3>Common String Functions</h3>
+            <div class="code">
+-- Case conversion
+SELECT UPPER(column), LOWER(column) FROM table;
+
+-- String concatenation
+SELECT CONCAT(first_name, ' ', last_name) FROM table;
+
+-- Substring extraction
+SELECT SUBSTRING(column, start_position, length) FROM table;
+
+-- String splitting
+SELECT value FROM STRING_SPLIT('text to split', ' ');
+
+-- Trimming spaces
+SELECT TRIM(column) FROM table;
+            </div>
+        </div>
+
+        <div class="summary">
+            <h3>Bulk Operations</h3>
+            <div class="code">
+-- Bulk insert from file
+BULK INSERT table_name 
+FROM 'C:\file.txt' 
+WITH (FIELDTERMINATOR = ',', ROWTERMINATOR = '\n');
+
+-- Get table structure
+EXEC sp_help table_name;
+
+-- Get column information
+EXEC sp_columns table_name;
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 50px; padding: 20px; background-color: #34495e; color: white; text-align: center;">
+        <p>SQL Interview Questions & Answers - Comprehensive Guide</p>
+        <p>Covers: Basics, Indexes, Joins, Functions, Advanced SQL, CTEs, Views, and Performance</p>
+    </footer>
+</body>
+</html>

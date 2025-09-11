@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CTE vs View vs ITVF in SQL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>CTE vs View vs ITVF in SQL</h1>
+
+    <h2>1. Common Table Expression (CTE)</h2>
+    <p><strong>Definition:</strong> A temporary, named result set used within a single query.</p>
+    <p><strong>Syntax:</strong></p>
+    <pre><code>WITH CTE_Name AS (
+    SELECT column1, column2
+    FROM SomeTable
+    WHERE condition
+)
+SELECT * FROM CTE_Name;</code></pre>
+    <ul>
+        <li>Exists only during the execution of one query.</li>
+        <li>Can be recursive.</li>
+        <li>Good for breaking down complex queries.</li>
+        <li>Not reusable or parameterized.</li>
+    </ul>
+
+    <h2>2. View</h2>
+    <p><strong>Definition:</strong> A stored SQL query that behaves like a virtual table.</p>
+    <p><strong>Syntax:</strong></p>
+    <pre><code>CREATE VIEW View_Name AS
+SELECT column1, column2
+FROM SomeTable
+WHERE condition;</code></pre>
+    <ul>
+        <li>Reusable and can be queried like a table.</li>
+        <li>Useful for encapsulating logic and simplifying queries.</li>
+        <li>Cannot accept parameters.</li>
+        <li>Supports security abstraction.</li>
+    </ul>
+
+    <h2>3. Inline Table-Valued Function (ITVF)</h2>
+    <p><strong>Definition:</strong> A parameterized function that returns a table using a single SELECT statement.</p>
+    <p><strong>Syntax:</strong></p>
+    <pre><code>CREATE FUNCTION dbo.GetOrdersByCustomer (@CustomerId INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT OrderID, OrderDate
+    FROM Orders
+    WHERE CustomerID = @CustomerId
+);</code></pre>
+    <ul>
+        <li>Reusable and parameterized.</li>
+        <li>Can be joined like a table or view.</li>
+        <li>More efficient than multi-statement TVFs.</li>
+        <li>Must be a single SELECT; no procedural logic.</li>
+    </ul>
+
+    <h2>When to Use What?</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Use Case</th>
+                <th>CTE</th>
+                <th>View</th>
+                <th>ITVF</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>One-time logic in a complex query</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>❌</td>
+            </tr>
+            <tr>
+                <td>Reusable across queries</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>✅</td>
+            </tr>
+            <tr>
+                <td>Accepts parameters</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>✅</td>
+            </tr>
+            <tr>
+                <td>Best performance (inlined)</td>
+                <td>⚠️ Sometimes</td>
+                <td>⚠️ Sometimes</td>
+                <td>✅ Often</td>
+            </tr>
+            <tr>
+                <td>Recursive querying</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>❌</td>
+            </tr>
+            <tr>
+                <td>Encapsulation & abstraction</td>
+                <td>⚠️ Limited</td>
+                <td>✅ Strong</td>
+                <td>✅ Strong</td>
+            </tr>
+            <tr>
+                <td>Complex multi-step logic</td>
+                <td>⚠️ Limited</td>
+                <td>⚠️ Sometimes</td>
+                <td>❌ (Use MSTVF instead)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Performance Notes</h2>
+    <ul>
+        <li><strong>ITVFs</strong> are inlined in the query plan — often better performance than multi-statement functions.</li>
+        <li><strong>CTEs</strong> might not always be optimized as expected — treat them like subqueries.</li>
+        <li><strong>Views</strong> can be indexed if schema-bound, but performance varies.</li>
+    </ul>
+</body>
+</html>

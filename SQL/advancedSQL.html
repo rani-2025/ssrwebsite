@@ -127,6 +127,32 @@
             5. let say if there is any issue with cust.txt then no records will be inserted.
         </p>
     </section>
+    <section>
+        <p>
+            <h3>views</h3>
+            1. view is extraction of data at run time where as table is a physical data store.
+            2. its a temporary table in memory 
+            3. data inthis generated at runtime 
+            4. similat to  inline table valued functions (ITVF).
+            5. view stores sql query that generates the data where as table stores the physical data.
+            6. it can join tables, apply filters, and aggregate data in a way that make complex query simpler for users.
+            7. enhance security by exposing only specific columns or rows.
+            8. the difference between view and ITVF is, ITVF can accept parameters, making it more flexible and dynamic.
+            9. view will be used in select queries. ITVF used in select, join , where, etc and provides more flexibility with input parameters. 
+        </p>
+        <p>
+            <h3> View vs inline table valued functions ITVF</h3>
+            view - 
+            use when simple query that doesnt require params.
+            present data in simplified format and hide complxity.
+            dont need dynamic behaviour based on user input.
+
+            ITVF --
+            1. use when u need dynamic results based on input params.
+            2. need ability to reuse and join the results in more flexible way.
+            3. encapusulate logic that can be parameterized and reused.
+        </p>
+    </section>
 </body>
 <footer>
     https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG -- triggers
