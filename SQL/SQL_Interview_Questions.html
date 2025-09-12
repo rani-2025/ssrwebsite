@@ -182,7 +182,198 @@ VALUES (1008, 'Serres', 0.13, 'San Jose');
         </div>
 
         <div class="question">
-            <h3>Q4: Explain the SQL query execution order</h3>
+            <h3>Q4: Explain the differences between CHAR, VARCHAR, NCHAR, and NVARCHAR data types</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            
+            <h4>CHAR vs VARCHAR</h4>
+            <table>
+                <tr>
+                    <th>CHAR</th>
+                    <th>VARCHAR</th>
+                </tr>
+                <tr>
+                    <td>Fixed-length string</td>
+                    <td>Variable-length string</td>
+                </tr>
+                <tr>
+                    <td>Always uses full allocated space</td>
+                    <td>Uses only required space + 1-2 bytes overhead</td>
+                </tr>
+                <tr>
+                    <td>Right-padded with spaces</td>
+                    <td>No padding</td>
+                </tr>
+                <tr>
+                    <td>Example: CHAR(10) always uses 10 bytes - if 'Jon' - it will be 3 chars + 7 trailing spaces</td>
+                    <td>Example: VARCHAR(10) uses 1-10 bytes + overhead - it will allocate only 3 chars for 'Jon'</td>
+                </tr>
+            </table>
+
+            <h4>NCHAR vs NVARCHAR</h4>
+            <table>
+                <tr>
+                    <th>NCHAR</th>
+                    <th>NVARCHAR</th>
+                </tr>
+                <tr>
+                    <td>Fixed-length Unicode string</td>
+                    <td>Variable-length Unicode string</td>
+                </tr>
+                <tr>
+                    <td>Always uses full allocated space (2 bytes per char)</td>
+                    <td>Uses only required space + overhead (2 bytes per char)</td>
+                </tr>
+                <tr>
+                    <td>Right-padded with spaces</td>
+                    <td>No padding</td>
+                </tr>
+                <tr>
+                    <td>Example: NCHAR(10) always uses 20 bytes</td>
+                    <td>Example: NVARCHAR(10) uses 2-20 bytes + overhead</td>
+                </tr>
+            </table>
+
+            <h4>CHAR vs NCHAR (Character Set)</h4>
+            <table>
+                <tr>
+                    <th>CHAR/VARCHAR</th>
+                    <th>NCHAR/NVARCHAR</th>
+                </tr>
+                <tr>
+                    <td>Non-Unicode (ASCII)</td>
+                    <td>Unicode (UTF-16)</td>
+                </tr>
+                <tr>
+                    <td>1 byte per character</td>
+                    <td>2 bytes per character</td>
+                </tr>
+                <tr>
+                    <td>Max 8000 characters</td>
+                    <td>Max 4000 characters</td>
+                </tr>
+                <tr>
+                    <td>Supports English and basic characters</td>
+                    <td>Supports international characters (Chinese, Arabic, etc.)</td>
+                </tr>
+                <tr>
+                    <td>Less storage space</td>
+                    <td>More storage space but better internationalization</td>
+                </tr>
+            </table>
+
+            <div class="concept">
+                <strong>When to use:</strong>
+                <ul>
+                    <li><strong>CHAR:</strong> Fixed-length ASCII data like country codes (US, UK)</li>
+                    <li><strong>VARCHAR:</strong> Variable-length ASCII data like English names, addresses</li>
+                    <li><strong>NCHAR:</strong> Fixed-length Unicode data like status codes with international support</li>
+                    <li><strong>NVARCHAR:</strong> Variable-length Unicode data like international names, multilingual content</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q5: What are the different types of SQL commands? Explain with examples.</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            <div class="concept">
+                <h4>1. DDL (Data Definition Language)</h4>
+                <p>Commands that define database structure</p>
+                <ul>
+                    <li><strong>CREATE:</strong> Creates database objects</li>
+                    <li><strong>ALTER:</strong> Modifies existing objects</li>
+                    <li><strong>DROP:</strong> Deletes objects</li>
+                    <li><strong>TRUNCATE:</strong> Removes all data from table</li>
+                </ul>
+                <div class="code">
+-- CREATE
+CREATE TABLE employees (id INT, name VARCHAR(50), joindate DATE);
+
+-- ALTER
+ALTER TABLE employees ADD salary DECIMAL(10,2);
+
+-- DROP
+DROP TABLE employees;
+
+-- TRUNCATE
+TRUNCATE TABLE employees;
+                </div>
+
+                <h4>2. DQL (Data Query Language)</h4>
+                <p>Commands used to retrieve data from database</p>
+                <ul>
+                    <li><strong>SELECT:</strong> Retrieves data with various clauses</li>
+                </ul>
+                <div class="code">
+-- Basic SELECT
+SELECT * FROM employees;
+
+-- SELECT with WHERE
+SELECT name, salary FROM employees WHERE salary > 50000;
+
+-- SELECT with GROUP BY
+SELECT department, COUNT(*) FROM employees GROUP BY department;
+
+-- SELECT with ORDER BY
+SELECT * FROM employees ORDER BY salary DESC;
+                </div>
+
+                <h4>3. DML (Data Manipulation Language)</h4>
+                <p>Commands that manipulate data within tables</p>
+                <ul>
+                    <li><strong>INSERT:</strong> Adds new data</li>
+                    <li><strong>UPDATE:</strong> Modifies existing data</li>
+                    <li><strong>DELETE:</strong> Removes data</li>
+                </ul>
+                <div class="code">
+-- INSERT
+INSERT INTO employees VALUES (1, 'John', '2023-01-15', 60000);
+
+-- UPDATE
+UPDATE employees SET salary = 65000 WHERE id = 1;
+
+-- DELETE
+DELETE FROM employees WHERE id = 1;
+                </div>
+
+                <h4>4. DCL (Data Control Language)</h4>
+                <p>Commands that control access to data</p>
+                <ul>
+                    <li><strong>GRANT:</strong> Gives permissions</li>
+                    <li><strong>REVOKE:</strong> Removes permissions</li>
+                </ul>
+                <div class="code">
+-- GRANT
+GRANT SELECT, INSERT ON employees TO user1;
+
+-- REVOKE
+REVOKE INSERT ON employees FROM user1;
+                </div>
+
+                <h4>5. TCL (Transaction Control Language)</h4>
+                <p>Commands that manage database transactions</p>
+                <ul>
+                    <li><strong>COMMIT:</strong> Saves transaction changes</li>
+                    <li><strong>ROLLBACK:</strong> Undoes transaction changes</li>
+                    <li><strong>SAVEPOINT:</strong> Creates checkpoint in transaction</li>
+                </ul>
+                <div class="code">
+-- TCL Example
+BEGIN TRANSACTION;
+UPDATE employees SET salary = salary * 1.1;
+SAVEPOINT sp1;
+DELETE FROM employees WHERE salary < 30000;
+ROLLBACK TO sp1;  -- Undo delete, keep salary update
+COMMIT;  -- Save the salary updates
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q6: Explain the SQL query execution order</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -196,13 +387,79 @@ VALUES (1008, 'Serres', 0.13, 'San Jose');
                 </ul>
             </div>
         </div>
+
+        <div class="question">
+            <h3>Q7: Write SQL queries for common business scenarios</h3>
+        </div>
+        <div class="answer">
+            <p><strong>Answer:</strong></p>
+            
+            <h4>1. Find customers with average order > 2000</h4>
+            <div class="code">
+-- Method 1: Get customer numbers only
+SELECT cnum, AVG(amt) FROM orders 
+GROUP BY cnum HAVING AVG(amt) > 2000;
+
+-- Method 2: Get complete customer details
+SELECT * FROM customer 
+WHERE cnum IN (
+    SELECT cnum FROM orders 
+    GROUP BY cnum HAVING AVG(amt) > 2000
+);
+            </div>
+
+            <h4>2. Find maximum and Nth highest order details</h4>
+            <div class="code">
+-- Find max amount order details
+SELECT * FROM orders 
+WHERE amt = (SELECT MAX(amt) FROM orders) 
+ORDER BY amt DESC;
+
+-- Find second highest order amount
+SELECT MAX(amt) FROM orders 
+WHERE amt < (SELECT MAX(amt) FROM orders);
+
+-- Find second highest order details
+SELECT * FROM orders 
+WHERE amt IN (
+    SELECT MAX(amt) FROM orders 
+    WHERE amt < (SELECT MAX(amt) FROM orders)
+);
+
+-- Find third highest order details
+SELECT * FROM orders
+WHERE amt IN (
+    SELECT MAX(amt) FROM orders
+    WHERE amt < (
+        SELECT MAX(amt) FROM orders
+        WHERE amt < (SELECT MAX(amt) FROM orders)
+    )
+);
+            </div>
+
+            <h4>3. Find duplicate records and data insertion</h4>
+            <div class="code">
+-- Find duplicate customer numbers
+SELECT custno, COUNT(*) FROM customer 
+GROUP BY custno HAVING COUNT(*) > 1;
+
+-- Insert data from one table to another
+INSERT INTO target_table (col1, col2, col3)
+SELECT col1, col2, col3 FROM source_table 
+WHERE condition;
+
+-- Insert all data from one table to another
+INSERT INTO target_table 
+SELECT * FROM source_table;
+            </div>
+        </div>
     </section>
 
     <section id="indexes">
         <h2>2. Indexes & Performance</h2>
         
         <div class="question">
-            <h3>Q5: What is the difference between Clustered and Non-Clustered Index?</h3>
+            <h3>Q8: What is the difference between Clustered and Non-Clustered Index?</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -243,7 +500,7 @@ VALUES (1008, 'Serres', 0.13, 'San Jose');
         <h2>3. Joins</h2>
         
         <div class="question">
-            <h3>Q6: Explain different types of JOINs with examples</h3>
+            <h3>Q9: Explain different types of JOINs with examples</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -278,7 +535,7 @@ FULL OUTER JOIN salespeople ON customer.snum = salespeople.snum;
         </div>
 
         <div class="question">
-            <h3>Q7: How to join more than 2 tables?</h3>
+            <h3>Q10: How to join more than 2 tables?</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -302,7 +559,7 @@ GROUP BY s.snum, s.sname;
         <h2>4. Functions</h2>
         
         <div class="question">
-            <h3>Q8: What are different types of SQL functions?</h3>
+            <h3>Q11: What are different types of SQL functions?</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -325,7 +582,7 @@ GROUP BY s.snum, s.sname;
         </div>
 
         <div class="question">
-            <h3>Q9: Explain RANK vs DENSE_RANK with example</h3>
+            <h3>Q12: Explain RANK vs DENSE_RANK with example</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -370,7 +627,7 @@ GROUP BY s.snum, s.sname;
         </div>
 
         <div class="question">
-            <h3>Q10: Explain ROUND, CEILING, and FLOOR functions</h3>
+            <h3>Q13: Explain ROUND, CEILING, and FLOOR functions</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -407,7 +664,7 @@ GROUP BY s.snum, s.sname;
         <h2>5. Advanced SQL</h2>
         
         <div class="question">
-            <h3>Q11: What are Triggers and when are they used?</h3>
+            <h3>Q14: What are Triggers and when are they used?</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -437,7 +694,7 @@ END;
         </div>
 
         <div class="question">
-            <h3>Q12: What are Stored Procedures?</h3>
+            <h3>Q15: What are Stored Procedures?</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -451,7 +708,7 @@ END;
         </div>
 
         <div class="question">
-            <h3>Q13: Explain User-Defined Functions types</h3>
+            <h3>Q16: Explain User-Defined Functions types</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -473,7 +730,7 @@ END;
         </div>
 
         <div class="question">
-            <h3>Q14: What are Views and their advantages?</h3>
+            <h3>Q17: What are Views and their advantages?</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
@@ -492,7 +749,7 @@ END;
         <h2>6. CTE vs Views vs ITVF</h2>
         
         <div class="question">
-            <h3>Q15: Compare CTE, Views, and ITVF</h3>
+            <h3>Q18: Compare CTE, Views, and ITVF</h3>
         </div>
         <div class="answer">
             <p><strong>Answer:</strong></p>
