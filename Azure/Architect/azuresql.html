@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Azure DB management</h2>
+    <section>
+        <p>
+            here u dont need to take care of infrastucture
+            1. Azure managed instance - this is managed by Azure u dont need to have any thing which is expecsive - PAAS
+              migration cases 
+            2. Azure SQL database - this is a new DB - 
+              if new go for it 
+              100% cloud 
+            3. SQL serevr on Azure VM (IAAS) - 1. here u need to care of infrastucture
+            its a sqlserver version that runs on Azure VM completly IAAS model
+            here u can have multiple servers and multiple DB's
+
+            most of the cases option 2 is recommanded - Azure SQL database
+            4. Azure cosmosdb - is a noSQL DB - unstructured data - 4 different models 1. document, key-value pair, columnar, graph
+            5. storage account - to store large amount of data like - word docs, excels etc ..
+            7. datalake accounts
+        </p> 
+        <p>
+            different purchasing models
+            1.  vcore - number of cpus allocate for DB 
+            2. dtu base -  data transimission unit -  
+            3. vcore based serverless - u can define max and min but it will be charegd based on the DB usage
+            its out of scale and its completly chareged what u have used 
+
+            if we using full capacity of DB then provision is cheaper 
+            
+        </p>
+        <p>
+           <h3> Azure cosmos db - is a noSQL DB</h3>
+           1.  document model - data stored in json model - have a flexibility to add any kind of information - widely used (first)
+           2. key-value pair - same as sql - but not strcutures - (next)
+           3. columnar - more used for analytics
+           4. graphs model - will be created with edges - very rare - only used when parent child kind of strcutures
+        </p>
+        <p>
+            <h3> Azure cosmos db - storage account</h3>
+           
+         </p>
+    </section>
+</body>
+</html>
