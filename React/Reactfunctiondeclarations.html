@@ -3,105 +3,776 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Handling and Embedded Expressions in React</title>
+    <title>React Function Declarations - Complete Guide</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .example {
-            margin-bottom: 20px;
-        }
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #61dafb; border-bottom: 3px solid #61dafb; padding-bottom: 10px; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #61dafb; margin: 10px 0; border-radius: 5px; }
+        .highlight { background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .interview-section { background: #f8f9fa; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .nav-card { padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s; display: block; }
+        .nav-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(97, 218, 251, 0.3); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .comparison-table th, .comparison-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .comparison-table th { background: #f8f9fa; font-weight: bold; }
+        .pros { color: #28a745; }
+        .cons { color: #dc3545; }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+        code { background: #f1f1f1; padding: 2px 4px; border-radius: 3px; }
+        .example { margin-bottom: 20px; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>⚡ React Function Declarations - Complete Guide</h1>
+            <p><strong>Master all ways to declare and use functions in React applications</strong></p>
+        </header>
 
-    <h1>Event Handling and Embedded Expressions in React</h1>
-    <p>In this reading, you’ll learn the different ways to embed expressions in event handlers in React:</p>
-    <ul>
-        <li>With an inline anonymous ES5 function</li>
-        <li>With an inline, anonymous ES6 function (an arrow function)</li>
-        <li>Using a separate function declaration</li>
-        <li>Using a separate function expression</li>
-    </ul>
-    <p>You may find this reading useful as a reference sheet.</p>
+        <!-- Navigation -->
+        <div class="section">
+            <h2>📋 Quick Navigation</h2>
+            <div class="nav-grid">
+                <a href="React18Notes.html" class="nav-card">
+                    <strong>🏠 React 18 Notes</strong><br>
+                    <small>Main React documentation</small>
+                </a>
+                <a href="#function-types" class="nav-card">
+                    <strong>🔧 Function Types</strong><br>
+                    <small>Declaration vs Expression</small>
+                </a>
+                <a href="#event-handlers" class="nav-card">
+                    <strong>⚡ Event Handlers</strong><br>
+                    <small>Different handler patterns</small>
+                </a>
+                <a href="#best-practices" class="nav-card">
+                    <strong>✨ Best Practices</strong><br>
+                    <small>When to use each type</small>
+                </a>
+            </div>
+        </div>
 
-    <p>For clarity and simplicity, a function will simply console log some words. This will allow you to compare the difference in syntax between these four approaches, while the result of the event handling will always be the same: just some words output to the console.</p>
+        <!-- Function Types Overview -->
+        <div id="function-types" class="section">
+            <h2>🔧 Function Declaration Types in JavaScript</h2>
+            
+            <h3>Function Declaration vs Function Expression</h3>
+            <div class="highlight">
+                <strong>Key Difference:</strong> If a function doesn't start the line with the keyword <code>function</code>, then it's an expression.
+            </div>
 
-    <h2>Handling events using inline anonymous ES5 functions</h2>
-    <p>This approach allows you to directly pass in an ES5 function declaration as the onClick event-handling attribute’s value:</p>
-    <div class="example">
-        <pre>
-<button onClick={function() {console.log('first example')}}>
-    An inline anonymous ES5 function event handler
-</button>
-        </pre>
-    </div>
-    <p>Although it's possible to write your click handlers using this syntax, it's not a common approach and you will not find such code very often in React apps.</p>
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Function Declaration</th>
+                    <th>Function Expression</th>
+                    <th>Arrow Function</th>
+                </tr>
+                <tr>
+                    <td>Hoisting</td>
+                    <td class="pros">✅ Fully hoisted</td>
+                    <td class="cons">❌ Not hoisted</td>
+                    <td class="cons">❌ Not hoisted</td>
+                </tr>
+                <tr>
+                    <td>this Binding</td>
+                    <td>Dynamic (call-site)</td>
+                    <td>Dynamic (call-site)</td>
+                    <td class="pros">✅ Lexical (inherited)</td>
+                </tr>
+                <tr>
+                    <td>Syntax</td>
+                    <td>Traditional</td>
+                    <td>Variable assignment</td>
+                    <td class="pros">✅ Concise</td>
+                </tr>
+                <tr>
+                    <td>Use in React</td>
+                    <td>Component definitions</td>
+                    <td>Event handlers</td>
+                    <td class="pros">✅ Most common</td>
+                </tr>
+            </table>
 
-    <h2>Handling events using inline anonymous ES6 functions (arrow functions)</h2>
-    <p>With this approach, you can directly pass in an ES6 function declaration as the onClick event-handling attribute’s value:</p>
-    <div class="example">
-        <pre>
-<button onClick={() => console.log('second example')}>
-    An inline anonymous ES6 function event handler
-</button>
-        </pre>
-    </div>
-    <p>This approach is much more common than the previous one. If you want to keep all your logic inside the JSX expression assigned to the onClick attribute, use this syntax.</p>
+            <h3>1. Function Declaration</h3>
+            <div class="code-block">
+<pre>
+// Traditional function declaration
+function addNumbers(a, b) {
+    return a + b;
+}
 
-    <h2>Handling events using separate function declarations</h2>
-    <p>With this approach, you declare a separate ES5 function declaration, and then you reference its name in the event-handling onClick attribute, as follows:</p>
-    <div class="example">
-        <pre>
-function App() {
-    function thirdExample() {
-        console.log('third example');
+// Can be called before declaration due to hoisting
+console.log(addNumbers(2, 3)); // Works: 5
+
+// React component as function declaration
+function Welcome(props) {
+    return &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
+}
+</pre>
+            </div>
+
+            <h3>2. Function Expression</h3>
+            <div class="code-block">
+<pre>
+// Function expression assigned to variable
+const addNumbers = function(a, b) {
+    return a + b;
+};
+
+// Cannot be called before declaration
+// console.log(addNumbers(2, 3)); // Error: Cannot access before initialization
+
+// React component as function expression
+const Welcome = function(props) {
+    return &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
+};
+</pre>
+            </div>
+
+            <h3>3. Arrow Function Expression</h3>
+            <div class="code-block">
+<pre>
+// Arrow function - single line
+const addNumbers = (a, b) => a + b;
+
+// Arrow function - multi-line
+const addNumbers = (a, b) => {
+    const result = a + b;
+    return result;
+};
+
+// React component as arrow function
+const Welcome = (props) => {
+    return &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
+};
+
+// Concise arrow function for simple components
+const Welcome = (props) => &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
+</pre>
+            </div>
+        </div>
+
+        <!-- Event Handler Patterns -->
+        <div id="event-handlers" class="section">
+            <h2>⚡ Event Handler Patterns in React</h2>
+            
+            <p>React supports multiple ways to handle events. Each approach has its use cases and trade-offs.</p>
+
+            <h3>1. Inline Anonymous ES5 Function</h3>
+            <div class="example">
+                <div class="code-block">
+<pre>
+&lt;button onClick={function() {console.log('ES5 inline function')}}&gt;
+    Inline ES5 Function Handler
+&lt;/button&gt;
+</pre>
+                </div>
+                <p><strong>Use Case:</strong> Rarely used in modern React. Avoid this pattern.</p>
+                <ul>
+                    <li class="cons">❌ Verbose syntax</li>
+                    <li class="cons">❌ Creates new function on every render</li>
+                    <li class="cons">❌ Not commonly seen in React codebases</li>
+                </ul>
+            </div>
+
+            <h3>2. Inline Anonymous Arrow Function</h3>
+            <div class="example">
+                <div class="code-block">
+<pre>
+&lt;button onClick={() => console.log('Arrow function inline')}&gt;
+    Inline Arrow Function Handler
+&lt;/button&gt;
+
+// With parameters
+&lt;button onClick={(event) => handleClick(event, 'parameter')}&gt;
+    Arrow Function with Parameters
+&lt;/button&gt;
+
+// Multiple statements
+&lt;button onClick={() => {
+    console.log('Multiple statements');
+    setCount(count + 1);
+}}&gt;
+    Multi-statement Handler
+&lt;/button&gt;
+</pre>
+                </div>
+                <p><strong>Use Case:</strong> Simple logic that fits in one line, or when you need to pass parameters.</p>
+                <ul>
+                    <li class="pros">✅ Concise for simple operations</li>
+                    <li class="pros">✅ Easy to pass parameters</li>
+                    <li class="cons">❌ Creates new function on every render</li>
+                    <li class="cons">❌ Can impact performance with many elements</li>
+                </ul>
+            </div>
+
+            <h3>3. Separate Function Declaration</h3>
+            <div class="example">
+                <div class="code-block">
+<pre>
+function MyComponent() {
+    function handleClick() {
+        console.log('Separate function declaration');
+    }
+    
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log('Form submitted');
+    }
+    
+    return (
+        &lt;div&gt;
+            &lt;button onClick={handleClick}&gt;
+                Separate Function Declaration
+            &lt;/button&gt;
+            &lt;form onSubmit={handleSubmit}&gt;
+                &lt;button type="submit"&gt;Submit&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    );
+}
+</pre>
+                </div>
+                <p><strong>Use Case:</strong> Complex logic that spans multiple lines, or when function is reused.</p>
+                <ul>
+                    <li class="pros">✅ Clean separation of concerns</li>
+                    <li class="pros">✅ Reusable within component</li>
+                    <li class="pros">✅ Better for complex logic</li>
+                    <li class="cons">❌ More verbose for simple operations</li>
+                </ul>
+            </div>
+
+            <h3>4. Separate Function Expression (Arrow Function)</h3>
+            <div class="example">
+                <div class="code-block">
+<pre>
+function MyComponent() {
+    const handleClick = () => {
+        console.log('Separate arrow function');
     };
+    
+    const handleInputChange = (event) => {
+        console.log('Input changed:', event.target.value);
+    };
+    
+    const handleComplexOperation = () => {
+        // Complex logic here
+        const data = processData();
+        updateState(data);
+        logAnalytics('operation_completed');
+    };
+    
     return (
-        &lt;div className="thirdExample"&gt;
-            &lt;button onClick={thirdExample}&gt;
-                using a separate function declaration
+        &lt;div&gt;
+            &lt;button onClick={handleClick}&gt;
+                Separate Arrow Function
+            &lt;/button&gt;
+            &lt;input onChange={handleInputChange} /&gt;
+            &lt;button onClick={handleComplexOperation}&gt;
+                Complex Operation
             &lt;/button&gt;
         &lt;/div&gt;
     );
 }
-        </pre>
-    </div>
-    <p>This syntax makes sense to be used when your onClick logic is too complex to easily fit into an anonymous function. While this example is not really showing this scenario, imagine a function that has, for example, 20 lines of code, and that needs to be run when the click event is triggered. This is a perfect use-case for a separate function declaration.</p>
+</pre>
+                </div>
+                <p><strong>Use Case:</strong> Most common pattern in modern React. Preferred for event handlers.</p>
+                <ul>
+                    <li class="pros">✅ Modern, clean syntax</li>
+                    <li class="pros">✅ Lexical this binding</li>
+                    <li class="pros">✅ Consistent with React conventions</li>
+                    <li class="pros">✅ Good for complex logic</li>
+                </ul>
+            </div>
+        </div>
 
-    <h2>Handling events using separate function expressions</h2>
-    <p>Tip: A way to determine if a function is defined as an expression or a declaration is: if it does not start the line with the keyword <code>function</code>, then it’s an expression.</p>
-    <p>In the following example, you’re assigning an anonymous ES6 arrow function to a const variable – hence, this is a function expression.</p>
-    <div class="example">
-        <pre>
-function App() {
-    const fourthExample = () => console.log('fourth example');
+        <!-- Advanced Patterns -->
+        <div class="section">
+            <h2>🚀 Advanced Function Patterns</h2>
+            
+            <h3>Custom Hooks with Functions</h3>
+            <div class="code-block">
+<pre>
+// Custom hook with various function patterns
+const useCounter = (initialValue = 0) => {
+    const [count, setCount] = useState(initialValue);
+    
+    // Arrow function for increment
+    const increment = () => setCount(prev => prev + 1);
+    
+    // Arrow function for decrement
+    const decrement = () => setCount(prev => prev - 1);
+    
+    // Function with parameter
+    const incrementBy = (amount) => setCount(prev => prev + amount);
+    
+    // Function returning object
+    const reset = () => setCount(initialValue);
+    
+    return {
+        count,
+        increment,
+        decrement,
+        incrementBy,
+        reset
+    };
+};
 
+// Usage in component
+const Counter = () => {
+    const { count, increment, decrement, incrementBy, reset } = useCounter(10);
+    
     return (
-        &lt;div className="fourthExample"&gt;
-            &lt;button onClick={fourthExample}&gt;
-                using a separate function expression
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={increment}&gt;+1&lt;/button&gt;
+            &lt;button onClick={decrement}&gt;-1&lt;/button&gt;
+            &lt;button onClick={() => incrementBy(5)}&gt;+5&lt;/button&gt;
+            &lt;button onClick={reset}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Higher-Order Functions</h3>
+            <div class="code-block">
+<pre>
+// Function that returns a function
+const createClickHandler = (message) => {
+    return () => {
+        console.log(message);
+    };
+};
+
+// Function that takes a function as parameter
+const withLogging = (fn) => {
+    return (...args) => {
+        console.log('Function called with:', args);
+        const result = fn(...args);
+        console.log('Function returned:', result);
+        return result;
+    };
+};
+
+// Usage in React component
+const ButtonComponent = () => {
+    const handleClick1 = createClickHandler('Button 1 clicked');
+    const handleClick2 = createClickHandler('Button 2 clicked');
+    
+    const loggedIncrement = withLogging((x) => x + 1);
+    
+    return (
+        &lt;div&gt;
+            &lt;button onClick={handleClick1}&gt;Button 1&lt;/button&gt;
+            &lt;button onClick={handleClick2}&gt;Button 2&lt;/button&gt;
+            &lt;button onClick={() => console.log(loggedIncrement(5))}&gt;
+                Logged Increment
             &lt;/button&gt;
         &lt;/div&gt;
     );
-}
-        </pre>
+};
+</pre>
+            </div>
+
+            <h3>Async Functions in React</h3>
+            <div class="code-block">
+<pre>
+const DataComponent = () => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    
+    // Async function declaration
+    async function fetchData() {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/data');
+            const result = await response.json();
+            setData(result);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    }
+    
+    // Async arrow function
+    const fetchDataArrow = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/data');
+            const result = await response.json();
+            setData(result);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+    // Note: useEffect with async function
+    useEffect(() => {
+        // Cannot make useEffect callback async directly
+        // fetchData(); // Call async function
+        
+        // Or use IIFE (Immediately Invoked Function Expression)
+        (async () => {
+            await fetchDataArrow();
+        })();
+    }, []);
+    
+    return (
+        &lt;div&gt;
+            {loading ? (
+                &lt;p&gt;Loading...&lt;/p&gt;
+            ) : (
+                &lt;div&gt;
+                    &lt;button onClick={fetchData}&gt;Fetch Data (Declaration)&lt;/button&gt;
+                    &lt;button onClick={fetchDataArrow}&gt;Fetch Data (Arrow)&lt;/button&gt;
+                    &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt;
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div id="best-practices" class="section">
+            <h2>✨ Best Practices & Guidelines</h2>
+            
+            <h3>When to Use Each Pattern</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Pattern</th>
+                    <th>Best For</th>
+                    <th>Avoid When</th>
+                </tr>
+                <tr>
+                    <td>Inline Arrow Function</td>
+                    <td>Simple operations, passing parameters</td>
+                    <td>Complex logic, performance-critical lists</td>
+                </tr>
+                <tr>
+                    <td>Separate Arrow Function</td>
+                    <td>Event handlers, modern React code</td>
+                    <td>Need function hoisting</td>
+                </tr>
+                <tr>
+                    <td>Function Declaration</td>
+                    <td>Component definitions, need hoisting</td>
+                    <td>Event handlers (prefer arrow functions)</td>
+                </tr>
+                <tr>
+                    <td>Function Expression</td>
+                    <td>Conditional function creation</td>
+                    <td>Most cases (arrow functions preferred)</td>
+                </tr>
+            </table>
+
+            <h3>Performance Considerations</h3>
+            <div class="highlight">
+                <h4>❌ Performance Anti-patterns</h4>
+                <div class="code-block">
+<pre>
+// Creates new function on every render
+{items.map(item => 
+    &lt;Item key={item.id} onClick={() => handleClick(item.id)} /&gt;
+)}
+
+// Creates new object on every render
+&lt;Component style={{marginTop: '10px'}} /&gt;
+</pre>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>✅ Performance Optimizations</h4>
+                <div class="code-block">
+<pre>
+// Use useCallback for functions passed to children
+const handleClick = useCallback((id) => {
+    // Handle click logic
+}, []);
+
+// Memoize the mapped items
+const renderedItems = useMemo(() => 
+    items.map(item => 
+        &lt;Item key={item.id} onClick={() => handleClick(item.id)} /&gt;
+    ), [items, handleClick]
+);
+
+// Define styles outside component or use useMemo
+const itemStyle = { marginTop: '10px' };
+</pre>
+                </div>
+            </div>
+
+            <h3>Code Organization Tips</h3>
+            <ul>
+                <li><strong>Group related functions:</strong> Keep event handlers together</li>
+                <li><strong>Use descriptive names:</strong> <code>handleSubmit</code> vs <code>submit</code></li>
+                <li><strong>Extract complex logic:</strong> Move to custom hooks or utility functions</li>
+                <li><strong>Consistent naming:</strong> Use <code>handle</code> prefix for event handlers</li>
+            </ul>
+
+            <div class="code-block">
+<pre>
+const UserForm = () => {
+    // State declarations first
+    const [user, setUser] = useState({ name: '', email: '' });
+    const [errors, setErrors] = useState({});
+    
+    // Event handlers grouped together
+    const handleInputChange = (field) => (event) => {
+        setUser(prev => ({ ...prev, [field]: event.target.value }));
+    };
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        // Submit logic
+    };
+    
+    const handleReset = () => {
+        setUser({ name: '', email: '' });
+        setErrors({});
+    };
+    
+    // Render
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input 
+                value={user.name}
+                onChange={handleInputChange('name')}
+                placeholder="Name"
+            /&gt;
+            &lt;input 
+                value={user.email}
+                onChange={handleInputChange('email')}
+                placeholder="Email"
+            /&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+            &lt;button type="button" onClick={handleReset}&gt;Reset&lt;/button&gt;
+        &lt;/form&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="section interview-section">
+            <h2>❓ Function Declaration Interview Questions & Answers</h2>
+            
+            <h3>Fundamental Questions</h3>
+            
+            <h4>Q1: What's the difference between function declarations and function expressions?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Hoisting:</strong> Declarations are fully hoisted, expressions are not</li>
+                <li><strong>Syntax:</strong> Declarations start with <code>function</code>, expressions are assigned to variables</li>
+                <li><strong>Timing:</strong> Declarations can be called before definition, expressions cannot</li>
+                <li><strong>Use case:</strong> Declarations for components, expressions for event handlers</li>
+            </ul>
+
+            <h4>Q2: Why are arrow functions preferred in React?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Lexical this:</strong> Inherit <code>this</code> from enclosing scope</li>
+                <li><strong>Concise syntax:</strong> Less verbose than traditional functions</li>
+                <li><strong>No binding needed:</strong> Don't need to bind in class components</li>
+                <li><strong>Modern standard:</strong> Consistent with ES6+ practices</li>
+            </ul>
+
+            <h4>Q3: When should you avoid inline functions in JSX?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Performance:</strong> Creates new function on every render</li>
+                <li><strong>Child re-renders:</strong> Causes unnecessary re-renders of child components</li>
+                <li><strong>Large lists:</strong> Particularly problematic with many items</li>
+                <li><strong>Solution:</strong> Use <code>useCallback</code> or separate function definitions</li>
+            </ul>
+
+            <h4>Q4: How do you handle events with parameters in React?</h4>
+            <div class="code-block">
+<pre>
+// Method 1: Inline arrow function
+&lt;button onClick={() => handleClick(id)}&gt;Click&lt;/button&gt;
+
+// Method 2: Higher-order function
+const handleClick = (id) => () => {
+    console.log('Clicked item:', id);
+};
+&lt;button onClick={handleClick(id)}&gt;Click&lt;/button&gt;
+
+// Method 3: Data attributes
+const handleClick = (event) => {
+    const id = event.target.dataset.id;
+    console.log('Clicked item:', id);
+};
+&lt;button data-id={id} onClick={handleClick}&gt;Click&lt;/button&gt;
+</pre>
+            </div>
+
+            <h3>Advanced Questions</h3>
+            
+            <h4>Q5: Explain function hoisting in JavaScript</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Function declarations:</strong> Fully hoisted (can call before definition)</li>
+                <li><strong>Function expressions:</strong> Variable is hoisted but not the function</li>
+                <li><strong>Arrow functions:</strong> Not hoisted (behave like function expressions)</li>
+                <li><strong>Best practice:</strong> Define functions before using them</li>
+            </ul>
+
+            <h4>Q6: What are the performance implications of different function patterns?</h4>
+            <p><strong>Answer:</strong></p>
+            <table class="comparison-table">
+                <tr>
+                    <th>Pattern</th>
+                    <th>Performance Impact</th>
+                    <th>Memory Usage</th>
+                </tr>
+                <tr>
+                    <td>Inline functions</td>
+                    <td>New function every render</td>
+                    <td>Higher (garbage collection)</td>
+                </tr>
+                <tr>
+                    <td>Separate functions</td>
+                    <td>Function reused</td>
+                    <td>Lower (single instance)</td>
+                </tr>
+                <tr>
+                    <td>useCallback</td>
+                    <td>Memoized function</td>
+                    <td>Moderate (memoization overhead)</td>
+                </tr>
+            </table>
+
+            <h4>Q7: How do you handle async operations in React event handlers?</h4>
+            <div class="code-block">
+<pre>
+const MyComponent = () => {
+    const [loading, setLoading] = useState(false);
+    
+    // Async event handler
+    const handleAsyncOperation = async () => {
+        setLoading(true);
+        try {
+            const result = await fetchData();
+            console.log('Success:', result);
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+    // With error handling
+    const handleWithErrorBoundary = async () => {
+        try {
+            await riskyOperation();
+        } catch (error) {
+            // Handle error appropriately
+            showErrorMessage(error.message);
+        }
+    };
+    
+    return (
+        &lt;button 
+            onClick={handleAsyncOperation}
+            disabled={loading}
+        &gt;
+            {loading ? 'Loading...' : 'Start Operation'}
+        &lt;/button&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h4>Q8: What are higher-order functions and how are they used in React?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Definition:</strong> Functions that take or return other functions</li>
+                <li><strong>React usage:</strong> Event handler factories, HOCs, custom hooks</li>
+                <li><strong>Benefits:</strong> Code reuse, parameterization, composition</li>
+                <li><strong>Examples:</strong> <code>map</code>, <code>filter</code>, <code>useCallback</code></li>
+            </ul>
+
+            <h3>Practical Questions</h3>
+            
+            <h4>Q9: How do you optimize function performance in React?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>useCallback:</strong> Memoize functions passed to children</li>
+                <li><strong>useMemo:</strong> Memoize expensive calculations</li>
+                <li><strong>Separate definitions:</strong> Define functions outside render</li>
+                <li><strong>Debouncing:</strong> Limit function execution frequency</li>
+            </ul>
+
+            <h4>Q10: What's the difference between these event handler patterns?</h4>
+            <div class="code-block">
+<pre>
+// Pattern 1: Direct reference
+&lt;button onClick={handleClick}&gt;Click&lt;/button&gt;
+
+// Pattern 2: Inline arrow function
+&lt;button onClick={() => handleClick()}&gt;Click&lt;/button&gt;
+
+// Pattern 3: Inline with parameters
+&lt;button onClick={() => handleClick(id)}&gt;Click&lt;/button&gt;
+
+// Pattern 4: Higher-order function
+&lt;button onClick={handleClick(id)}&gt;Click&lt;/button&gt;
+</pre>
+            </div>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Pattern 1:</strong> Most performant, no new function created</li>
+                <li><strong>Pattern 2:</strong> Creates new function, but same as Pattern 1 functionally</li>
+                <li><strong>Pattern 3:</strong> Allows parameter passing, creates new function</li>
+                <li><strong>Pattern 4:</strong> Returns a function, can be optimized with memoization</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="section">
+            <div class="nav-grid">
+                <a href="ReactMainIndex.html" class="nav-card">
+                    <strong>🏠 React Main Index</strong><br>
+                    <small>Complete React documentation</small>
+                </a>
+                <a href="Reactbasics.html" class="nav-card">
+                    <strong>📚 React Basics</strong><br>
+                    <small>Fundamentals and event handling</small>
+                </a>
+                <a href="Reactstate.html" class="nav-card">
+                    <strong>🔄 React State</strong><br>
+                    <small>State management patterns</small>
+                </a>
+                <a href="ReactArrayMethods.html" class="nav-card">
+                    <strong>🔢 Array Methods</strong><br>
+                    <small>JavaScript array methods for React</small>
+                </a>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+                <h3>🏠 Navigation</h3>
+                <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+            </div>
+            
+            <p><em>Last updated: 2024 | React Function Declarations Complete Guide</em></p>
+        </footer>
     </div>
-    <p>The syntax in this example is very common in React. It uses arrow functions, but also allows us to handle situations where our separate function expression spans multiple lines of code.</p>
-
-    <h2>Conclusion</h2>
-    <p>In this reading lesson item, you’ve learned the several types of functions you can use to handle events in React. Some of those are more common than others, but now that you know all the different ways of doing this, you can understand other people’s code more easily, as well as choose the syntax that best suits your given use case, such as a specific company coding style guide.</p>
-
 </body>
 </html>

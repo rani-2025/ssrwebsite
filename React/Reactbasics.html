@@ -4,660 +4,595 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Azure Resources</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+    <title>React Basics - Complete Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #61dafb; border-bottom: 3px solid #61dafb; padding-bottom: 10px; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #61dafb; margin: 10px 0; border-radius: 5px; }
+        .highlight { background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .interview-section { background: #f8f9fa; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .nav-card { padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s; display: block; }
+        .nav-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(97, 218, 251, 0.3); }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f8f9fa; }
+        code { background: #f1f1f1; padding: 2px 4px; border-radius: 3px; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to React Resources</h1>
-    </header>
-    
-    <section>
-        <h2>Event Handling</h2>
-        <p>
-            In React, event handling is achieved through JSX event attributes, similar to HTML event attributes in JavaScript. 
-            For example, the click event handling attribute is:
-            - In JSX: <code>onClick</code>
-            - In JavaScript: <code>onclick</code>
-        </p>
+    <div class="container">
+        <header>
+            <h1>🚀 React Basics - Complete Guide</h1>
+            <p><strong>Comprehensive guide to React fundamentals, event handling, state management, and best practices</strong></p>
+        </header>
 
-        <p>
-            When you assign <code>onClick={handleClick}</code>, you are passing the function itself as a reference. 
-            React will then call this function when the click event occurs. However, if you use <code>onClick={handleClick()}</code>, 
-            the function <code>handleClick</code> is executed immediately, and its return value (which is often <code>undefined</code> if 
-            the function doesn't explicitly return anything) is assigned to the <code>onClick</code> handler. This leads to the function running 
-            on every render and not when the button is clicked.
-        </p>
+        <!-- Navigation -->
+        <div class="section">
+            <h2>📋 Quick Navigation</h2>
+            <div class="nav-grid">
+                <a href="React18Notes.html" class="nav-card">
+                    <strong>🏠 React 18 Notes</strong><br>
+                    <small>Main React documentation</small>
+                </a>
+                <a href="#event-handling" class="nav-card">
+                    <strong>⚡ Event Handling</strong><br>
+                    <small>onClick, forms, and events</small>
+                </a>
+                <a href="#state-management" class="nav-card">
+                    <strong>🔄 State Management</strong><br>
+                    <small>useState, props, and lifecycle</small>
+                </a>
+                <a href="#project-structure" class="nav-card">
+                    <strong>📁 Project Structure</strong><br>
+                    <small>Files, configuration, and setup</small>
+                </a>
+            </div>
+        </div>
 
-        <p>
-            Sample code:
-            <pre>
-                <code>
+        <!-- Event Handling Section -->
+        <div id="event-handling" class="section">
+            <h2>⚡ Event Handling in React</h2>
+            
+            <h3>Basic Event Handling</h3>
+            <p>In React, event handling uses JSX event attributes similar to HTML, but with camelCase naming:</p>
+            <ul>
+                <li><strong>JSX:</strong> <code>onClick</code></li>
+                <li><strong>HTML:</strong> <code>onclick</code></li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Key Rule:</strong> Pass function reference, not function call
+                <ul>
+                    <li>✅ Correct: <code>onClick={handleClick}</code></li>
+                    <li>❌ Wrong: <code>onClick={handleClick()}</code></li>
+                </ul>
+            </div>
+
+            <h3>Event Handler Example</h3>
+            <div class="code-block">
+<pre>
 function MyComponent() {
   const handleClick = () => {
     console.log('Button was clicked!');
   };
 
   return (
-    <button onClick={handleClick}> {/* Correct way */}
+    &lt;button onClick={handleClick}&gt;
       Click me
-    </button>
+    &lt;/button&gt;
   );
 }
-                </code>
-            </pre>
-        </p>
-        <p>
-            <h3> how to embed expressions in string</h3>
-            The symbol ` is called a backtick or grave accent. In JSX (and JavaScript in general), it is used to define template literals.
-            Template literals allow you to embed expressions within strings. 
+</pre>
+            </div>
+
+            <h3>Template Literals and String Embedding</h3>
+            <p>Use backticks (`) for template literals to embed expressions in strings:</p>
+            <div class="code-block">
+<pre>
+let randomNum = 5;
+let userInput = 3;
+let message = `Computer number: ${randomNum}, Your guess: ${userInput}`;
+console.log(message); // "Computer number: 5, Your guess: 3"
+</pre>
+            </div>
+
+            <h3>Function Declaration Methods</h3>
+            <p>React supports multiple ways to declare functions. See <a href="Reactfunctiondeclarations.html">Function Declarations Guide</a> for detailed examples.</p>
+        </div>
+
+        <!-- State Management Section -->
+        <div id="state-management" class="section">
+            <h2>🔄 State Management in React</h2>
             
-            Here's how it works:
-            <pre> //  preformatted text. It preserves both spaces and line breaks exactly as they are written in the HTML code.
-                <code> // this is add inline code  or a fragment of computer code. it displays monospaced font to differentiate it from normal text
-                    let randomNum = 5;
-                    let userInput = 3;
+            <h3>useState Hook</h3>
+            <p>useState allows components to have their own state:</p>
+            <div class="code-block">
+<pre>
+import { useState } from 'react';
 
-                    let message = `Computer number: ${randomNum}, Your guess: ${userInput}`;
-                    console.log(message); 
-                </code>
-            </pre> // ideal for display code example in readable format
-            here to embed randonNumber and userInput expressions we used backtick. 
-        </p>
+const LightSwitch = () => {
+    const [lightOn, setLightOn] = useState(false);
+    
+    const handleLight = () => {
+        setLightOn(!lightOn);
+    };
 
-        <h3>Please refer following link to see various ways to declare React functions</h3>
-        <a href="Reactfunctiondeclarations.html" target="_blank"> Various React Functional Declarations </a>
-        <a href="https://legacy.reactjs.org/docs/handling-events.html#gatsby-focus-wrapper" target="_blank"> Handling functions react class components </a>
-        <p>             
-                <a href="https://legacy.reactjs.org/docs/jsx-in-depth.html#javascript-expressions-as-children" target="_blank"> JavaScript Expressions as Children
-                </a>
-                <a href="https://legacy.reactjs.org/docs/jsx-in-depth.html#javascript-expressions-as-props" target="_blank"> JavaScript Expressions as Props
-                </a>
-                <a href="https://legacy.reactjs.org/docs/events.html#gatsby-focus-wrapper " target="_blank"> Supported Events
-                </a>
-                <a href="https://legacy.reactjs.org/docs/events.html#supported-events" target="_blank"> Synthetic Events
-                </a>
-            <p>
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Light is turned on: {lightOn ? 'Yes' : 'No'}&lt;/h1&gt;
+            &lt;button onClick={handleLight}&gt;Toggle Light&lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
 
-        </p>
-    </section>
-    <section>
-        declaration of state in react.
-        usestate allows component to have its own state
-        <pre>
-            <code>
-        import {useState} from React;
-        const LightSwitch = () => {
-            const [lightOn, setLightOn] = useState(false);
-            function handleLight () {
-                setLightOn(!lightOn)
-            }
+            <h3>Stateful vs Stateless Components</h3>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Stateful Components</th>
+                    <th>Stateless Components</th>
+                </tr>
+                <tr>
+                    <td>State Management</td>
+                    <td>Maintains own state</td>
+                    <td>No state, receives data via props</td>
+                </tr>
+                <tr>
+                    <td>Data Source</td>
+                    <td>useState, useContext</td>
+                    <td>Props from parent</td>
+                </tr>
+                <tr>
+                    <td>Mutability</td>
+                    <td>State can change</td>
+                    <td>Props are immutable</td>
+                </tr>
+                <tr>
+                    <td>Use Case</td>
+                    <td>Interactive components</td>
+                    <td>Display components</td>
+                </tr>
+            </table>
 
-            return(
-                <h1> Light is turned on: {lightOn}</h1>
-                <button onClick={ () => {setLightOn(!lightOn)}}</button> > or
-                <button onClick={ handleLight } ></button>
-            )
-        }
+            <h3>Advanced State Example</h3>
+            <div class="code-block">
+<pre>
+const MovieWatchlist = () => {
+    const [watchList, setWatchList] = useState([]);
+    
+    const toggleWatchList = (movieId) => {
+        setWatchList(prev => 
+            prev.includes(movieId) 
+                ? prev.filter(id => id !== movieId)  // Remove if exists
+                : [...prev, movieId]                 // Add if doesn't exist
+        );
+    };
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Watchlist: {watchList.length} movies&lt;/p&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
 
-     </code>
-    </pre>
-    </section>
-    <section>
-        Run the following command to create the React app named counter_app: 
-        <p>
-            npx create-react-app counter_app
-        </p>
-    </section>
-    <section>
-       <h3> Managing state in react </h3> 
-       with in using usestate
-       if its across we can manage through global state  which is called useContext
-    </section>
-    <section>
-        <p>
-            prop drilling is a situation where you are passing data from a parent to a child component, then to a grandchild component, and so on, until it reaches a more distant component further down the component tree, where this data is required
-        </p>
-    </section>
-    <section>
-        <h3> React Navigation </h3>
-         <p>
-            npx create-react-app counter_app
-        </p>
-       <section>
-        <h3> traditional app navigation</h3>
-        scenario - 1
-        Before the advent of modern JavaScript frameworks, most websites were implemented as multi-page applications. That is, when a user clicks on a link, the browser navigates to a new webpage, sends a request to the web server; this then responds with the full webpage and the new page is displayed in the browser.
-        This can make your application resource intensive to the Web Server. CPU time is spent rendering dynamic pages and network bandwidth is used sending entire webpages back for every request. If your website is complex, it may appear slow to your users, even slower if they have a slow or limited internet connection.
-
-        scenario -2 
-        You have a web application that has a navigation bar on top and two pages. One page shows the latest news, and the other shows the current user’s profile page. The navigation bar contains a link for each page.
-        In a traditional website, when the user clicks the Profile link, the web browser sends the request to the web server. The web server generates the HTML page and sends it back to the web browser. The web browser then renders the new web page.
-
-        To solve this problem, many web developers develop their web applications as Single Page Applications.
-       </section>
-       <section>
-        <h3>Single page navigation </h3>
-        scenario -1
-        Youre using many Single Page Applications every day. Think of your favorite social network, or online email provider, or the map application you use to find local businesses. Their excellent user experiences are driven by Single Page Applications.
-        A Single Page Application allows the user to interact with the website without downloading entire new webpages. Instead, it rewrites the current webpage as the user interacts with it. The outcome is that the application will feel faster and more responsive to the user.
-       
-        scenario - 2
-        In a Single Page Application, different pages are broken into templates (or views). Each view will have HTML code containing variables that can be updated by the application.
-        The web browser sends the request to the web server, and the web server sends back a JSON object. The web browser then updates the web page by inserting the template with the variables replaced by the values in the JSON object.    
-    </section>
-    <section>
-        <h3>Anchor Tag Elements in Single-Page Elements</h3>
-        <p>
-            A single-page application can’t have regular anchor tag elements as a traditional web app can. 
-            The reason for this is that the default behavior of an anchor tag is to load another HTML file from a server and refresh the page. This page refresh is not possible in a SPA that's powered by a library such as React because a total page refresh is not the way that a SPA works, as explained earlier in this lesson item. 
-            Instead, a SPA comes with its own special implementation of anchor tags and links, which only give an illusion of loading different pages to the end user when in fact, they simply load different components into a single element of the real DOM into which the virtual DOM tree gets mounted and updated.   
-        </p>
-        <p>
-            What is package-lock.json?
-            It’s a file automatically generated by npm when you run npm install.
-
-            It locks the exact versions of every installed package (and its dependencies), ensuring that everyone who installs your project gets the same exact dependency tree — no surprises. 
-
-        </p>
-    </section>
-    <section>
-        <h3> project root level - (npmrc) file</h3>
-        <p> 
-            The .npmrc file is a configuration file used by npm (Node Package Manager) to manage settings for installing packages and interacting with npm registries. 
-            It allows you to customize behavior globally, per project, or per user.
-            Here are some common keys you might find:
-
-
-            Setting	Description
-            1. registry=https://registry.npmjs.org/	Sets the default registry
-            2. strict-ssl=true	Ensures SSL is used
-            3. authToken=xxxx	For private registry authentication
-            4. save-exact=true	Always save exact versions in package.json
-            5. legacy-peer-deps=true	Ignores peer dependency conflicts (helpful in npm v7+)
-            6.  cache=/path/to/cache	Custom cache directory
-            7. scripts-prepend-node-path=true	Ensures correct node is used in scripts
-            8. always-auth = true (npm sends your auth token or credentials with every request to the registry) - (few times)
-
-        </p>
-        <p>
-            In curent org we have
-            registry = "https://maven.infra.dp-dev.jcpcloud2.net/content/groups/npm/" (nexus registry)
-            cafile=trustedcerts (This setting points to a PEM-encoded certificate file (often .pem, .crt, or .cer) that npm should trust when making secure HTTPS connections)
-            package-lock=false (This tells npm NOT to create or use package-lock.json at all.
-            It won’t generate a package-lock.json when you run npm install
-            If one already exists, npm will ignore it
-            This also disables features like npm ci (which depends on the lock file))
-
-        </p>
-    </section>
-    <section>
-        <h3> project root level (eslintrc) file</h3>
-        <p>
-            if you see an .eslintrc in node_modules, it's likely from an ESLint configuration package, <br>
-            but you'd usually maintain your own .eslintrc at the root of your project.
+            <h3>Prop Drilling</h3>
+            <p>Prop drilling occurs when you pass data from parent to child to grandchild components. Solutions include:</p>
             <ul>
-            <li>An .eslintrc file in a React project (or any JavaScript/Node.js project) is a configuration file for ESLint, 
-                which is a static code analysis tool used to identify and fix problems in JavaScript code. 
-                This file is essential for ensuring that the code follows certain style guidelines, best practices, and avoids errors.</li>
+                <li><strong>Context API:</strong> Share data without passing props</li>
+                <li><strong>Redux:</strong> Global state management</li>
+                <li><strong>Component composition:</strong> Restructure component hierarchy</li>
+            </ul>
+        </div>
 
-            <h3>What does the .eslintrc file do? </h3>
-            <li>Linting Configuration: It specifies the rules ESLint should follow while analyzing the code. 
-                For example, it can define rules like "always use semicolons" or "indent using 2 spaces."</li>
-
-           <li>Code Quality: It can enforce consistent coding styles and conventions across a team, 
-            making the codebase easier to read, maintain, and debug.</li>
-
-          <li> Error Prevention: ESLint helps prevent bugs by catching common mistakes, 
-            such as declaring a variable but not using it, or using a console.log statement in production code.</li>
-        </ul>
-    <h3> we have following settings in our project each setting means</h3>
-    <ul>
-       <li> "default-param-last": "off": Disables the rule that enforces default parameters to come last in function signatures.</li>
-
-        <li>"react/function-component-definition": "off": Disables the rule that enforces a specific style (declaration vs. expression) for React function components.</li>
-
-        <li>"prefer-regex-literals": "off": Disables the rule that encourages using regular expression literals over the RegExp constructor.</li>
-      </ul>
-        </p>
-    </section>
-    <section>
-        <h2>project rrot level jenkinsfile</h2>
-        This is jenkins pipeline or jenkins file contains configuration related to CI/CD pipeline jobs.
-        <h3> following are the settings at my project levels</h3>
-        <ul>
-            <li>jenkins_debug_image: Specifies a Docker image (jenkins-nodejs20:4.2.4) to be used for debugging.</li>
-
-            <li>base_image_override: Disables the feature of overriding the default base image, 
-                meaning it won't change the base image for other steps in the pipeline.</li>
-        </ul>
-        // this is how our project jenkins file lookslike
-        <pre>
-            <code>
-            #!/usr/bin/env groovy
-            @Library('psl@api/2') _
-
-            gradleBuild {
-                with 'jenkins-nodejs20:4.2.4'
-                build {
-                    parallel false
-                }
-                publish {
-                    docker {
-                    images 'fusion-marketing'
-                    }
-                    nexus {
-                    modules()
-                    }
-                }
-                veracodeConfig {
-                    modules 'fusion-marketing'
-                }
-                report {
-                    checkstyle '**/build/reports/checkstyle/*.xml'
-                    archive 'build/license*.zip', 'build/version.properties', 'coverage/**'
-                }
-                notify 'DP-JCP-RWDDevs-All-dl@jcp.com'
-                jenkins_debug_image {
-                debugImage 'jenkins-nodejs20:4.2.4'
-                }
-                base_image_override {
-                    enabled false
-                }
-            }
-            </code>
-        </pre>
-    </section>
-    <section>
-        <h3>Project level gradle.properties</h3>
-        <p>
-            The gradle.properties file is used in Gradle, a build automation tool, <br>
-            to define configuration properties that can be used throughout the build process
-        </p>
-        <ul>
-            <li>
-                In our org we have sonarqube props
-            </li>
-        </ul>
-        // this is how gradle file looks like
-        <pre>
-            <code>
-                nexusUrl=https://maven.infra.dp-dev.jcpcloud2.net
-                registryName=registry.dp-dev.jcpcloud2.net
-                jcp_docker_maintained_by=Jcpenny Devops Team<devops-service-dl@jcp.com>
-                jcp_docker_node_base_image=registry.dp-dev.jcpcloud2.net/jcp-nodejs20:4.2.4
-                nodePort=8080
-                systemProp.sonar.sources=src
-                systemProp.sonar.host.url=https://sonarqube.infra.dp-dev.jcpcloud2.net
-                systemProp.sonar.javascript.lcov.reportPaths=coverage/lcov.info
-            </code>
-        </pre>
-    </section>
-    <section>
-        <h3>
-            Npm version declaration if start with^ vs ~
-        </h3>
-        <p>
-            ^ (Caret)
-            Example: "lodash": "^4.17.15"
-            What it means: Accept any minor or patch updates, but not major updates.
-            So: It will install 4.17.21 (if available), but not 5.0.0.
-            Rule of thumb: updates that don't break backwards compatibility (according to SemVer).
-        </p>
-        <p>
-            ~ (Tilde)
-        Example: "lodash": "~4.17.15"
-        What it means: Accept only patch updates, but not minor or major updates.
-        So: It will install 4.17.21, but not 4.18.0
-        Rule of thumb: more conservative than ^; stick to the exact minor version.
-        </p>
-    </section>
-    <section>
-        <h3>stateful vs stateless components</h3>
-       1.  stateful component maintain the state in component
-       2. stateless component doesnt maintain any state this will read state through props
-       3.  props cant be changes, where as state does -- state will be created using useState or useContext
-       4. we can create global state using usecontext where usestate is local to component  
-       5. this is how we can create state and pass as prop, if u need to update then declare setFruits
-       <pre>
-        <code>
-            export function App() {
-                const [fruits] = React.useState([
-                      {fruitName: 'apple', id: 1},
-                      {fruitName: 'apple', id: 2},
-                      {fruitName: 'plum', id: 3},
-                 ]);
-                return (
-                  <div className="App">
-                    <h1>Where should the state go?</h1>
-                    <Fruits fruits={ fruits }/>
-                    <FruitsCounter fruitscount={ fruits.length }/>
-                  </div>
-                );
-              }
-        </code>
-       </pre>
-    </section>
-    <section>
-        <p>
-            <h3>React routing</h3>
-           1.  In React we can achieve navigation between pages by using react router.
-           2. to achieve this we need to install react router module by using 
-           npm i react-router-dome@6 (6 is the module)
-           3. Add below code in index.js file
-           <pre>
-            <code>
-                import {BrowserRouter } from 'react-router-dom'
-
-                const root = ReactDom.createRoot()
-                root.render(
-                    <BrowserRouter>
-                        <App />
-                    </BrowserRouter>
-                )
-            </code>
-           </pre>
-           4. Add below code in app.js file
-           <pre>
-            <code>
-                import { Routes, Route} from 'react-router-dom';
-                function App() {
-                    return (
-                    // this is to define navigation links from header nav when click on home and about me
-                    <nav>
-                        <Link to="/" className="nav-item"> Homepage </Link> 
-                        <Link to="/about-me" className="nav-item"> AboutMe </Link> 
-                    </nav>
-                    // this is to define routes
-                    <Routes>
-                        <Route path="/" element ={ <Homepage />} />
-                        <Route path="/about-me" element ={ <AboutMe />} />
-                    </Routes>
-                    );
-                }
-            </code>
-           </pre>
-        </p>
-    </section>
-    <h3>
-        Conditional rendering
-    </h3>
-    <p>
-    <ul>
-        <li>
-           State is all the data your app is currently working with. With this in mind, 
-           you can decide to conditionally render specific components in your app, based on whether specific state data has specific values. 
-           To make this possible, React works with the readily available JavaScript syntax and concepts.
-        </li>
-    </ul>
-    <h3> example of conditional rendering</h3>
-    <pre>
-        <code>
-            function CurrentMessage({day}) {
-                const weekday = (day >= 1 && day <= 5);
-                const weekend = (day >= 6 && day <= 7);
-                let message;
-                
-               if (weekday) {
-               message = <Workdays />
-              } else if (weekend) {
-                message = <Weekends />
-               } else {
-               message = <ErrorComponent />
-                 }
-                
-                return (
-               <div>
-                {message}
-               </div>
-                )
-                }
-        </code>
-    </pre>
-    <ul>
-        <li>
-            here 
-            The output of the CurrentMessage component will depend on what the received value of the day variable is. 
-            On the condition of the day variable having the value of any number between 1 and 5 (inclusive), 
-            the output will be the contents of the Workdays component. Otherwise, 
-            on the condition of the day variable having the value of either 6 or 7, 
-            the output will be the contents of the Weekends component.
-    </li>
-</ul>
-    </p>
-    <p>
-        <h3>Conditional rendering using the logical AND operator</h3>
-        <pre>
-            <code>
-                function LogicalAndExample() {
-                    const val = prompt('Anything but a 0')
-                    
-                     return (
-                         <div>
-                          <h1>Please don't type in a zero</h1>
-                            {val &&
-                                <h2>Yay, no 0 was typed in!</h2>
-                         }
-                            </div>
-                   )
-                    }
-            </code>
-        </pre>
-    </p>
-    </section>
-    <section>
-        <h3>
-            What is Assets?
-        </h3>
-        <p>
-           Assets are like --  Images, stylesheets, Fonts, anyfiles needed to run the app 
-            -- you can say all the files in order to work react as expected.
-            -- In React these can be stored at source - assets folder or public folder (like favicon, logo ) 
-            u can keep in public folder if ur app can compile it without it.
-        </p>
-        <p>
-            3 various ways u cam load resource
-            1. using import method download image,<imp src="" ></imp>
-            2.using inline img as relative path src --><img src = {require("")}
-            3.const randomimageurl = "some external ul" <img src={randomimageurl}>
-        </p>
-    </section>
-    <section>
-        <h3>
-            what is bundling?
-        </h3>
-        <p>
-            Bundling is a process that takes all the imported files in an app and joins them into a single file, 
-            referred to as a bundle.
-
-            In turn, all the imported files might have their own imported files, and even those might have their imports.
-
-            This means that depending on other files, all of these files can create a dependency graph. 
-            The order in which all these files are loading is essential. 
-            That dependency graph can get so complex that it becomes almost impossible for a human to structure a complex project
-            and bundle all those dependencies properly.
-
-            This is the reason we need tools like webpack.
-        </p>
-    </section>
-    <section>
-        <h3>
-            what is Webpack?
-        </h3>
-        <p>
-            webpack builds a dependency graph and bundles modules into one or more files that a browser can consume.
-
-            While it is doing that, it also does the following: 
+        <!-- Project Structure Section -->
+        <div id="project-structure" class="section">
+            <h2>📁 Project Structure & Configuration</h2>
             
-            1. It converts modern JS code - which can only be understood by modern browsers - 
-            into older versions of JavaScript so that older browsers can understand your code. 
-            This process is known as transpiling. For example, you can transpile ES7 code to ES5 code using webpack.  
+            <h3>Creating React App</h3>
+            <div class="code-block">
+<pre>
+npx create-react-app my-app
+cd my-app
+npm start
+</pre>
+            </div>
+
+            <h3>Key Configuration Files</h3>
             
-            2. It optimizes your code to load as quickly as possible when a user visits your web pages. 
+            <h4>package.json</h4>
+            <p>Contains project metadata, dependencies, and scripts</p>
             
-            3. It can process your SCSS code into the regular CSS, which browsers can understand. 
+            <h4>package-lock.json</h4>
+            <p>Locks exact versions of dependencies, ensuring consistent installs across environments</p>
             
-            4. It can build source maps of the bundle's building blocks  
+            <h4>.npmrc File</h4>
+            <p>NPM configuration file with common settings:</p>
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>registry</td>
+                    <td>Sets the default npm registry</td>
+                </tr>
+                <tr>
+                    <td>strict-ssl</td>
+                    <td>Ensures SSL is used for connections</td>
+                </tr>
+                <tr>
+                    <td>save-exact</td>
+                    <td>Always save exact versions in package.json</td>
+                </tr>
+                <tr>
+                    <td>legacy-peer-deps</td>
+                    <td>Ignores peer dependency conflicts</td>
+                </tr>
+            </table>
+
+            <h4>.eslintrc File</h4>
+            <p>ESLint configuration for code quality and style enforcement:</p>
+            <ul>
+                <li>Identifies and fixes JavaScript problems</li>
+                <li>Enforces consistent coding styles</li>
+                <li>Prevents common bugs and errors</li>
+            </ul>
+
+            <h3>Version Declaration (^ vs ~)</h3>
+            <table>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Example</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td>^ (Caret)</td>
+                    <td>"lodash": "^4.17.15"</td>
+                    <td>Accept minor and patch updates (4.17.21 ✅, 5.0.0 ❌)</td>
+                </tr>
+                <tr>
+                    <td>~ (Tilde)</td>
+                    <td>"lodash": "~4.17.15"</td>
+                    <td>Accept only patch updates (4.17.21 ✅, 4.18.0 ❌)</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Navigation & Routing -->
+        <div class="section">
+            <h2>🧭 React Navigation & Routing</h2>
             
-            5. It can produce various kinds of files based on rules and templates. This includes HTML files, among others. 
+            <h3>Traditional vs Single Page Applications</h3>
+            <table>
+                <tr>
+                    <th>Traditional Web Apps</th>
+                    <th>Single Page Applications (SPA)</th>
+                </tr>
+                <tr>
+                    <td>Full page reload on navigation</td>
+                    <td>Dynamic content updates without reload</td>
+                </tr>
+                <tr>
+                    <td>Server renders complete HTML</td>
+                    <td>Client-side rendering with JavaScript</td>
+                </tr>
+                <tr>
+                    <td>Higher server load</td>
+                    <td>Better user experience</td>
+                </tr>
+            </table>
+
+            <h3>React Router Setup</h3>
+            <div class="code-block">
+<pre>
+// 1. Install React Router
+npm install react-router-dom@6
+
+// 2. Setup in index.js
+import { BrowserRouter } from 'react-router-dom';
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    &lt;BrowserRouter&gt;
+        &lt;App /&gt;
+    &lt;/BrowserRouter&gt;
+);
+
+// 3. Setup routes in App.js
+import { Routes, Route, Link } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;nav&gt;
+                &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                &lt;Link to="/about"&gt;About&lt;/Link&gt;
+            &lt;/nav&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/div&gt;
+    );
+}
+</pre>
+            </div>
+        </div>
+
+        <!-- Conditional Rendering -->
+        <div class="section">
+            <h2>🔀 Conditional Rendering</h2>
             
-            Another significant characteristic of webpack is that it helps developers create modern web apps.
+            <h3>If-Else Conditional Rendering</h3>
+            <div class="code-block">
+<pre>
+function CurrentMessage({day}) {
+    const weekday = (day >= 1 && day <= 5);
+    const weekend = (day >= 6 && day <= 7);
+    let message;
+    
+    if (weekday) {
+        message = &lt;Workdays /&gt;;
+    } else if (weekend) {
+        message = &lt;Weekends /&gt;;
+    } else {
+        message = &lt;ErrorComponent /&gt;;
+    }
+    
+    return &lt;div&gt;{message}&lt;/div&gt;;
+}
+</pre>
+            </div>
 
-            It helps you achieve this using two modes: production mode or development mode.
+            <h3>Logical AND Operator</h3>
+            <div class="code-block">
+<pre>
+function LogicalAndExample() {
+    const [showMessage, setShowMessage] = useState(false);
+    
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Conditional Display&lt;/h1&gt;
+            {showMessage && &lt;h2&gt;This message is conditionally shown!&lt;/h2&gt;}
+            &lt;button onClick={() =&gt; setShowMessage(!showMessage)}&gt;
+                Toggle Message
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</pre>
+            </div>
+        </div>
 
-            In development mode, webpack bundles your files and optimizes your bundles for updates - 
-            so that any updates to any of the files in your locally developed app are quickly re-bundled.
-             It also builds source maps so you can inspect the original file included in the bundled code.
-
-            In production mode, webpack bundles your files so that they are optimized for speed. 
-            This means the files are minified and organized to take up the least amount of memory.
-             So, they are optimized for speed because these bundles are fast to download when a user visits the website online.
-
-             Once all the source files of your app have been bundled into a single bundle file, 
-             then that single bundle file gets served to a visitor browsing the live version of your app online, 
-             and the entire app’s contents get served at once.
-        </p>
-        <p>
-            <h3>webpack performance</h3>
-            <p>
-            larger webpack will effect performance.
-            to address this 
-            webpack splits the single bundle file into multiple bundles, 
-            which are then loaded on an as-needed basis. 
-            With the help of code-splitting, you can lazy load only the parts that the visitor to the app needs to have at any given time. 
-            This approach significantly reduces the download times and allows React-powered apps to get much better speeds. 
-          </p>
-          <p>
-            There are other ways to tackle these performance problems. 
-
-            1. An example of a viable alternative is SSR (Server-side rendering).
-
-            2. With SSR, React components are rendered to HTML on the server, 
-            and the visitor downloads the finished HTML code. An alternative to SSR is client-side rendering,
-             which downloads the index.html file and then lets React inject its own code into a dedicated HTML element 
-             (the root element in create-react-app). In this course, you’ve only worked with client-side rendering. 
-
-         Sometimes, you can combine client-side rendering and server-side rendering. T
-         his approach results in what’s referred to as isomorphic apps.
-          </p>
-        </p>
-    </section>
-    <section>
-        <h3>Audio and Video</h3>
-        <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_video_and_audio">Video and audio content on the web</a>
-        
-        <p>
-            3 ways u can include videos
-            1. using html <video src=""></video>
-            2. using external videos
-            3. using npm video package, u can look for npmjs.org for frequently downloaded video packages
-            one of the sample u can find at github.com/CookPete/react-player
-
-            <p>
-                When looking for a third-party NPM package to use in the NPM package ecosystem, 
-                how would you determine if the package is suitable and the right one you need? Select all that apply.      
-
-                1. Check the package’s GitHub page
-                2. Perform an internet search for the package name    
-                3. Check the frequency of updates
-            </p>
-        </p>
-        <p>
-            sample react 
-            1. u can find react player package here 
-            https://www.npmjs.com/package/react-player
-
-            2. npm install react-player
-            3. import ReactPlayer from "react-player";
-            4. import ReactPlayer from "react-player/youtube"; (embed from youtube)
-            5. in Reactplayer if u set playing true automatically when page loads
-            5. <pre>
-                <code>
-                    import React from "react";
-                    import ReactPlayer from "react-player/youtube";
-
-                    const App = () => {
-                    return (
-                        <div>
-                        <MyVideo />
-                        </div>
-                    );
-                    };
-
-                    const MyVideo = () => {
-                    return (
-                        <ReactPlayer url='https://www.youtube.com/watch?v=T8TZQ6k4SLE' playing="{false}" volume={0.5}/>
-                    );
-                    };
-
-                    export default App;
-                </code>
-            </pre>
-        </p>
-    </section>
-    <section>
-        <p>
-            <h3> React router -> help to navigate to different pages</h3>
+        <!-- Assets and Media -->
+        <div class="section">
+            <h2>🎨 Assets and Media in React</h2>
             
-            steps - 
-            1. install the router module - npm i react-router-dom@6.22.3 
-            2.import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-            <Router>
-                <nva>
-                    <ul>
-                        <li>
-                            <link to="/">Home</li> //this will create home link and map to home route path
-                        </li>
-                        <li>
-                            <link to="/watchlist">Watchlist</li> //this will create watchlist link and map to watchlist path
-                        </li>
-                    </ul>
-                </nva>
-                <Routes>
-                <Route path = '/' element = {<Home movies={movies}/>} // here when landed home component wil load
-                <Route path = '/watchlist' element = {</watchlist}> // here when user navigate /watchlist  then watch list will be loaded
-                </Routes>
-            </Router>
-            <p>
-                <h3> routing Q&A</h3>
-                1. Why are we using a router in React? To manage the navigation between different parts of the application without reloading the page.
-                2. Which element is used in React Router to navigate a user to a different route? - "<Link>" because it is specifically designed in React Router to create navigational links to different routes in your application, making it the correct choice for routing.
-                3. How can we tell a React Router <Route> element to display a specific component? - <Route path='/home' element = {<Home/>}/>
-            </p>
-        </p>
-        <p>
-            <h3> example of useState in advance way</h3>
-            // in react state is immutable so that to update state we did [...prev, movieId]  using spread operator take complete state and add the new one into new state 
-            1. this is how we srt -> const[watchList, setWatchList] = useState([]) // assign empty array
-            2. const toogleWatchList = (movieId) => {
-                setWatchList(prev => 
-                 prev.includes(movieId) ? prev.filter(id => id !== movie) : [...prev, movieId] // prev -> means previous state of watchlist if it already had movie id remove else add 
-                )
-            }
-        </p>
-    </section>
-    <section>
-        <h3>React FAQs on Arrays</h3>
-        <p>
-            1. What is a “default export” in JavaScript?
-            Ans - A module that exports a single main value.
-            2. How does a “named export” differ from a “default export”?
-            Ans - named exported must be imported using their exact named
-            3. what are template literals (blacktics) used in javascript?
-            Ans - To embed variables directly inside strings.
-            4. what does the map() method do in javascript arrays?
-            Ans - it creates new array with transformed values.
-            5. what does the find() method return in an arrays?
-            Ans - the first element that matches the condition.
-            6. What is the purpose of the filter() method in JavaScript arrays?
-            Ans - creates a new array with elements that pass a test.
-            7. What does the forEach() method do in JavaScript?
-            Ans - it executes a function for each element without returning anything.
-            (The forEach() method in JavaScript executes a provided function for each element in an array but does not return a new array or value. )
-        </p>
-    </section>
-    <footer>
-       
-    </footer>
+            <h3>What are Assets?</h3>
+            <p>Assets include images, stylesheets, fonts, and any files needed for your app to function properly.</p>
+            
+            <h3>Asset Loading Methods</h3>
+            <div class="code-block">
+<pre>
+// 1. Import method
+import logo from './assets/logo.png';
+&lt;img src={logo} alt="Logo" /&gt;
+
+// 2. Require method
+&lt;img src={require('./assets/logo.png')} alt="Logo" /&gt;
+
+// 3. External URL
+const imageUrl = "https://example.com/image.jpg";
+&lt;img src={imageUrl} alt="External" /&gt;
+</pre>
+            </div>
+
+            <h3>Video Integration</h3>
+            <div class="code-block">
+<pre>
+// Using react-player package
+npm install react-player
+
+import ReactPlayer from 'react-player';
+
+const VideoComponent = () => {
+    return (
+        &lt;ReactPlayer 
+            url='https://www.youtube.com/watch?v=example'
+            playing={false}
+            volume={0.5}
+            controls
+        /&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="section interview-section">
+            <h2>❓ React Basics Interview Questions & Answers</h2>
+            
+            <h3>Fundamental Questions</h3>
+            
+            <h4>Q1: What is the difference between props and state?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Props:</strong> Immutable data passed from parent to child components</li>
+                <li><strong>State:</strong> Mutable data managed within a component using useState</li>
+                <li><strong>Props flow:</strong> Unidirectional (parent to child)</li>
+                <li><strong>State updates:</strong> Trigger re-renders</li>
+            </ul>
+
+            <h4>Q2: Why should you pass function reference instead of calling the function in event handlers?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><code>onClick={handleClick}</code> passes the function reference</li>
+                <li><code>onClick={handleClick()}</code> executes the function immediately</li>
+                <li>Immediate execution happens on every render, not on click</li>
+                <li>Can cause infinite re-render loops</li>
+            </ul>
+
+            <h4>Q3: What is prop drilling and how can you avoid it?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Prop drilling:</strong> Passing props through multiple component levels</li>
+                <li><strong>Solutions:</strong> Context API, Redux, component composition</li>
+                <li><strong>Context API:</strong> Provides global state without prop passing</li>
+                <li><strong>Redux:</strong> Centralized state management</li>
+            </ul>
+
+            <h4>Q4: Explain the difference between stateful and stateless components</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Stateful:</strong> Manage their own state using useState/useReducer</li>
+                <li><strong>Stateless:</strong> Receive data only through props</li>
+                <li><strong>Stateful use case:</strong> Interactive components (forms, counters)</li>
+                <li><strong>Stateless use case:</strong> Display components (headers, cards)</li>
+            </ul>
+
+            <h3>Technical Questions</h3>
+            
+            <h4>Q5: What is the Virtual DOM and why is it important?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li>JavaScript representation of the real DOM</li>
+                <li>Enables efficient diffing and reconciliation</li>
+                <li>Minimizes expensive DOM operations</li>
+                <li>Improves performance through batched updates</li>
+            </ul>
+
+            <h4>Q6: How does React handle events differently from vanilla JavaScript?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>SyntheticEvents:</strong> React wraps native events</li>
+                <li><strong>Cross-browser compatibility:</strong> Consistent behavior</li>
+                <li><strong>Event pooling:</strong> Reuses event objects for performance</li>
+                <li><strong>CamelCase naming:</strong> onClick instead of onclick</li>
+            </ul>
+
+            <h4>Q7: What is the difference between ^ and ~ in package.json versions?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>^ (Caret):</strong> Allows minor and patch updates</li>
+                <li><strong>~ (Tilde):</strong> Allows only patch updates</li>
+                <li><strong>Example:</strong> ^1.2.3 allows 1.3.0, ~1.2.3 allows 1.2.4</li>
+                <li><strong>Best practice:</strong> Use ^ for most dependencies</li>
+            </ul>
+
+            <h3>Practical Questions</h3>
+            
+            <h4>Q8: How do you handle form inputs in React?</h4>
+            <div class="code-block">
+<pre>
+function ContactForm() {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: ''
+    });
+    
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Form data:', formData);
+    };
+    
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name"
+            /&gt;
+            &lt;input 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+            /&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</pre>
+            </div>
+
+            <h4>Q9: How do you conditionally render components?</h4>
+            <div class="code-block">
+<pre>
+// Method 1: Ternary operator
+{isLoggedIn ? &lt;Dashboard /&gt; : &lt;Login /&gt;}
+
+// Method 2: Logical AND
+{isLoggedIn && &lt;Dashboard /&gt;}
+
+// Method 3: If-else with variables
+let content;
+if (isLoggedIn) {
+    content = &lt;Dashboard /&gt;;
+} else {
+    content = &lt;Login /&gt;;
+}
+return &lt;div&gt;{content}&lt;/div&gt;;
+</pre>
+            </div>
+
+            <h4>Q10: What are the rules of hooks?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Only call at top level:</strong> Not inside loops, conditions, or nested functions</li>
+                <li><strong>Only call from React functions:</strong> Components or custom hooks</li>
+                <li><strong>Custom hooks:</strong> Must start with "use"</li>
+                <li><strong>Consistent order:</strong> Same hooks in same order every render</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="section">
+            <h2>📚 Additional Resources</h2>
+            <div class="nav-grid">
+                <a href="ReactMainIndex.html" class="nav-card">
+                    <strong>🏠 React Main Index</strong><br>
+                    <small>Complete React documentation</small>
+                </a>
+                <a href="Reactstate.html" class="nav-card">
+                    <strong>🔄 React State</strong><br>
+                    <small>Advanced state management</small>
+                </a>
+                <a href="ReactArrayMethods.html" class="nav-card">
+                    <strong>🔢 Array Methods</strong><br>
+                    <small>JavaScript array methods for React</small>
+                </a>
+                <a href="Reactfunctiondeclarations.html" class="nav-card">
+                    <strong>⚡ Function Declarations</strong><br>
+                    <small>Different ways to declare functions</small>
+                </a>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+                <h3>🏠 Navigation</h3>
+                <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+            </div>
+            
+            <p><em>Last updated: 2024 | React Basics Complete Guide</em></p>
+        </footer>
+    </div>
 </body>
 </html>

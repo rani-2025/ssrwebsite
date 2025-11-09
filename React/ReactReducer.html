@@ -1,3 +1,897 @@
-you can find the source code for the Bug Blaster application (the project of this section here) at this GitHub repository:
- https://github.com/JannickLeismann/react-bug-blaster
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React useReducer - Complete Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #61dafb; border-bottom: 3px solid #61dafb; padding-bottom: 10px; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #61dafb; margin: 10px 0; border-radius: 5px; }
+        .highlight { background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .interview-section { background: #f8f9fa; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .nav-card { padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s; display: block; }
+        .nav-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(97, 218, 251, 0.3); }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f8f9fa; }
+        code { background: #f1f1f1; padding: 2px 4px; border-radius: 3px; }
+        .pros { color: #28a745; }
+        .cons { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 React useReducer - Complete Guide</h1>
+            <p><strong>Master complex state management with useReducer hook and advanced patterns</strong></p>
+            <p><em>Source code reference: <a href="https://github.com/JannickLeismann/react-bug-blaster" target="_blank">Bug Blaster Application</a></em></p>
+        </header>
 
+        <!-- Navigation -->
+        <div class="section">
+            <h2>📋 Quick Navigation</h2>
+            <div class="nav-grid">
+                <a href="React18Notes.html" class="nav-card">
+                    <strong>🏠 React 18 Notes</strong><br>
+                    <small>Main React documentation</small>
+                </a>
+                <a href="#usereducer-basics" class="nav-card">
+                    <strong>🎯 useReducer Basics</strong><br>
+                    <small>Core concepts and syntax</small>
+                </a>
+                <a href="#advanced-patterns" class="nav-card">
+                    <strong>🚀 Advanced Patterns</strong><br>
+                    <small>Complex state management</small>
+                </a>
+                <a href="#vs-usestate" class="nav-card">
+                    <strong>⚖️ vs useState</strong><br>
+                    <small>When to use each</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- useReducer Basics -->
+        <div id="usereducer-basics" class="section">
+            <h2>🎯 useReducer Hook Fundamentals</h2>
+            
+            <h3>What is useReducer?</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Manages complex state logic in React components</li>
+                <li><strong>Pattern:</strong> Based on Redux pattern (state + action → new state)</li>
+                <li><strong>Use case:</strong> When useState becomes too complex or when state transitions are predictable</li>
+                <li><strong>Benefits:</strong> Centralized state logic, predictable state updates, easier testing</li>
+            </ul>
+
+            <h3>Basic Syntax</h3>
+            <div class="code-block">
+<pre>
+import { useReducer } from 'react';
+
+// Reducer function
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'ACTION_TYPE':
+            return { ...state, /* new state */ };
+        default:
+            return state;
+    }
+};
+
+// Component usage
+const MyComponent = () => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() => dispatch({ type: 'ACTION_TYPE' })}&gt;
+                Dispatch Action
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Simple Counter Example</h3>
+            <div class="code-block">
+<pre>
+import { useReducer } from 'react';
+
+// Initial state
+const initialState = { count: 0 };
+
+// Reducer function
+const counterReducer = (state, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        case 'RESET':
+            return initialState;
+        case 'SET_COUNT':
+            return { count: action.payload };
+        default:
+            throw new Error(`Unknown action type: ${action.type}`);
+    }
+};
+
+const Counter = () => {
+    const [state, dispatch] = useReducer(counterReducer, initialState);
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Count: {state.count}&lt;/h2&gt;
+            &lt;button onClick={() => dispatch({ type: 'INCREMENT' })}&gt;
+                +1
+            &lt;/button&gt;
+            &lt;button onClick={() => dispatch({ type: 'DECREMENT' })}&gt;
+                -1
+            &lt;/button&gt;
+            &lt;button onClick={() => dispatch({ type: 'RESET' })}&gt;
+                Reset
+            &lt;/button&gt;
+            &lt;button onClick={() => dispatch({ type: 'SET_COUNT', payload: 10 })}&gt;
+                Set to 10
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Bug Tracker Example (Complex State)</h3>
+            <div class="code-block">
+<pre>
+import { useReducer, useState } from 'react';
+
+// Initial state for bug tracker
+const initialState = {
+    bugs: [],
+    filter: 'all', // 'all', 'open', 'closed'
+    loading: false,
+    error: null
+};
+
+// Bug tracker reducer
+const bugReducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_BUG':
+            return {
+                ...state,
+                bugs: [...state.bugs, {
+                    id: Date.now(),
+                    title: action.payload.title,
+                    description: action.payload.description,
+                    status: 'open',
+                    createdAt: new Date().toISOString()
+                }]
+            };
+            
+        case 'CLOSE_BUG':
+            return {
+                ...state,
+                bugs: state.bugs.map(bug =>
+                    bug.id === action.payload.id
+                        ? { ...bug, status: 'closed' }
+                        : bug
+                )
+            };
+            
+        case 'REOPEN_BUG':
+            return {
+                ...state,
+                bugs: state.bugs.map(bug =>
+                    bug.id === action.payload.id
+                        ? { ...bug, status: 'open' }
+                        : bug
+                )
+            };
+            
+        case 'DELETE_BUG':
+            return {
+                ...state,
+                bugs: state.bugs.filter(bug => bug.id !== action.payload.id)
+            };
+            
+        case 'SET_FILTER':
+            return {
+                ...state,
+                filter: action.payload.filter
+            };
+            
+        case 'SET_LOADING':
+            return {
+                ...state,
+                loading: action.payload.loading
+            };
+            
+        case 'SET_ERROR':
+            return {
+                ...state,
+                error: action.payload.error,
+                loading: false
+            };
+            
+        case 'CLEAR_ERROR':
+            return {
+                ...state,
+                error: null
+            };
+            
+        default:
+            throw new Error(`Unknown action type: ${action.type}`);
+    }
+};
+
+const BugTracker = () => {
+    const [state, dispatch] = useReducer(bugReducer, initialState);
+    const [newBug, setNewBug] = useState({ title: '', description: '' });
+
+    // Action creators
+    const addBug = (bugData) => {
+        dispatch({ type: 'ADD_BUG', payload: bugData });
+    };
+
+    const closeBug = (id) => {
+        dispatch({ type: 'CLOSE_BUG', payload: { id } });
+    };
+
+    const reopenBug = (id) => {
+        dispatch({ type: 'REOPEN_BUG', payload: { id } });
+    };
+
+    const deleteBug = (id) => {
+        dispatch({ type: 'DELETE_BUG', payload: { id } });
+    };
+
+    const setFilter = (filter) => {
+        dispatch({ type: 'SET_FILTER', payload: { filter } });
+    };
+
+    // Filter bugs based on current filter
+    const filteredBugs = state.bugs.filter(bug => {
+        if (state.filter === 'all') return true;
+        return bug.status === state.filter;
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (newBug.title.trim()) {
+            addBug(newBug);
+            setNewBug({ title: '', description: '' });
+        }
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Bug Tracker&lt;/h1&gt;
+            
+            {/* Add Bug Form */}
+            &lt;form onSubmit={handleSubmit}&gt;
+                &lt;input
+                    type="text"
+                    placeholder="Bug title"
+                    value={newBug.title}
+                    onChange={(e) => setNewBug({...newBug, title: e.target.value})}
+                /&gt;
+                &lt;textarea
+                    placeholder="Bug description"
+                    value={newBug.description}
+                    onChange={(e) => setNewBug({...newBug, description: e.target.value})}
+                /&gt;
+                &lt;button type="submit"&gt;Add Bug&lt;/button&gt;
+            &lt;/form&gt;
+
+            {/* Filter Buttons */}
+            &lt;div&gt;
+                &lt;button 
+                    onClick={() => setFilter('all')}
+                    style={{ fontWeight: state.filter === 'all' ? 'bold' : 'normal' }}
+                &gt;
+                    All ({state.bugs.length})
+                &lt;/button&gt;
+                &lt;button 
+                    onClick={() => setFilter('open')}
+                    style={{ fontWeight: state.filter === 'open' ? 'bold' : 'normal' }}
+                &gt;
+                    Open ({state.bugs.filter(b => b.status === 'open').length})
+                &lt;/button&gt;
+                &lt;button 
+                    onClick={() => setFilter('closed')}
+                    style={{ fontWeight: state.filter === 'closed' ? 'bold' : 'normal' }}
+                &gt;
+                    Closed ({state.bugs.filter(b => b.status === 'closed').length})
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            {/* Bug List */}
+            &lt;div&gt;
+                {filteredBugs.map(bug => (
+                    &lt;div key={bug.id} style={{ 
+                        border: '1px solid #ccc', 
+                        margin: '10px 0', 
+                        padding: '10px',
+                        backgroundColor: bug.status === 'closed' ? '#f0f0f0' : 'white'
+                    }}&gt;
+                        &lt;h3&gt;{bug.title} ({bug.status})&lt;/h3&gt;
+                        &lt;p&gt;{bug.description}&lt;/p&gt;
+                        &lt;small&gt;Created: {new Date(bug.createdAt).toLocaleDateString()}&lt;/small&gt;
+                        &lt;div&gt;
+                            {bug.status === 'open' ? (
+                                &lt;button onClick={() => closeBug(bug.id)}&gt;Close&lt;/button&gt;
+                            ) : (
+                                &lt;button onClick={() => reopenBug(bug.id)}&gt;Reopen&lt;/button&gt;
+                            )}
+                            &lt;button onClick={() => deleteBug(bug.id)}&gt;Delete&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                ))}
+            &lt;/div&gt;
+
+            {filteredBugs.length === 0 && (
+                &lt;p&gt;No bugs found for filter: {state.filter}&lt;/p&gt;
+            )}
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Advanced Patterns -->
+        <div id="advanced-patterns" class="section">
+            <h2>🚀 Advanced useReducer Patterns</h2>
+            
+            <h3>Lazy Initial State</h3>
+            <div class="code-block">
+<pre>
+// Expensive initial state calculation
+const initializeState = (initialCount) => {
+    console.log('Expensive initialization');
+    return {
+        count: initialCount,
+        history: [initialCount],
+        timestamp: Date.now()
+    };
+};
+
+const LazyCounter = ({ initialCount = 0 }) => {
+    // Third parameter is init function for lazy initialization
+    const [state, dispatch] = useReducer(
+        counterReducer, 
+        initialCount, 
+        initializeState
+    );
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {state.count}&lt;/p&gt;
+            &lt;p&gt;History: {state.history.join(', ')}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>useReducer with Context (Global State)</h3>
+            <div class="code-block">
+<pre>
+import { createContext, useContext, useReducer } from 'react';
+
+// Create context
+const AppContext = createContext();
+
+// App state reducer
+const appReducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_USER':
+            return { ...state, user: action.payload };
+        case 'SET_THEME':
+            return { ...state, theme: action.payload };
+        case 'ADD_NOTIFICATION':
+            return { 
+                ...state, 
+                notifications: [...state.notifications, action.payload] 
+            };
+        case 'REMOVE_NOTIFICATION':
+            return {
+                ...state,
+                notifications: state.notifications.filter(n => n.id !== action.payload.id)
+            };
+        default:
+            return state;
+    }
+};
+
+// Provider component
+const AppProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(appReducer, {
+        user: null,
+        theme: 'light',
+        notifications: []
+    });
+
+    return (
+        &lt;AppContext.Provider value={{ state, dispatch }}&gt;
+            {children}
+        &lt;/AppContext.Provider&gt;
+    );
+};
+
+// Custom hook to use app context
+const useApp = () => {
+    const context = useContext(AppContext);
+    if (!context) {
+        throw new Error('useApp must be used within AppProvider');
+    }
+    return context;
+};
+
+// Component using global state
+const UserProfile = () => {
+    const { state, dispatch } = useApp();
+
+    const login = (userData) => {
+        dispatch({ type: 'SET_USER', payload: userData });
+        dispatch({ 
+            type: 'ADD_NOTIFICATION', 
+            payload: { id: Date.now(), message: 'Logged in successfully!' }
+        });
+    };
+
+    return (
+        &lt;div&gt;
+            {state.user ? (
+                &lt;p&gt;Welcome, {state.user.name}!&lt;/p&gt;
+            ) : (
+                &lt;button onClick={() => login({ name: 'John Doe', id: 1 })}&gt;
+                    Login
+                &lt;/button&gt;
+            )}
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Multiple Reducers Pattern</h3>
+            <div class="code-block">
+<pre>
+// Combine multiple reducers
+const combineReducers = (reducers) => {
+    return (state, action) => {
+        return Object.keys(reducers).reduce((nextState, key) => {
+            nextState[key] = reducers[key](state[key], action);
+            return nextState;
+        }, {});
+    };
+};
+
+// Individual reducers
+const userReducer = (state = { name: '', email: '' }, action) => {
+    switch (action.type) {
+        case 'SET_USER_NAME':
+            return { ...state, name: action.payload };
+        case 'SET_USER_EMAIL':
+            return { ...state, email: action.payload };
+        default:
+            return state;
+    }
+};
+
+const settingsReducer = (state = { theme: 'light', language: 'en' }, action) => {
+    switch (action.type) {
+        case 'SET_THEME':
+            return { ...state, theme: action.payload };
+        case 'SET_LANGUAGE':
+            return { ...state, language: action.payload };
+        default:
+            return state;
+    }
+};
+
+// Combined reducer
+const rootReducer = combineReducers({
+    user: userReducer,
+    settings: settingsReducer
+});
+
+const App = () => {
+    const [state, dispatch] = useReducer(rootReducer, {
+        user: { name: '', email: '' },
+        settings: { theme: 'light', language: 'en' }
+    });
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;User: {state.user.name}&lt;/p&gt;
+            &lt;p&gt;Theme: {state.settings.theme}&lt;/p&gt;
+            &lt;button onClick={() => dispatch({ type: 'SET_USER_NAME', payload: 'John' })}&gt;
+                Set Name
+            &lt;/button&gt;
+            &lt;button onClick={() => dispatch({ type: 'SET_THEME', payload: 'dark' })}&gt;
+                Dark Theme
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Async Actions with useReducer</h3>
+            <div class="code-block">
+<pre>
+const asyncReducer = (state, action) => {
+    switch (action.type) {
+        case 'FETCH_START':
+            return { ...state, loading: true, error: null };
+        case 'FETCH_SUCCESS':
+            return { ...state, loading: false, data: action.payload };
+        case 'FETCH_ERROR':
+            return { ...state, loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+const DataFetcher = () => {
+    const [state, dispatch] = useReducer(asyncReducer, {
+        data: null,
+        loading: false,
+        error: null
+    });
+
+    const fetchData = async () => {
+        dispatch({ type: 'FETCH_START' });
+        
+        try {
+            const response = await fetch('/api/data');
+            const data = await response.json();
+            dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        } catch (error) {
+            dispatch({ type: 'FETCH_ERROR', payload: error.message });
+        }
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={fetchData} disabled={state.loading}&gt;
+                {state.loading ? 'Loading...' : 'Fetch Data'}
+            &lt;/button&gt;
+            
+            {state.error && &lt;p&gt;Error: {state.error}&lt;/p&gt;}
+            {state.data && &lt;pre&gt;{JSON.stringify(state.data, null, 2)}&lt;/pre&gt;}
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- useState vs useReducer -->
+        <div id="vs-usestate" class="section">
+            <h2>⚖️ useState vs useReducer - When to Use Each</h2>
+            
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>useState</th>
+                    <th>useReducer</th>
+                </tr>
+                <tr>
+                    <td>State Complexity</td>
+                    <td>Simple state (primitives, simple objects)</td>
+                    <td>Complex state (nested objects, arrays)</td>
+                </tr>
+                <tr>
+                    <td>State Updates</td>
+                    <td>Direct updates</td>
+                    <td>Action-based updates</td>
+                </tr>
+                <tr>
+                    <td>Logic Location</td>
+                    <td>In component</td>
+                    <td>In reducer function</td>
+                </tr>
+                <tr>
+                    <td>Testing</td>
+                    <td>Test component</td>
+                    <td>Test reducer separately</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>Lighter for simple cases</td>
+                    <td>Better for complex state logic</td>
+                </tr>
+                <tr>
+                    <td>Predictability</td>
+                    <td>Less predictable</td>
+                    <td class="pros">✅ More predictable</td>
+                </tr>
+            </table>
+
+            <h3>Decision Matrix</h3>
+            <div class="highlight">
+                <h4>Use useState when:</h4>
+                <ul>
+                    <li>State is simple (string, number, boolean)</li>
+                    <li>Few state updates</li>
+                    <li>State updates are independent</li>
+                    <li>Component is small and simple</li>
+                </ul>
+            </div>
+
+            <div class="highlight">
+                <h4>Use useReducer when:</h4>
+                <ul>
+                    <li>Complex state object with multiple sub-values</li>
+                    <li>State logic is complex</li>
+                    <li>Next state depends on previous state</li>
+                    <li>Want to optimize performance for components that trigger deep updates</li>
+                    <li>Want to separate state logic from component logic</li>
+                </ul>
+            </div>
+
+            <h3>Migration Example: useState to useReducer</h3>
+            <div class="code-block">
+<pre>
+// Before: Multiple useState hooks
+const FormComponent = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        setErrors({});
+        
+        try {
+            await submitForm({ name, email });
+            setSubmitted(true);
+        } catch (error) {
+            setErrors({ general: error.message });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // ... rest of component
+};
+
+// After: Single useReducer hook
+const formReducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_FIELD':
+            return { ...state, [action.field]: action.value };
+        case 'SET_ERRORS':
+            return { ...state, errors: action.errors };
+        case 'SET_LOADING':
+            return { ...state, loading: action.loading };
+        case 'SET_SUBMITTED':
+            return { ...state, submitted: action.submitted };
+        case 'RESET_FORM':
+            return initialFormState;
+        default:
+            return state;
+    }
+};
+
+const FormComponent = () => {
+    const [state, dispatch] = useReducer(formReducer, {
+        name: '',
+        email: '',
+        errors: {},
+        loading: false,
+        submitted: false
+    });
+
+    const handleSubmit = async () => {
+        dispatch({ type: 'SET_LOADING', loading: true });
+        dispatch({ type: 'SET_ERRORS', errors: {} });
+        
+        try {
+            await submitForm({ name: state.name, email: state.email });
+            dispatch({ type: 'SET_SUBMITTED', submitted: true });
+        } catch (error) {
+            dispatch({ type: 'SET_ERRORS', errors: { general: error.message } });
+        } finally {
+            dispatch({ type: 'SET_LOADING', loading: false });
+        }
+    };
+
+    // ... rest of component
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="section interview-section">
+            <h2>❓ useReducer Interview Questions & Answers</h2>
+            
+            <h3>Fundamental Questions</h3>
+            
+            <h4>Q1: What is useReducer and when should you use it?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Definition:</strong> Hook for managing complex state logic using reducer pattern</li>
+                <li><strong>Use cases:</strong> Complex state objects, predictable state transitions, multiple related state updates</li>
+                <li><strong>Benefits:</strong> Centralized state logic, easier testing, more predictable updates</li>
+                <li><strong>Pattern:</strong> (state, action) => newState</li>
+            </ul>
+
+            <h4>Q2: What's the difference between useState and useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>useState</th>
+                    <th>useReducer</th>
+                </tr>
+                <tr>
+                    <td>Simple state updates</td>
+                    <td>Complex state logic</td>
+                </tr>
+                <tr>
+                    <td>setState(newValue)</td>
+                    <td>dispatch(action)</td>
+                </tr>
+                <tr>
+                    <td>Logic in component</td>
+                    <td>Logic in reducer</td>
+                </tr>
+                <tr>
+                    <td>Less predictable</td>
+                    <td>More predictable</td>
+                </tr>
+            </table>
+
+            <h4>Q3: How does the reducer function work?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Pure function:</strong> Same inputs always produce same outputs</li>
+                <li><strong>No side effects:</strong> No API calls, mutations, or async operations</li>
+                <li><strong>Immutable updates:</strong> Always return new state object</li>
+                <li><strong>Action handling:</strong> Switch statement based on action.type</li>
+            </ul>
+
+            <h4>Q4: What is an action in useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Structure:</strong> Object with type property and optional payload</li>
+                <li><strong>Type:</strong> String describing what happened</li>
+                <li><strong>Payload:</strong> Data needed for the state update</li>
+                <li><strong>Example:</strong> <code>{ type: 'ADD_ITEM', payload: { id: 1, name: 'Item' } }</code></li>
+            </ul>
+
+            <h3>Advanced Questions</h3>
+            
+            <h4>Q5: How do you handle async operations with useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Reducer stays pure:</strong> No async operations in reducer</li>
+                <li><strong>Component handles async:</strong> Use async functions in component</li>
+                <li><strong>Multiple dispatches:</strong> Dispatch loading, success, and error actions</li>
+                <li><strong>Pattern:</strong> START → SUCCESS/ERROR</li>
+            </ul>
+
+            <h4>Q6: How do you combine useReducer with Context API?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Global state:</strong> Use Context to share reducer state across components</li>
+                <li><strong>Provider pattern:</strong> Wrap app with context provider</li>
+                <li><strong>Custom hook:</strong> Create useContext hook for easier access</li>
+                <li><strong>Performance:</strong> Consider splitting contexts to avoid unnecessary re-renders</li>
+            </ul>
+
+            <h4>Q7: What is lazy initialization in useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Purpose:</strong> Defer expensive initial state calculation</li>
+                <li><strong>Syntax:</strong> <code>useReducer(reducer, initialArg, init)</code></li>
+                <li><strong>Init function:</strong> Called only once with initialArg</li>
+                <li><strong>Use case:</strong> Reading from localStorage, complex calculations</li>
+            </ul>
+
+            <h3>Practical Questions</h3>
+            
+            <h4>Q8: How do you test a reducer function?</h4>
+            <div class="code-block">
+<pre>
+// Reducer function
+const counterReducer = (state, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        default:
+            return state;
+    }
+};
+
+// Test cases
+describe('counterReducer', () => {
+    it('should increment count', () => {
+        const initialState = { count: 0 };
+        const action = { type: 'INCREMENT' };
+        const newState = counterReducer(initialState, action);
+        
+        expect(newState).toEqual({ count: 1 });
+        expect(newState).not.toBe(initialState); // Immutability check
+    });
+    
+    it('should return current state for unknown action', () => {
+        const initialState = { count: 5 };
+        const action = { type: 'UNKNOWN' };
+        const newState = counterReducer(initialState, action);
+        
+        expect(newState).toBe(initialState);
+    });
+});
+</pre>
+            </div>
+
+            <h4>Q9: How do you optimize performance with useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Memoization:</strong> Use React.memo for components consuming state</li>
+                <li><strong>Split state:</strong> Separate frequently changing state</li>
+                <li><strong>Selective subscriptions:</strong> Use multiple contexts for different concerns</li>
+                <li><strong>Immutable updates:</strong> Ensure proper immutability for React's optimization</li>
+            </ul>
+
+            <h4>Q10: What are common patterns with useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Form management:</strong> Handle form state, validation, submission</li>
+                <li><strong>Data fetching:</strong> Loading, success, error states</li>
+                <li><strong>Shopping cart:</strong> Add, remove, update quantities</li>
+                <li><strong>Todo list:</strong> CRUD operations with filtering</li>
+                <li><strong>Modal state:</strong> Open, close, content management</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="section">
+            <div class="nav-grid">
+                <a href="ReactMainIndex.html" class="nav-card">
+                    <strong>🏠 React Main Index</strong><br>
+                    <small>Complete React documentation</small>
+                </a>
+                <a href="Reactbasics.html" class="nav-card">
+                    <strong>📚 React Basics</strong><br>
+                    <small>Fundamentals and event handling</small>
+                </a>
+                <a href="Reactstate.html" class="nav-card">
+                    <strong>🔄 React State</strong><br>
+                    <small>useState and state management</small>
+                </a>
+                <a href="ReactArrayMethods.html" class="nav-card">
+                    <strong>🔢 Array Methods</strong><br>
+                    <small>JavaScript array methods for React</small>
+                </a>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+                <h3>🏠 Navigation</h3>
+                <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+                <p><strong>Source Code:</strong> <a href="https://github.com/JannickLeismann/react-bug-blaster" target="_blank" style="color: #61dafb;">Bug Blaster Application</a></p>
+            </div>
+            
+            <p><em>Last updated: 2024 | React useReducer Complete Guide</em></p>
+        </footer>
+    </div>
+</body>
+</html>

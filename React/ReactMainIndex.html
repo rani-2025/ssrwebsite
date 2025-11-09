@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Complete Guide - Main Index</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1 { color: #61dafb; border-bottom: 3px solid #61dafb; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; }
+        h3 { color: #555; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #61dafb; margin: 10px 0; }
+        .highlight { background: #fff3cd; padding: 5px; border-radius: 3px; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .interview-section { background: #f8f9fa; }
+        a:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(97, 218, 251, 0.3); }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>React Complete Guide - Main Index</h1>
+        <p><strong>Reference:</strong> <a href="https://github.com/JannickLeismann/react-moviedux">React 18 Udemy Source Code Repository</a></p>
+    </header>
+
+    <main>
+        <!-- Table of Contents -->
+        <div class="section">
+            <h2>📋 Table of Contents</h2>
+            <ul>
+                <li><a href="#react-basics">React Basics & Introduction</a></li>
+                <li><a href="#project-setup">Project Setup & Structure</a></li>
+                <li><a href="#javascript-fundamentals">JavaScript ES6+ Fundamentals</a></li>
+                <li><a href="#react-components">React Components</a></li>
+                <li><a href="#redux-flow">Redux Flow</a></li>
+                <li><a href="#interview-questions">Interview Questions & Answers</a></li>
+            </ul>
+        </div>
+
+        <!-- Navigation to Other React Files -->
+        <div class="section">
+            <h2>🔗 Related React Topics</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                <a href="Reactbasics.html" style="display: block; padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s;">
+                    <strong>📚 React Basics</strong><br>
+                    <small>Event handling, JSX, components, and fundamentals</small>
+                </a>
+                <a href="Reactstate.html" style="display: block; padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s;">
+                    <strong>🔄 React State</strong><br>
+                    <small>useState, state management, and component lifecycle</small>
+                </a>
+                <a href="ReactArrayMethods.html" style="display: block; padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s;">
+                    <strong>🔢 Array Methods</strong><br>
+                    <small>map, filter, find, forEach with React examples</small>
+                </a>
+                <a href="Reactfunctiondeclarations.html" style="display: block; padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s;">
+                    <strong>⚡ Function Declarations</strong><br>
+                    <small>Different ways to declare functions in React</small>
+                </a>
+                <a href="ReactReducer.html" style="display: block; padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s;">
+                    <strong>🔧 React Reducer</strong><br>
+                    <small>useReducer hook and state management patterns</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- React Basics -->
+        <div id="react-basics" class="section">
+            <h2>🚀 React Basics & Introduction</h2>
+            
+            <h3>What is React?</h3>
+            <ul>
+                <li><strong>Definition:</strong> React is a JavaScript library/framework for building user interfaces</li>
+                <li><strong>Runtime:</strong> Runs on Node.js and web servers</li>
+                <li><strong>Architecture:</strong> Component-based architecture</li>
+                <li><strong>Purpose:</strong> Create interactive user interfaces (UI)</li>
+                <li><strong>Key Concept:</strong> Everything user interacts with is called User Interface</li>
+            </ul>
+
+            <h3>React Application Structure</h3>
+            <ul>
+                <li><strong>Root Component:</strong> App.js serves as the main root component</li>
+                <li><strong>Child Components:</strong> Other components like MovieGrid.js are child components</li>
+                <li><strong>File Extension:</strong> React code uses .jsx files containing both HTML and JavaScript</li>
+            </ul>
+        </div>
+
+        <!-- Project Setup -->
+        <div id="project-setup" class="section">
+            <h2>⚙️ Project Setup & Structure</h2>
+            
+            <h3>Setup Steps</h3>
+            <ol>
+                <li>Install Node.js (version 21.7.3 or latest)</li>
+                <li>Install VS Code extensions: ESLint, Prettier</li>
+                <li>Configure VS Code: Settings → Preferences → Enable "Format on Save"</li>
+                <li>Create React app: <code>npx create-react-app moviedux</code></li>
+                <li>Clean installation: Remove node_modules and package-lock.json, then run <code>npm install</code></li>
+                <li>Start development server: <code>npm start</code></li>
+            </ol>
+
+            <div class="highlight">
+                <strong>Note:</strong> npx = Node Package Executable (syntax to create new React packages)
+            </div>
+
+            <h3>Default React App Structure</h3>
+            <div class="code-block">
+<pre>
+my-app/                    # Root level
+├── package.json          # Dependencies and scripts
+├── package-lock.json     # Dependency lockfile
+├── README.md            # Project documentation
+├── .gitignore           # Git ignore rules
+├── yarn.lock            # Yarn lockfile (if using yarn)
+├── public/
+│   ├── index.html       # Main HTML template
+│   ├── favicon.ico      # Browser tab icon
+│   ├── logo192.png      # PWA icon (192x192)
+│   ├── logo512.png      # PWA icon (512x512)
+│   ├── manifest.json    # PWA manifest
+│   └── robots.txt       # Search engine crawling rules
+├── src/
+│   ├── index.js         # App entry point
+│   ├── App.js           # Main App component
+│   ├── App.css          # App component styles
+│   ├── App.test.js      # App component tests
+│   ├── index.css        # Global styles
+│   ├── logo.svg         # React logo
+│   ├── reportWebVitals.js # Performance measuring
+│   └── setupTests.js    # Test configuration
+├── node_modules/        # Installed dependencies (generated)
+└── build/              # Production build output (generated)
+</pre>
+            </div>
+
+            <h3>Key Files Purpose</h3>
+            <ul>
+                <li><strong>index.html:</strong> Single page where React app mounts</li>
+                <li><strong>index.js:</strong> Renders App component into DOM</li>
+                <li><strong>App.js:</strong> Main component containing app logic</li>
+                <li><strong>package.json:</strong> Project metadata, dependencies, scripts</li>
+                <li><strong>package-lock.json:</strong> Locks exact versions, creates dependency tree, ensures reproducible installs</li>
+            </ul>
+
+            <h3>React JSX Syntax Rules</h3>
+            <ul>
+                <li><strong>Class Names:</strong> Use <code>className</code> instead of <code>class</code></li>
+                <li><strong>Comments:</strong> Use <code>{/* comment */}</code> inside JSX</li>
+                <li><strong>Imports:</strong> Default exports don't need braces: <code>import Header from './components/Header'</code></li>
+            </ul>
+        </div>
+
+        <!-- JavaScript Fundamentals -->
+        <div id="javascript-fundamentals" class="section">
+            <h2>📚 JavaScript ES6+ Fundamentals</h2>
+            
+            <h3>Variable Declarations: var, let, const</h3>
+            
+            <h4>var (Legacy - Avoid)</h4>
+            <ul>
+                <li>Function-scoped (ignores block scope)</li>
+                <li>Hoisted and initialized with undefined</li>
+                <li>Can be redeclared</li>
+            </ul>
+            <div class="code-block">
+<pre>
+function example() {
+    console.log(x); // undefined (hoisted)
+    var x = 5;
+    
+    if (true) {
+        var x = 10; // Same variable, redeclared
+    }
+    console.log(x); // 10 (function level scope)
+}
+</pre>
+            </div>
+
+            <h4>let (Modern)</h4>
+            <ul>
+                <li>Block-scoped</li>
+                <li>Hoisted but not initialized (temporal dead zone)</li>
+                <li>Cannot be redeclared in same scope</li>
+            </ul>
+            <div class="code-block">
+<pre>
+function example() {
+    // console.log(y); // ReferenceError
+    let y = 5;
+    
+    if (true) {
+        let y = 10; // Different variable (block scope)
+        console.log(y); // 10
+    }
+    console.log(y); // 5
+}
+</pre>
+            </div>
+
+            <h4>const (Preferred)</h4>
+            <ul>
+                <li>Block-scoped</li>
+                <li>Must be initialized at declaration</li>
+                <li>Cannot be reassigned</li>
+            </ul>
+            <div class="code-block">
+<pre>
+function example() {
+    const z = 5;
+    // z = 10; // TypeError
+    
+    const obj = { name: "John" };
+    obj.name = "Jane"; // OK - modifying property
+    // obj = {}; // TypeError - reassigning
+}
+</pre>
+            </div>
+
+            <div class="highlight">
+                <strong>Best Practice:</strong> Use const by default, let when you need to reassign, avoid var
+            </div>
+
+            <h3>Function Declarations</h3>
+            
+            <h4>Traditional Function Declaration</h4>
+            <div class="code-block">
+<pre>
+function addTraditional1(a, b) {
+    return a + b;
+}
+console.log(addTraditional1(2, 3)); // Can call before or after declaration
+</pre>
+            </div>
+
+            <h4>Function Expression</h4>
+            <div class="code-block">
+<pre>
+const addTraditional2 = function(a, b) {
+    return a + b;
+};
+console.log(addTraditional2(1, 2)); // Can only call after declaration
+</pre>
+            </div>
+
+            <h4>Arrow Functions (Modern)</h4>
+            <div class="code-block">
+<pre>
+// Single line
+const addArrow3 = (a, b) => a + b;
+console.log(addArrow3(4, 5));
+
+// Multi-line
+const addArrow4 = (a, b) => {
+    return a + b;
+};
+console.log(addArrow4(6, 7));
+</pre>
+            </div>
+
+            <div class="highlight">
+                <strong>Key Difference:</strong> Traditional declarations are hoisted, arrow functions are not
+            </div>
+
+            <h3>Rest Operator (...)</h3>
+            <p>Collects multiple arguments into an array parameter</p>
+            <div class="code-block">
+<pre>
+function restOperator(firstArg, secondArg, ...otherArgs) {
+    console.log(firstArg);   // 1
+    console.log(secondArg);  // 2
+    console.log(otherArgs);  // [3, 4, 5, 6, 7, 8]
+}
+restOperator(1, 2, 3, 4, 5, 6, 7, 8);
+
+// Array processing example
+function addFromArray() {
+    const arrValues = [1, 2, 3, 4, 5, 6];
+    arrValues.forEach((element, index) => {
+        if (index === 0) {
+            console.log(element); // First element: 1
+        } else {
+            console.log(element + arrValues[index - 1]); // Current + previous
+        }
+    });
+}
+</pre>
+            </div>
+
+            <h3>Spread Operator (...)</h3>
+            <p>Expands arrays/objects into individual elements</p>
+            <div class="code-block">
+<pre>
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+
+// Spread arrays
+const combined = [...arr1, ...arr2]; // [1, 2, 3, 4, 5, 6]
+
+// Spread in function calls
+console.log(...arr1); // 1 2 3 (individual arguments)
+
+// Spread objects
+const obj1 = { a: 1, b: 2 };
+const obj2 = { ...obj1, c: 3 }; // { a: 1, b: 2, c: 3 }
+</pre>
+            </div>
+
+            <h3>Rest vs Spread Comparison</h3>
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Rest Operator</th>
+                    <th>Spread Operator</th>
+                </tr>
+                <tr>
+                    <td>Purpose</td>
+                    <td>Collects multiple elements into array</td>
+                    <td>Expands array/object into individual elements</td>
+                </tr>
+                <tr>
+                    <td>Direction</td>
+                    <td>Many → One (array)</td>
+                    <td>One → Many (elements)</td>
+                </tr>
+                <tr>
+                    <td>Usage</td>
+                    <td>Function parameters</td>
+                    <td>Function calls, array/object literals</td>
+                </tr>
+                <tr>
+                    <td>Position</td>
+                    <td>Must be last parameter</td>
+                    <td>Can be anywhere</td>
+                </tr>
+            </table>
+
+            <div class="highlight">
+                <strong>Memory Tip:</strong> Rest gathers, Spread scatters
+            </div>
+        </div>
+
+        <!-- React Components -->
+        <div id="react-components" class="section">
+            <h2>🧩 React Components</h2>
+            
+            <h3>Component Fundamentals</h3>
+            <ul>
+                <li><strong>Definition:</strong> Reusable building blocks of React applications</li>
+                <li><strong>Nesting:</strong> Components can be nested within each other</li>
+                <li><strong>Modularity:</strong> Can be exported and imported between files</li>
+                <li><strong>Naming:</strong> Component file names must start with uppercase letter</li>
+            </ul>
+
+            <h3>Component Syntax</h3>
+            <div class="code-block">
+<pre>
+// Export default function
+export default function Header() {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;My Header&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Import (no braces for default export)
+import Header from './components/Header';
+</pre>
+            </div>
+
+            <h3>JSX Return Rules</h3>
+            <ul>
+                <li><strong>Single Element:</strong> <code>return (&lt;div&gt;&lt;/div&gt;)</code> ✅</li>
+                <li><strong>Fragment:</strong> <code>return (&lt;&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/&gt;)</code> ✅</li>
+                <li><strong>Multiple Elements:</strong> <code>return(&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;)</code> ❌</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Rule:</strong> Always return a single element or wrap multiple elements in a Fragment
+            </div>
+        </div>
+
+        <!-- Redux Flow -->
+        <div id="redux-flow" class="section">
+            <h2>🔄 Redux Flow</h2>
+            
+            <h3>Redux Architecture Flow</h3>
+            <p>When <code>store.dispatch(action)</code> is called, the control flow follows this sequence:</p>
+            
+            <ol>
+                <li><strong>Reducers:</strong> Action goes to all reducers to update the state</li>
+                <li><strong>Middleware:</strong> Middleware (like redux-saga) intercepts the action</li>
+                <li><strong>Sagas:</strong> If there's a matching saga watcher, it triggers the corresponding saga</li>
+            </ol>
+
+            <h3>Example: PRODUCTDETAILS_GET_REQUEST Flow</h3>
+            <ol>
+                <li><strong>ProductDetails Reducer:</strong> Updates loading state</li>
+                <li><strong>Redux-Saga Middleware:</strong> Intercepts the action</li>
+                <li><strong>ProductDetails Saga:</strong> Handles the API call to fetch product details</li>
+            </ol>
+
+            <h3>Saga Typical Operations</h3>
+            <ul>
+                <li>Make API call with payload data (e.g., ppid)</li>
+                <li>Dispatch success/failure actions based on response</li>
+                <li>Update store with fetched data</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Pattern:</strong> This is the standard Redux + Redux-Saga flow for handling async operations like API calls
+            </div>
+        </div>
+
+        <!-- Interview Questions -->
+        <div id="interview-questions" class="section interview-section">
+            <h2>❓ React 18 Interview Questions & Answers</h2>
+            
+            <h3>Basic React Questions</h3>
+            
+            <h4>Q1: What is React and why is it used?</h4>
+            <p><strong>Answer:</strong> React is a JavaScript library for building user interfaces, particularly web applications. It's used because:</p>
+            <ul>
+                <li>Component-based architecture for reusability</li>
+                <li>Virtual DOM for better performance</li>
+                <li>Declarative programming approach</li>
+                <li>Strong ecosystem and community support</li>
+                <li>Backed by Meta (Facebook)</li>
+            </ul>
+
+            <h4>Q2: What is JSX?</h4>
+            <p><strong>Answer:</strong> JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. Key points:</p>
+            <ul>
+                <li>Combines HTML and JavaScript in one file</li>
+                <li>Uses <code>className</code> instead of <code>class</code></li>
+                <li>Must return a single parent element or Fragment</li>
+                <li>Comments use <code>{/* */}</code> syntax</li>
+            </ul>
+
+            <h4>Q3: What's the difference between var, let, and const?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>var:</strong> Function-scoped, hoisted, can be redeclared (avoid in modern code)</li>
+                <li><strong>let:</strong> Block-scoped, hoisted but not initialized, cannot be redeclared</li>
+                <li><strong>const:</strong> Block-scoped, must be initialized, cannot be reassigned</li>
+                <li><strong>Best Practice:</strong> Use const by default, let when reassignment needed</li>
+            </ul>
+
+            <h4>Q4: Explain arrow functions vs regular functions</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Regular functions:</strong> Hoisted, can be called before declaration, have their own <code>this</code></li>
+                <li><strong>Arrow functions:</strong> Not hoisted, lexical <code>this</code>, more concise syntax</li>
+                <li><strong>Usage:</strong> Arrow functions preferred for callbacks and functional programming</li>
+            </ul>
+
+            <h3>ES6+ Questions</h3>
+            
+            <h4>Q5: What are Rest and Spread operators?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Rest (...):</strong> Collects multiple elements into an array (function parameters)</li>
+                <li><strong>Spread (...):</strong> Expands array/object into individual elements</li>
+                <li><strong>Memory tip:</strong> Rest gathers, Spread scatters</li>
+                <li><strong>Usage:</strong> Rest for function parameters, Spread for array/object operations</li>
+            </ul>
+
+            <h4>Q6: How do you create a React component?</h4>
+            <p><strong>Answer:</strong></p>
+            <div class="code-block">
+<pre>
+// Functional Component (Preferred)
+function MyComponent() {
+    return &lt;div&gt;Hello World&lt;/div&gt;;
+}
+
+// Arrow Function Component
+const MyComponent = () =&gt; {
+    return &lt;div&gt;Hello World&lt;/div&gt;;
+};
+
+// Export/Import
+export default MyComponent;
+import MyComponent from './MyComponent';
+</pre>
+            </div>
+
+            <h3>React Architecture Questions</h3>
+            
+            <h4>Q7: Explain the React project structure</h4>
+            <p><strong>Answer:</strong> A typical React project includes:</p>
+            <ul>
+                <li><strong>public/:</strong> Static files, index.html</li>
+                <li><strong>src/:</strong> Source code, components, styles</li>
+                <li><strong>package.json:</strong> Dependencies and scripts</li>
+                <li><strong>node_modules/:</strong> Installed packages</li>
+                <li><strong>build/:</strong> Production build output</li>
+            </ul>
+
+            <h4>Q8: What is the Virtual DOM?</h4>
+            <p><strong>Answer:</strong> Virtual DOM is a JavaScript representation of the real DOM that React uses to:</p>
+            <ul>
+                <li>Improve performance by minimizing direct DOM manipulation</li>
+                <li>Enable efficient diffing algorithm</li>
+                <li>Batch updates for better performance</li>
+                <li>Provide predictable rendering</li>
+            </ul>
+
+            <h3>Redux Questions</h3>
+            
+            <h4>Q9: Explain Redux data flow</h4>
+            <p><strong>Answer:</strong> Redux follows unidirectional data flow:</p>
+            <ol>
+                <li><strong>Action:</strong> Dispatched from component</li>
+                <li><strong>Reducer:</strong> Processes action and updates state</li>
+                <li><strong>Store:</strong> Holds the updated state</li>
+                <li><strong>Component:</strong> Re-renders with new state</li>
+                <li><strong>Middleware:</strong> Can intercept actions (e.g., Redux-Saga for async operations)</li>
+            </ol>
+
+            <h4>Q10: What is Redux-Saga?</h4>
+            <p><strong>Answer:</strong> Redux-Saga is middleware for handling side effects in Redux:</p>
+            <ul>
+                <li>Manages async operations like API calls</li>
+                <li>Uses generator functions for better control flow</li>
+                <li>Provides powerful effects like <code>call</code>, <code>put</code>, <code>take</code></li>
+                <li>Enables complex async flow management</li>
+            </ul>
+
+            <h3>Advanced Questions</h3>
+            
+            <h4>Q11: What are React Hooks?</h4>
+            <p><strong>Answer:</strong> Hooks are functions that let you use state and lifecycle features in functional components:</p>
+            <ul>
+                <li><strong>useState:</strong> Manages component state</li>
+                <li><strong>useEffect:</strong> Handles side effects and lifecycle</li>
+                <li><strong>useContext:</strong> Consumes React context</li>
+                <li><strong>Custom Hooks:</strong> Reusable stateful logic</li>
+            </ul>
+
+            <h4>Q12: What's new in React 18?</h4>
+            <p><strong>Answer:</strong> React 18 introduces:</p>
+            <ul>
+                <li><strong>Concurrent Features:</strong> Automatic batching, transitions</li>
+                <li><strong>Suspense:</strong> Better data fetching patterns</li>
+                <li><strong>New Hooks:</strong> useId, useDeferredValue, useTransition</li>
+                <li><strong>Strict Mode:</strong> Enhanced development warnings</li>
+                <li><strong>New Root API:</strong> createRoot instead of ReactDOM.render</li>
+            </ul>
+
+            <h3>Coding Questions</h3>
+            
+            <h4>Q13: Write a simple React component that displays a list of items</h4>
+            <div class="code-block">
+<pre>
+function ItemList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map((item, index) =&gt; (
+                &lt;li key={index}&gt;{item}&lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+
+// Usage
+const items = ['Apple', 'Banana', 'Orange'];
+&lt;ItemList items={items} /&gt;
+</pre>
+            </div>
+
+            <h4>Q14: How do you handle events in React?</h4>
+            <div class="code-block">
+<pre>
+function Button() {
+    const handleClick = (event) =&gt; {
+        event.preventDefault();
+        console.log('Button clicked!');
+    };
+
+    return (
+        &lt;button onClick={handleClick}&gt;
+            Click me
+        &lt;/button&gt;
+    );
+}
+</pre>
+            </div>
+
+            <h4>Q15: Demonstrate the use of spread operator with arrays and objects</h4>
+            <div class="code-block">
+<pre>
+// Arrays
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr1, ...arr2]; // [1, 2, 3, 4, 5, 6]
+
+// Objects
+const obj1 = { name: 'John', age: 30 };
+const obj2 = { ...obj1, city: 'New York' }; // { name: 'John', age: 30, city: 'New York' }
+
+// Function arguments
+const numbers = [1, 2, 3];
+Math.max(...numbers); // Equivalent to Math.max(1, 2, 3)
+</pre>
+            </div>
+
+            <h4>Q16: What is component lifecycle in React?</h4>
+            <p><strong>Answer:</strong> Component lifecycle refers to the phases a component goes through:</p>
+            <ul>
+                <li><strong>Mounting:</strong> Component is created and inserted into DOM</li>
+                <li><strong>Updating:</strong> Component re-renders due to props/state changes</li>
+                <li><strong>Unmounting:</strong> Component is removed from DOM</li>
+                <li><strong>In Hooks:</strong> useEffect handles all lifecycle phases</li>
+            </ul>
+
+            <h4>Q17: Explain useState Hook with example</h4>
+            <div class="code-block">
+<pre>
+import { useState } from 'react';
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+                Increment
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</pre>
+            </div>
+
+            <h4>Q18: What is prop drilling and how to avoid it?</h4>
+            <p><strong>Answer:</strong> Prop drilling is passing props through multiple component levels. Solutions:</p>
+            <ul>
+                <li><strong>Context API:</strong> Share data without passing props</li>
+                <li><strong>Redux:</strong> Global state management</li>
+                <li><strong>Component composition:</strong> Restructure component hierarchy</li>
+                <li><strong>Custom hooks:</strong> Extract and share logic</li>
+            </ul>
+
+            <h4>Q19: Difference between controlled and uncontrolled components</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Controlled:</strong> Form data handled by React state</li>
+                <li><strong>Uncontrolled:</strong> Form data handled by DOM itself</li>
+                <li><strong>Controlled Example:</strong> <code>&lt;input value={state} onChange={handler} /&gt;</code></li>
+                <li><strong>Uncontrolled Example:</strong> <code>&lt;input ref={inputRef} /&gt;</code></li>
+            </ul>
+
+            <h4>Q20: What is React.memo() and when to use it?</h4>
+            <p><strong>Answer:</strong> React.memo() is a higher-order component for performance optimization:</p>
+            <ul>
+                <li>Prevents unnecessary re-renders</li>
+                <li>Only re-renders when props change</li>
+                <li>Use for expensive components</li>
+                <li>Similar to PureComponent for functional components</li>
+            </ul>
+            <div class="code-block">
+<pre>
+const ExpensiveComponent = React.memo(({ data }) =&gt; {
+    return &lt;div&gt;{data}&lt;/div&gt;;
+});
+</pre>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="section">
+            <h2>📚 Additional Resources</h2>
+            <ul>
+                <li><a href="https://reactjs.org/">Official React Documentation</a></li>
+                <li><a href="https://redux.js.org/">Redux Documentation</a></li>
+                <li><a href="https://redux-saga.js.org/">Redux-Saga Documentation</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">MDN JavaScript Reference</a></li>
+            </ul>
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+                <h3>🏠 Navigation</h3>
+                <p><a href="../index.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+            </div>
+            <p><em>Last updated: 2024 | React Complete Guide</em></p>
+        </div>
+    </footer>
+</body>
+</html>

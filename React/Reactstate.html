@@ -4,130 +4,680 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Azure Resources</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+    <title>React State Management - Complete Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #61dafb; border-bottom: 3px solid #61dafb; padding-bottom: 10px; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #61dafb; margin: 10px 0; border-radius: 5px; }
+        .highlight { background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .interview-section { background: #f8f9fa; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .nav-card { padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s; display: block; }
+        .nav-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(97, 218, 251, 0.3); }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f8f9fa; }
+        code { background: #f1f1f1; padding: 2px 4px; border-radius: 3px; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Manage state in React</h1>
-    </header>
-    <section>
-        declaration of state in react.
-        usestate allows component to have its own state
-        <pre>
-            <code>
-        import {useState} from React;
-        const LightSwitch = () => {
-            const [lightOn, setLightOn] = useState(false);
-            function handleLight () {
-                setLightOn(!lightOn)
-            }
+    <div class="container">
+        <header>
+            <h1>🔄 React State Management - Complete Guide</h1>
+            <p><strong>Master React state with useState, useContext, and advanced patterns</strong></p>
+        </header>
 
-            return(
-                <h1> Light is turned on: {lightOn}</h1>
-                <button onClick={ () => {setLightOn(!lightOn)}}</button> > or
-                <button onClick={ handleLight } ></button>
-            )
-        }
-
-     </code>
-    </pre>
-    </section>
-    <section>
-       <h3> Managing state in react </h3> 
-       with in using usestate
-       if its across we can manage through global state  which is called useContext
-    </section>
-    <section>
-        <p>
-            prop drilling is a situation where you are passing data from a parent to a child component, then to a grandchild component, and so on, until it reaches a more distant component further down the component tree, where this data is required
-        </p>
-    </section>
-    <section>
-        <h3>stateful vs stateless components</h3>
-       1.  stateful component maintain the state in component
-       2. stateless component doesnt maintain any state this will read state through props
-       3.  props cant be changes, where as state does -- state will be created using useState or useContext
-       4. we can create global state using usecontext where usestate is local to component  
-       5. this is how we can create state and pass as prop, if u need to update then declare setFruits
-       <pre>
-        <code>
-            export function App() {
-                const [fruits] = React.useState([
-                      {fruitName: 'apple', id: 1},
-                      {fruitName: 'apple', id: 2},
-                      {fruitName: 'plum', id: 3},
-                 ]);
-                return (
-                  <div className="App">
-                    <h1>Where should the state go?</h1>
-                    <Fruits fruits={ fruits }/>
-                    <FruitsCounter fruitscount={ fruits.length }/>
-                  </div>
-                );
-              }
-        </code>
-       </pre>
-    </section>
-    <section>
-        <h3> Additional notes references on React state</h3>
-        <ul>
-            <li>
-                <a href="https://react.dev/learn/synchronizing-with-effects#putting-it-all-together">use effect with state Sample</a>
-            </li>
-            <li>
-                <a href="https://react.dev/learn/thinking-in-react#step-5-add-inverse-data-flow">pass state between parent and child</a>
-            </li>
-            <li>
-                <a href="https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html">state with traditional component</a>
-            </li>
-            <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">fetch api sample</a>
-            </li>
-            <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model">
-                    javascript execution model with events
+        <!-- Navigation -->
+        <div class="section">
+            <h2>📋 Quick Navigation</h2>
+            <div class="nav-grid">
+                <a href="React18Notes.html" class="nav-card">
+                    <strong>🏠 React 18 Notes</strong><br>
+                    <small>Main React documentation</small>
                 </a>
-            </li>
-        </ul>
+                <a href="#usestate-basics" class="nav-card">
+                    <strong>🎯 useState Basics</strong><br>
+                    <small>Local component state</small>
+                </a>
+                <a href="#advanced-state" class="nav-card">
+                    <strong>🚀 Advanced State</strong><br>
+                    <small>Complex state patterns</small>
+                </a>
+                <a href="#global-state" class="nav-card">
+                    <strong>🌐 Global State</strong><br>
+                    <small>useContext and prop drilling</small>
+                </a>
+            </div>
+        </div>
 
-    </section>
-    <h3> what is state in react?</h3>
-    <p>
-        1. state is a dynamic storage that holds data that may change  over lifetime of a component.
-        2. we can import state using :  import { useState } from 'react'.
-        3. In React, the state is described as immutable that means - state cant be changes directly; updates must be made using a special function.
-        4. const [greeting, setGreeting] = React.useState('Hello world');
-    </p>
-    <p>
-        <h3> sample code on state </h3>
-        <code>
-            import React, { useState } from 'react';
+        <!-- useState Basics -->
+        <div id="usestate-basics" class="section">
+            <h2>🎯 useState Hook Fundamentals</h2>
+            
+            <h3>What is State in React?</h3>
+            <ul>
+                <li><strong>Definition:</strong> Dynamic storage that holds data that may change over the lifetime of a component</li>
+                <li><strong>Immutability:</strong> State cannot be changed directly; updates must be made using setter functions</li>
+                <li><strong>Re-rendering:</strong> State changes trigger component re-renders</li>
+                <li><strong>Local scope:</strong> Each component instance has its own state</li>
+            </ul>
 
-                export default function Books() {
-                // Initialize state with 3 book titles
-                const [books, setBooks] = useState([
-                    { title: 'HarriPortar' },
-                    { title: 'C#' },
-                    { title: 'AI' }
-                ]);
+            <h3>Basic useState Syntax</h3>
+            <div class="code-block">
+<pre>
+import { useState } from 'react';
 
-                return (
-                    <div>
-                    <h1>Books list goes here</h1>
-                    <ul>
-                        {books.map((book, index) => (
-                        <li key={index}>{book.title}</li>
-                        ))}
-                    </ul>
-                    </div>
-                );
-                }
-        </code>
-    </p>
-    </section>
-    <footer>
-       
-    </footer>
+const MyComponent = () => {
+    // Syntax: [stateVariable, setterFunction] = useState(initialValue)
+    const [count, setCount] = useState(0);
+    const [name, setName] = useState('');
+    const [isVisible, setIsVisible] = useState(true);
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+                Increment
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Light Switch Example</h3>
+            <div class="code-block">
+<pre>
+import { useState } from 'react';
+
+const LightSwitch = () => {
+    const [lightOn, setLightOn] = useState(false);
+    
+    const handleLight = () => {
+        setLightOn(!lightOn);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Light is turned on: {lightOn ? 'Yes' : 'No'}&lt;/h1&gt;
+            &lt;button onClick={handleLight}&gt;
+                {lightOn ? 'Turn Off' : 'Turn On'}
+            &lt;/button&gt;
+            &lt;div style={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                backgroundColor: lightOn ? 'yellow' : 'gray',
+                margin: '20px auto'
+            }}&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Array State Example</h3>
+            <div class="code-block">
+<pre>
+import { useState } from 'react';
+
+const BooksList = () => {
+    const [books, setBooks] = useState([
+        { id: 1, title: 'Harry Potter', author: 'J.K. Rowling' },
+        { id: 2, title: 'Clean Code', author: 'Robert Martin' },
+        { id: 3, title: 'React Handbook', author: 'Flavio Copes' }
+    ]);
+
+    const addBook = () => {
+        const newBook = {
+            id: books.length + 1,
+            title: 'New Book',
+            author: 'New Author'
+        };
+        setBooks([...books, newBook]); // Immutable update
+    };
+
+    const removeBook = (id) => {
+        setBooks(books.filter(book =&gt; book.id !== id));
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Books Collection ({books.length} books)&lt;/h2&gt;
+            &lt;ul&gt;
+                {books.map(book =&gt; (
+                    &lt;li key={book.id}&gt;
+                        {book.title} by {book.author}
+                        &lt;button onClick={() =&gt; removeBook(book.id)}&gt;
+                            Remove
+                        &lt;/button&gt;
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+            &lt;button onClick={addBook}&gt;Add Book&lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Advanced State Patterns -->
+        <div id="advanced-state" class="section">
+            <h2>🚀 Advanced State Patterns</h2>
+            
+            <h3>Object State Updates</h3>
+            <div class="code-block">
+<pre>
+const UserProfile = () => {
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        age: 0,
+        preferences: {
+            theme: 'light',
+            notifications: true
+        }
+    });
+
+    const updateUser = (field, value) => {
+        setUser(prevUser =&gt; ({
+            ...prevUser,
+            [field]: value
+        }));
+    };
+
+    const updatePreferences = (pref, value) => {
+        setUser(prevUser =&gt; ({
+            ...prevUser,
+            preferences: {
+                ...prevUser.preferences,
+                [pref]: value
+            }
+        }));
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input 
+                placeholder="Name"
+                value={user.name}
+                onChange={(e) =&gt; updateUser('name', e.target.value)}
+            /&gt;
+            &lt;input 
+                placeholder="Email"
+                value={user.email}
+                onChange={(e) =&gt; updateUser('email', e.target.value)}
+            /&gt;
+            &lt;label&gt;
+                &lt;input 
+                    type="checkbox"
+                    checked={user.preferences.notifications}
+                    onChange={(e) =&gt; updatePreferences('notifications', e.target.checked)}
+                /&gt;
+                Enable Notifications
+            &lt;/label&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Functional State Updates</h3>
+            <div class="highlight">
+                <strong>Best Practice:</strong> Use functional updates when new state depends on previous state
+            </div>
+            <div class="code-block">
+<pre>
+const Counter = () => {
+    const [count, setCount] = useState(0);
+
+    // ❌ Avoid: Direct state reference
+    const badIncrement = () => {
+        setCount(count + 1);
+        setCount(count + 1); // This won't work as expected
+    };
+
+    // ✅ Good: Functional update
+    const goodIncrement = () => {
+        setCount(prev =&gt; prev + 1);
+        setCount(prev =&gt; prev + 1); // This works correctly
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={goodIncrement}&gt;Increment by 2&lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>State with useEffect</h3>
+            <div class="code-block">
+<pre>
+import { useState, useEffect } from 'react';
+
+const DataFetcher = () => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch('https://api.example.com/data');
+                const result = await response.json();
+                setData(result);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array = run once on mount
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+    
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Fetched Data&lt;/h2&gt;
+            &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Global State Management -->
+        <div id="global-state" class="section">
+            <h2>🌐 Global State Management</h2>
+            
+            <h3>Prop Drilling Problem</h3>
+            <p>Prop drilling occurs when you pass data from parent to child to grandchild components through props, even when intermediate components don't need the data.</p>
+            
+            <div class="code-block">
+<pre>
+// ❌ Prop Drilling Example
+const App = () => {
+    const [user, setUser] = useState({ name: 'John', role: 'admin' });
+    
+    return &lt;Header user={user} /&gt;;
+};
+
+const Header = ({ user }) => {
+    return &lt;Navigation user={user} /&gt;; // Just passing through
+};
+
+const Navigation = ({ user }) => {
+    return &lt;UserMenu user={user} /&gt;; // Just passing through
+};
+
+const UserMenu = ({ user }) => {
+    return &lt;div&gt;Welcome, {user.name}!&lt;/div&gt;; // Finally uses it
+};
+</pre>
+            </div>
+
+            <h3>useContext Solution</h3>
+            <div class="code-block">
+<pre>
+import { createContext, useContext, useState } from 'react';
+
+// 1. Create Context
+const UserContext = createContext();
+
+// 2. Create Provider Component
+const UserProvider = ({ children }) => {
+    const [user, setUser] = useState({ name: 'John', role: 'admin' });
+    
+    return (
+        &lt;UserContext.Provider value={{ user, setUser }}&gt;
+            {children}
+        &lt;/UserContext.Provider&gt;
+    );
+};
+
+// 3. Custom Hook for easier usage
+const useUser = () => {
+    const context = useContext(UserContext);
+    if (!context) {
+        throw new Error('useUser must be used within UserProvider');
+    }
+    return context;
+};
+
+// 4. Use in components
+const App = () => {
+    return (
+        &lt;UserProvider&gt;
+            &lt;Header /&gt;
+        &lt;/UserProvider&gt;
+    );
+};
+
+const Header = () => {
+    return &lt;Navigation /&gt;; // No props needed
+};
+
+const Navigation = () => {
+    return &lt;UserMenu /&gt;; // No props needed
+};
+
+const UserMenu = () => {
+    const { user, setUser } = useUser(); // Direct access
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Welcome, {user.name}!&lt;/p&gt;
+            &lt;button onClick={() =&gt; setUser({ ...user, name: 'Jane' })}&gt;
+                Change Name
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Stateful vs Stateless Components</h3>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Stateful Components</th>
+                    <th>Stateless Components</th>
+                </tr>
+                <tr>
+                    <td>State Management</td>
+                    <td>Maintains own state with useState/useReducer</td>
+                    <td>No state, receives data via props</td>
+                </tr>
+                <tr>
+                    <td>Data Flow</td>
+                    <td>Can modify and update data</td>
+                    <td>Read-only data from props</td>
+                </tr>
+                <tr>
+                    <td>Complexity</td>
+                    <td>More complex, handles logic</td>
+                    <td>Simple, focused on presentation</td>
+                </tr>
+                <tr>
+                    <td>Reusability</td>
+                    <td>Less reusable due to internal state</td>
+                    <td>Highly reusable</td>
+                </tr>
+                <tr>
+                    <td>Testing</td>
+                    <td>More complex to test</td>
+                    <td>Easier to test (pure functions)</td>
+                </tr>
+            </table>
+
+            <h3>State Management Solutions Comparison</h3>
+            <table>
+                <tr>
+                    <th>Solution</th>
+                    <th>Use Case</th>
+                    <th>Complexity</th>
+                    <th>Learning Curve</th>
+                </tr>
+                <tr>
+                    <td>useState</td>
+                    <td>Local component state</td>
+                    <td>Low</td>
+                    <td>Easy</td>
+                </tr>
+                <tr>
+                    <td>useContext</td>
+                    <td>Avoid prop drilling</td>
+                    <td>Medium</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td>useReducer</td>
+                    <td>Complex state logic</td>
+                    <td>Medium</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td>Redux</td>
+                    <td>Large applications</td>
+                    <td>High</td>
+                    <td>Steep</td>
+                </tr>
+                <tr>
+                    <td>Zustand</td>
+                    <td>Simple global state</td>
+                    <td>Low</td>
+                    <td>Easy</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="section interview-section">
+            <h2>❓ React State Interview Questions & Answers</h2>
+            
+            <h3>Fundamental Questions</h3>
+            
+            <h4>Q1: What is state in React and why is it important?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Definition:</strong> State is mutable data that belongs to a component and can change over time</li>
+                <li><strong>Triggers re-renders:</strong> When state changes, React re-renders the component</li>
+                <li><strong>Local to component:</strong> Each component instance has its own state</li>
+                <li><strong>Immutable updates:</strong> State should never be mutated directly</li>
+            </ul>
+
+            <h4>Q2: What's the difference between state and props?</h4>
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>State</th>
+                    <th>Props</th>
+                </tr>
+                <tr>
+                    <td>Mutability</td>
+                    <td>Mutable (via setter)</td>
+                    <td>Immutable</td>
+                </tr>
+                <tr>
+                    <td>Ownership</td>
+                    <td>Owned by component</td>
+                    <td>Passed from parent</td>
+                </tr>
+                <tr>
+                    <td>Updates</td>
+                    <td>Can be updated</td>
+                    <td>Read-only</td>
+                </tr>
+                <tr>
+                    <td>Scope</td>
+                    <td>Local to component</td>
+                    <td>Passed down hierarchy</td>
+                </tr>
+            </table>
+
+            <h4>Q3: Why should state updates be immutable?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>React's diffing:</strong> React uses Object.is() to detect changes</li>
+                <li><strong>Performance:</strong> Shallow comparison is faster than deep comparison</li>
+                <li><strong>Predictability:</strong> Prevents unexpected side effects</li>
+                <li><strong>Time travel debugging:</strong> Enables tools like Redux DevTools</li>
+            </ul>
+
+            <h4>Q4: When should you use functional state updates?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>When new state depends on previous state</strong></li>
+                <li><strong>Multiple rapid updates:</strong> Prevents stale closure issues</li>
+                <li><strong>Asynchronous updates:</strong> Ensures correct state transitions</li>
+                <li><strong>Example:</strong> <code>setCount(prev => prev + 1)</code></li>
+            </ul>
+
+            <h3>Advanced Questions</h3>
+            
+            <h4>Q5: What is prop drilling and how do you solve it?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Problem:</strong> Passing props through multiple component levels</li>
+                <li><strong>Solutions:</strong></li>
+                <ul>
+                    <li><strong>Context API:</strong> Share state without prop passing</li>
+                    <li><strong>Component composition:</strong> Use children prop</li>
+                    <li><strong>State management libraries:</strong> Redux, Zustand</li>
+                    <li><strong>Custom hooks:</strong> Extract and share stateful logic</li>
+                </ul>
+            </ul>
+
+            <h4>Q6: Explain useContext and when to use it</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Purpose:</strong> Share data across component tree without prop drilling</li>
+                <li><strong>Use cases:</strong> Theme, authentication, language settings</li>
+                <li><strong>Performance:</strong> All consumers re-render when context changes</li>
+                <li><strong>Best practice:</strong> Split contexts by concern</li>
+            </ul>
+
+            <h4>Q7: What are the rules of hooks?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Top level only:</strong> Don't call hooks inside loops, conditions, or nested functions</li>
+                <li><strong>React functions only:</strong> Only call from React function components or custom hooks</li>
+                <li><strong>Consistent order:</strong> Hooks must be called in the same order every render</li>
+                <li><strong>Custom hooks:</strong> Must start with "use"</li>
+            </ul>
+
+            <h3>Practical Questions</h3>
+            
+            <h4>Q8: How do you handle complex state logic?</h4>
+            <div class="code-block">
+<pre>
+// Option 1: Multiple useState
+const [name, setName] = useState('');
+const [email, setEmail] = useState('');
+const [errors, setErrors] = useState({});
+
+// Option 2: Single useState with object
+const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    errors: {}
+});
+
+// Option 3: useReducer for complex logic
+const formReducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_FIELD':
+            return { ...state, [action.field]: action.value };
+        case 'SET_ERROR':
+            return { ...state, errors: { ...state.errors, [action.field]: action.error } };
+        case 'RESET':
+            return initialState;
+        default:
+            return state;
+    }
+};
+
+const [state, dispatch] = useReducer(formReducer, initialState);
+</pre>
+            </div>
+
+            <h4>Q9: How do you optimize state updates for performance?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Batch updates:</strong> React automatically batches state updates</li>
+                <li><strong>useMemo:</strong> Memoize expensive calculations</li>
+                <li><strong>useCallback:</strong> Memoize functions to prevent child re-renders</li>
+                <li><strong>React.memo:</strong> Prevent unnecessary component re-renders</li>
+                <li><strong>Split state:</strong> Separate frequently changing state</li>
+            </ul>
+
+            <h4>Q10: What's the difference between useState and useReducer?</h4>
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>useState</th>
+                    <th>useReducer</th>
+                </tr>
+                <tr>
+                    <td>Complexity</td>
+                    <td>Simple state</td>
+                    <td>Complex state logic</td>
+                </tr>
+                <tr>
+                    <td>Updates</td>
+                    <td>Direct setter function</td>
+                    <td>Dispatch actions</td>
+                </tr>
+                <tr>
+                    <td>Logic</td>
+                    <td>In component</td>
+                    <td>In reducer function</td>
+                </tr>
+                <tr>
+                    <td>Testing</td>
+                    <td>Test component</td>
+                    <td>Test reducer separately</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="section">
+            <h2>📚 Additional Resources</h2>
+            <ul>
+                <li><a href="https://react.dev/learn/synchronizing-with-effects#putting-it-all-together">useEffect with State</a></li>
+                <li><a href="https://react.dev/learn/thinking-in-react#step-5-add-inverse-data-flow">Pass State Between Parent and Child</a></li>
+                <li><a href="https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html">State with Class Components</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API Reference</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model">JavaScript Execution Model</a></li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="section">
+            <div class="nav-grid">
+                <a href="ReactMainIndex.html" class="nav-card">
+                    <strong>🏠 React Main Index</strong><br>
+                    <small>Complete React documentation</small>
+                </a>
+                <a href="Reactbasics.html" class="nav-card">
+                    <strong>📚 React Basics</strong><br>
+                    <small>Fundamentals and event handling</small>
+                </a>
+                <a href="ReactArrayMethods.html" class="nav-card">
+                    <strong>🔢 Array Methods</strong><br>
+                    <small>JavaScript array methods for React</small>
+                </a>
+                <a href="Reactfunctiondeclarations.html" class="nav-card">
+                    <strong>⚡ Function Declarations</strong><br>
+                    <small>Different ways to declare functions</small>
+                </a>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+                <h3>🏠 Navigation</h3>
+                <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+            </div>
+            
+            <p><em>Last updated: 2024 | React State Management Complete Guide</em></p>
+        </footer>
+    </div>
 </body>
 </html>
