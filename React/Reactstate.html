@@ -66,10 +66,37 @@
                 <li><strong>Immutability:</strong> State cannot be changed directly; updates must be made using setter functions</li>
                 <li><strong>Re-rendering:</strong> State changes trigger component re-renders</li>
                 <li><strong>Local scope:</strong> Each component instance has its own state</li>
+                Manages data of components
+                consiste of 2 parts (getting & setting)
+                re-renders the UI when the state changes (Variables dont do that)
             </ul>
 
             <h3>Basic useState Syntax</h3>
             <div class="code-block">
+                <pre>
+                    mport React, {useState, useEffect} from 'react';
+import '../styles.css';
+
+export default function MoviesGrid(){
+    const age = 20;
+    const [movies, setMovies] = useState([]);// state declaration
+
+    const m = ["a", "b", "c"];
+    
+    useEffect(() => { // use effect is page renders
+        setMovies(m); // set the state
+        console.log("movies", movies);
+    },[])
+
+    return (
+        <div>
+           No of movies {movies.length} // get the state and display 
+        </div>
+
+    )
+
+}
+                </pre>
 <pre>
 import { useState } from 'react';
 
