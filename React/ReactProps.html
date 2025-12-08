@@ -1,0 +1,47 @@
+1. React props used to pass data, event handlers and functions to the components.
+sample
+export default function MovieCard({movie}){
+  return (
+    <div>
+        <h1>{movie.title}</h1>
+    </div>
+  );
+}
+you can pass props to nested components - called props drilling ->
+name for passing data down through multiple nested components in React
+
+hanlde error -- inside component example 
+const handleError = (e) => {
+    e.target.src = 'images/default.jpg';
+}
+export default function MovieCard({movie}){
+    const handleError = (e) => {
+        e.target.src = 'images/default.jpg';
+    }
+    return (
+      
+        <div key={movie.id} className='movie-card'>
+                        <img src={`images/${movie.image}`} alt={movie.title} onError={handleError}/>
+                        <div className='movie-card-info'>
+                            <h3 className='movie-card-title'>{movie.title}</h3>
+                            <p className='movie-card-genre'>{movie.genre}</p>
+                            <p className='movie-card-rating'>{movie.rating}</p>
+                        </div>
+        </div>
+
+                  
+    );
+}
+
+template literal: 
+const getMovieRatingClass = (rating) => {
+    if(rating >= 8){
+        return "rating-good";
+    } else if(rating >= 5){
+        return "rating-ok";
+    } else {
+        return "rating-bad";
+    }
+}
+<p className={`movie-card-rating ${getMovieRatingClass(movie.rating)}`}>{movie.rating}</p>
+

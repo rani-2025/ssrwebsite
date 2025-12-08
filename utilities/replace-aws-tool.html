@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS to Test Replacer</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005a87; }
+        .output { margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 4px; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
+        code { background: #e8e8e8; padding: 2px 4px; border-radius: 2px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>AWS to Test Replacer Tool</h1>
+    
+    <div class="form-group">
+        <label for="sourceUrl">Source URL (to replace):</label>
+        <input type="text" id="sourceUrl" value="aws" placeholder="Enter text to replace (default: aws)">
+    </div>
+    
+    <div class="form-group">
+        <label for="destUrl">Destination URL (replacement):</label>
+        <input type="text" id="destUrl" value="test" placeholder="Enter replacement text (default: test)">
+    </div>
+    
+    <div class="form-group">
+        <label for="micrositeDir">Microsite Directory:</label>
+        <input type="text" id="micrositeDir" value="/Users/sjuloori/yoda/yoda-microsite-gallery" placeholder="Enter full directory path (e.g., /Users/username/project)">
+        <small style="color: #666; font-size: 12px;">💡 Get path: <code>pwd</code> (Mac/Linux) or <code>cd</code> (Windows) in terminal</small>
+    </div>
+    
+    <div class="form-group">
+        <label for="scriptUrl">Script URL (relative to microsite directory):</label>
+        <input type="text" id="scriptUrl" value="src/docs/replace-aws-with-test.js" placeholder="Relative path to script file">
+        <small style="color: #666; font-size: 12px;">💡 Tip: Path relative to the microsite directory above</small>
+    </div>
+    
+    <button onclick="generateAndRun()">Generate & Run Script</button>
+    
+    <div id="output" class="output" style="display: none;"></div>
+
+    <script>
+        async function generateAndRun() {
+            const sourceUrl = document.getElementById('sourceUrl').value || 'aws';
+            const destUrl = document.getElementById('destUrl').value || 'test';
+            const micrositeDir = document.getElementById('micrositeDir').value;
+            const scriptUrl = document.getElementById('scriptUrl').value;
+            
+            if (!micrositeDir || !scriptUrl) {
+                alert('Please provide both microsite directory and script URL');
+                return;
+            }
+
+            const script = `#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const readline = require('readline');
+
+const micrositeDir = process.argv[2] || '${micrositeDir}';
+
+const getFilesToUpdate = (baseDir) => [
+    path.join(baseDir, 'node_modules/yoda-app-shell/lib/cdn/fetchServerComponentsJs.js'),
+    path.join(baseDir, 'node_modules/yoda-app-shell/lib/cdn/fetchSiteVendorsFilename.js'),
+    path.join(baseDir, 'node_modules/yoda-app-shell/lib/helpers/fetchWebpackChunks.js'),
+    path.join(baseDir, 'node_modules/yoda-app-shell/lib/components/renderFullPage.jsx'),
+];
+
+function replaceInFile(filePath) {
+    try {
+        if (!fs.existsSync(filePath)) {
+            console.log(\`❌ File not found: \${filePath}\`);
+            return false;
+        }
+
+        const content = fs.readFileSync(filePath, 'utf8');
+        const updatedContent = content.replace(/process\.env\.ENV !== '${sourceUrl}'/g, "process.env.ENV !== '${destUrl}'");
+
+        if (content !== updatedContent) {
+            fs.writeFileSync(filePath, updatedContent, 'utf8');
+            console.log(\`✅ Updated: \${filePath}\`);
+            return true;
+        }
+        console.log(\`ℹ️  No changes needed: \${filePath}\`);
+        return false;
+    } catch (error) {
+        console.error(\`❌ Error processing \${filePath}:\`, error.message);
+        return false;
+    }
+}
+
+function main() {
+    console.log(\`🔄 Starting ${sourceUrl} to ${destUrl} replacement in: \${micrositeDir}\\n\`);
+
+    const filesToUpdate = getFilesToUpdate(micrositeDir);
+    let updatedCount = 0;
+
+    filesToUpdate.forEach((filePath) => {
+        if (replaceInFile(filePath)) {
+            updatedCount++;
+        }
+    });
+
+    console.log(\`\\n✨ Process complete! Updated \${updatedCount} file(s).\`);
+    console.log('\\n📋 Files processed:');
+    console.log('- fetchServerComponentsJs.js: rootPath condition');
+    console.log('- fetchSiteVendorsFilename.js: rootPath condition');
+    console.log('- fetchWebpackChunks.js: staticDomainPath condition');
+    console.log('- renderFullPage.jsx: staticDomainPath condition (DLL URL fix)');
+    console.log('\\n🔄 Restart your server to apply changes.');
+}
+
+main();`;
+
+            const fullCommand = `node ${scriptUrl} "${micrositeDir}"`;
+            const cdCommand = `cd ${micrositeDir}`;
+            const relativeCommand = `node ${scriptUrl}`;
+            
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('output').textContent = `Generated script:\n\n${script}\n\n📋 Copy and run ONE of these commands in your terminal:\n\nOption 1 - Full path (run from anywhere):\n${fullCommand}\n\nOption 2 - Navigate to project first:\n${cdCommand}\n${relativeCommand}\n\nNote: Make sure to copy the plain text commands, not from browser (avoid HTML entities like &quot;).`;
+        }
+    </script>
+</body>
+</html>
