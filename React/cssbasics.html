@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Basics - Quick Reference</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #2563eb; border-bottom: 3px solid #2563eb; padding-bottom: 10px; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #2563eb; margin: 10px 0; border-radius: 5px; }
+        .highlight { background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f8f9fa; }
+        .demo-box { border: 2px solid #2563eb; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .block-demo { display: block; background: #e0f2fe; padding: 10px; margin: 5px 0; }
+        .inline-demo { display: inline; background: #fef3c7; padding: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #2563eb;">
+            <h3>🏠 Navigation</h3>
+            <p><a href="ReactMainIndex.html" style="color: #2563eb; text-decoration: none;">← Back to React Main Index</a></p>
+        </div>
+
+        <header>
+            <h1>🎨 CSS Basics - Quick Reference</h1>
+            <p><strong>Essential CSS concepts for web development</strong></p>
+        </header>
+
+        <!-- p vs span Section -->
+        <div class="section">
+            <h2>&lt;p&gt; vs &lt;span&gt; - Block vs Inline Elements</h2>
+            
+            <div class="highlight">
+                <strong>Key Difference:</strong> &lt;p&gt; is a block-level element, &lt;span&gt; is an inline element
+            </div>
+
+            <h3>Comparison Summary</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>&lt;p&gt; (Paragraph)</th>
+                    <th>&lt;span&gt; (Span)</th>
+                </tr>
+                <tr>
+                    <td>Display Type</td>
+                    <td>Block-level</td>
+                    <td>Inline</td>
+                </tr>
+                <tr>
+                    <td>Line Break</td>
+                    <td>Starts on new line</td>
+                    <td>Stays on same line</td>
+                </tr>
+                <tr>
+                    <td>Width</td>
+                    <td>Takes full width available</td>
+                    <td>Only takes content width</td>
+                </tr>
+                <tr>
+                    <td>Height/Width Control</td>
+                    <td>Can set height and width</td>
+                    <td>Cannot set height and width (unless display changed)</td>
+                </tr>
+                <tr>
+                    <td>Margins</td>
+                    <td>Top and bottom margins work</td>
+                    <td>Only left and right margins work</td>
+                </tr>
+                <tr>
+                    <td>Use Case</td>
+                    <td>Text paragraphs, content blocks</td>
+                    <td>Styling part of text, inline elements</td>
+                </tr>
+            </table>
+
+            <h3>Code Examples</h3>
+            
+            <h4>&lt;p&gt; Tag Example (Block-level)</h4>
+            <div class="code-block">
+<pre>
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;p&gt;This is another paragraph.&lt;/p&gt;
+&lt;p&gt;Each paragraph starts on a new line.&lt;/p&gt;
+</pre>
+            </div>
+
+            <h4>Visual Demo:</h4>
+            <div class="demo-box">
+                <p class="block-demo">This is a paragraph.</p>
+                <p class="block-demo">This is another paragraph.</p>
+                <p class="block-demo">Each paragraph starts on a new line.</p>
+            </div>
+
+            <h4>&lt;span&gt; Tag Example (Inline)</h4>
+            <div class="code-block">
+<pre>
+&lt;p&gt;This is &lt;span style="color: red;"&gt;red text&lt;/span&gt; in a paragraph.&lt;/p&gt;
+&lt;p&gt;You can &lt;span style="font-weight: bold;"&gt;bold&lt;/span&gt; or 
+&lt;span style="font-style: italic;"&gt;italicize&lt;/span&gt; parts of text.&lt;/p&gt;
+</pre>
+            </div>
+
+            <h4>Visual Demo:</h4>
+            <div class="demo-box">
+                <p>This is <span class="inline-demo">highlighted text</span> in a paragraph.</p>
+                <p>Multiple <span class="inline-demo">spans</span> can be <span class="inline-demo">on the same line</span>.</p>
+            </div>
+
+            <h3>Practical Usage</h3>
+            <div class="code-block">
+<pre>
+&lt;!-- Use &lt;p&gt; for paragraphs --&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/p&gt;
+
+&lt;!-- Use &lt;span&gt; for styling parts of text --&gt;
+&lt;p&gt;The price is &lt;span style="color: green; font-weight: bold;"&gt;$29.99&lt;/span&gt;&lt;/p&gt;
+
+&lt;!-- Common React/JSX usage --&gt;
+&lt;p&gt;Status: &lt;span className="status-active"&gt;Active&lt;/span&gt;&lt;/p&gt;
+</pre>
+            </div>
+
+            <h3>Quick Rules</h3>
+            <ul>
+                <li>Use <strong>&lt;p&gt;</strong> for complete paragraphs or text blocks</li>
+                <li>Use <strong>&lt;span&gt;</strong> to style or target specific parts of text</li>
+                <li><strong>&lt;p&gt;</strong> cannot be nested inside another &lt;p&gt;</li>
+                <li><strong>&lt;span&gt;</strong> can be nested inside &lt;p&gt;, &lt;div&gt;, or other elements</li>
+                <li>Block elements stack vertically, inline elements flow horizontally</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="section">
+            <p><em>Last updated: 2024 | CSS Basics Quick Reference</em></p>
+        </footer>
+    </div>
+</body>
+</html>

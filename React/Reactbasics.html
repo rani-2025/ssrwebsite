@@ -28,6 +28,12 @@
 </head>
 <body>
     <div class="container">
+        <!-- Navigation -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+            <h3>🏠 Navigation</h3>
+            <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+        </div>
+
         <header>
             <h1>🚀 React Basics - Complete Guide</h1>
             <p><strong>Comprehensive guide to React fundamentals, event handling, state management, and best practices</strong></p>
@@ -208,6 +214,47 @@ npm start
 </pre>
             </div>
 
+            <h3>📦 Import Syntax Summary</h3>
+            <p>Understanding the difference between named and default exports is crucial for React development:</p>
+            
+            <div class="highlight">
+                <strong>Key Rule:</strong> Named exports need curly braces and exact name. Default exports don't need curly braces and can use any name.
+            </div>
+
+            <h4>Named Export - Use { }</h4>
+            <div class="code-block">
+<pre>
+import {MovieCard} from './MovieCard'
+// Requires: export function MovieCard() {}
+</pre>
+            </div>
+
+            <h4>Default Export - No { }</h4>
+            <div class="code-block">
+<pre>
+import MovieCard from './MovieCard'
+// Requires: export default function MovieCard() {}
+</pre>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Export Type</th>
+                    <th>Import Syntax</th>
+                    <th>Export Syntax</th>
+                </tr>
+                <tr>
+                    <td>Named Export</td>
+                    <td><code>import {MovieCard} from './MovieCard'</code></td>
+                    <td><code>export function MovieCard() {}</code></td>
+                </tr>
+                <tr>
+                    <td>Default Export</td>
+                    <td><code>import MovieCard from './MovieCard'</code></td>
+                    <td><code>export default function MovieCard() {}</code></td>
+                </tr>
+            </table>
+
             <h3>Key Configuration Files</h3>
             
             <h4>package.json</h4>
@@ -297,10 +344,11 @@ npm start
             <div class="code-block">
 <pre>
 // 1. Install React Router
-npm install react-router-dom@6
+npm i react-router-dom@6.22.3
 
 // 2. Setup in index.js
 import { BrowserRouter } from 'react-router-dom';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     &lt;BrowserRouter&gt;
@@ -490,9 +538,19 @@ const VideoComponent = () => {
                 <li><strong>Best practice:</strong> Use ^ for most dependencies</li>
             </ul>
 
+            <h4>Q8: What is the difference between named and default exports in React?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Named Export:</strong> Use curly braces with exact name: <code>import {MovieCard} from './MovieCard'</code></li>
+                <li><strong>Default Export:</strong> No curly braces, any name: <code>import MovieCard from './MovieCard'</code></li>
+                <li><strong>Named requires:</strong> <code>export function MovieCard() {}</code></li>
+                <li><strong>Default requires:</strong> <code>export default function MovieCard() {}</code></li>
+                <li><strong>Key rule:</strong> Named exports need exact name match, default exports can be renamed on import</li>
+            </ul>
+
             <h3>Practical Questions</h3>
             
-            <h4>Q8: How do you handle form inputs in React?</h4>
+            <h4>Q9: How do you handle form inputs in React?</h4>
             <div class="code-block">
 <pre>
 function ContactForm() {
@@ -534,7 +592,7 @@ function ContactForm() {
 </pre>
             </div>
 
-            <h4>Q9: How do you conditionally render components?</h4>
+            <h4>Q10: How do you conditionally render components?</h4>
             <div class="code-block">
 <pre>
 // Method 1: Ternary operator
@@ -554,7 +612,7 @@ return &lt;div&gt;{content}&lt;/div&gt;;
 </pre>
             </div>
 
-            <h4>Q10: What are the rules of hooks?</h4>
+            <h4>Q11: What are the rules of hooks?</h4>
             <p><strong>Answer:</strong></p>
             <ul>
                 <li><strong>Only call at top level:</strong> Not inside loops, conditions, or nested functions</li>
@@ -584,11 +642,6 @@ return &lt;div&gt;{content}&lt;/div&gt;;
                     <strong>⚡ Function Declarations</strong><br>
                     <small>Different ways to declare functions</small>
                 </a>
-            </div>
-            
-            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
-                <h3>🏠 Navigation</h3>
-                <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
             </div>
             
             <p><em>Last updated: 2024 | React Basics Complete Guide</em></p>
