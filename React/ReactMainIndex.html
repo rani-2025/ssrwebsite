@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>React Complete Guide - Main Index</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
         h1 { color: #61dafb; border-bottom: 3px solid #61dafb; }
@@ -20,12 +22,40 @@
     </style>
 </head>
 <body>
-    <header>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Company<br>Name</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="../index.html#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a> 
+    <a href="../index.html#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a> 
+    <a href="../index.html#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Designers</a> 
+    <a href="../index.html#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
+    <a href="../index.html#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+    <a href="../Azure/azure-resources.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Azure Resources</a>
+    <a href="ReactMainIndex.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">React Guide</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <header style="margin-left:340px;margin-right:40px;margin-top:80px;">
         <h1>React Complete Guide - Main Index</h1>
         <p><strong>Reference:</strong> <a href="https://github.com/JannickLeismann/react-moviedux">React 18 Udemy Source Code Repository</a></p>
     </header>
 
-    <main>
+    <main style="margin-left:340px;margin-right:40px;">
         <!-- Table of Contents -->
         <div class="section">
             <h2>📋 Table of Contents</h2>
@@ -676,7 +706,7 @@ const ExpensiveComponent = React.memo(({ data }) =&gt; {
         </div>
     </main>
 
-    <footer>
+    <footer style="margin-left:340px;margin-right:40px;">
         <div class="section">
             <h2>📚 Additional Resources</h2>
             <ul>
@@ -692,5 +722,19 @@ const ExpensiveComponent = React.memo(({ data }) =&gt; {
             <p><em>Last updated: 2024 | React Complete Guide</em></p>
         </div>
     </footer>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
 </body>
 </html>

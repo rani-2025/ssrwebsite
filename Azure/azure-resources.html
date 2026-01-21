@@ -4,26 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Azure Resources</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        .navbar a {
-            float: left;
-            font-size: 16px;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
+        body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+        body {font-size:16px;}
 
         .subnav {
             float: left;
@@ -41,7 +27,7 @@
             margin: 0;
         }
 
-        .navbar a:hover, .subnav:hover .subnavbtn {
+        .subnav:hover .subnavbtn {
             background-color: #007BFF;
         }
 
@@ -58,6 +44,7 @@
             float: left;
             color: white;
             text-decoration: none;
+            padding: 14px 16px;
         }
 
         .subnav-content a:hover {
@@ -69,15 +56,6 @@
             display: block;
         }
 
-        /* Simple styling for the header */
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* Styling for the Back to Menu button */
         .back-to-menu {
             display: inline-block;
             margin-top: 20px;
@@ -93,7 +71,6 @@
             background-color: #218838;
         }
 
-        /* Section styling */
         section {
             margin: 20px;
         }
@@ -105,26 +82,51 @@
 </head>
 <body>
 
-    <div class="navbar">
-        <a href="#home">Home</a>
-        <div class="subnav">
-            <button class="subnavbtn">Resources <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#references-html">All Website References</a>
-                <a href="#azurereferences-html">What is Azure</a>
-                <a href="#limitations-on-premise-html">Azure Limitations On-Premise</a>
-                <a href="#cloud-models-html">Azure Cloud Models</a>
-                <a href="#cloud-competitor-html">Azure Cloud Competitors</a>
-                <a href="#cloud-deployment-html">Azure Cloud Deployments</a>
-            </div>
-        </div>
-        <a href="#contact">Contact</a>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Company<br>Name</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="../index.html#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a> 
+    <a href="../index.html#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a> 
+    <a href="../index.html#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Designers</a> 
+    <a href="../index.html#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
+    <a href="../index.html#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+    <a href="azure-resources.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Azure Resources</a>
+    <a href="../React/ReactMainIndex.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">React Guide</a>
+  </div>
+  <div class="w3-bar-block" style="margin-top:20px;">
+    <div class="subnav">
+      <button class="subnavbtn">Azure Topics <i class="fa fa-caret-down"></i></button>
+      <div class="subnav-content">
+        <a href="#references-html">All Website References</a>
+        <a href="#azurereferences-html">What is Azure</a>
+        <a href="#limitations-on-premise-html">Azure Limitations On-Premise</a>
+        <a href="#cloud-models-html">Azure Cloud Models</a>
+        <a href="#cloud-competitor-html">Azure Cloud Competitors</a>
+        <a href="#cloud-deployment-html">Azure Cloud Deployments</a>
+      </div>
     </div>
+  </div>
+</nav>
 
-    <header>
-        <h1>Welcome to Azure Resources</h1>
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+    <div class="w3-container" style="margin-top:80px">
+        <h1 class="w3-jumbo"><b>Azure Resources</b></h1>
         <p>Here is your guide to navigating the Azure portal and related resources.</p>
-    </header>
+    </div>
 
     <!-- Sections -->
     <section id="references-html">
@@ -172,6 +174,19 @@
             <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
         </p>
     </footer>
+</div>
+
+<script>
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+</script>
 
 </body>
 </html>
