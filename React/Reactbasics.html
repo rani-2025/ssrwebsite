@@ -59,6 +59,10 @@
                     <strong>📁 Project Structure</strong><br>
                     <small>Files, configuration, and setup</small>
                 </a>
+                <a href="react18-hydration-fix-summary.html" class="nav-card">
+                    <strong>🔧 Hydration Fix</strong><br>
+                    <small>useSyncExternalStore guide</small>
+                </a>
             </div>
         </div>
 
@@ -199,6 +203,37 @@ const MovieWatchlist = () => {
                 <li><strong>Redux:</strong> Global state management</li>
                 <li><strong>Component composition:</strong> Restructure component hierarchy</li>
             </ul>
+
+            <h3>useSyncExternalStore Hook</h3>
+            <p>React 18 hook for subscribing to external stores and handling SSR/client differences:</p>
+            <div class="code-block">
+<pre>
+import { useSyncExternalStore } from 'react';
+
+const useHydrationFix = () => {
+    return useSyncExternalStore(
+        () => () => {},      // subscribe: no-op
+        () => true,          // getSnapshot: client returns true
+        () => false          // getServerSnapshot: server returns false
+    );
+};
+
+// Usage
+const isHydrated = useHydrationFix();
+</pre>
+            </div>
+
+            <h4>Key Features:</h4>
+            <ul>
+                <li><strong>SSR Support:</strong> Different values for server and client rendering</li>
+                <li><strong>Zero Re-renders:</strong> No useEffect scheduling needed</li>
+                <li><strong>Hydration Fix:</strong> Prevents flash of incorrect content</li>
+                <li><strong>External Stores:</strong> Subscribe to browser APIs like localStorage</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Use Case:</strong> Perfect for client-only features (localStorage, geolocation) during SSR. See <a href="react18-hydration-fix-summary.html">React 18 Hydration Fix</a> for detailed implementation.
+            </div>
         </div>
 
         <!-- Project Structure Section -->
@@ -620,6 +655,69 @@ return &lt;div&gt;{content}&lt;/div&gt;;
                 <li><strong>Custom hooks:</strong> Must start with "use"</li>
                 <li><strong>Consistent order:</strong> Same hooks in same order every render</li>
             </ul>
+
+            <h4>Q12: What is useSyncExternalStore and when should you use it?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Purpose:</strong> React 18 hook for subscribing to external stores</li>
+                <li><strong>SSR Support:</strong> Handles server/client rendering differences</li>
+                <li><strong>Use cases:</strong> localStorage, browser APIs, external state management</li>
+                <li><strong>Prevents:</strong> Hydration mismatches and content flashing</li>
+            </ul>
+
+            <h4>Q13: How do you fix hydration mismatches in React 18?</h4>
+            <p><strong>Answer:</strong></p>
+            <div class="code-block">
+<pre>
+// Problem: Server has no localStorage, client does
+const useHydrationFix = () => {
+    return useSyncExternalStore(
+        () => () => {},      // subscribe
+        () => true,          // client snapshot
+        () => false          // server snapshot
+    );
+};
+
+// Usage
+const isHydrated = useHydrationFix();
+{isHydrated && &lt;ClientOnlyComponent /&gt;}
+</pre>
+            </div>
+            <ul>
+                <li><strong>Better than useEffect:</strong> No extra re-render</li>
+                <li><strong>React recommended:</strong> Official pattern for SSR differences</li>
+                <li><strong>Zero flash:</strong> Seamless hydration without visual glitches</li>
+            </ul>
+
+            <h4>Q14: What's the difference between useSyncExternalStore and useState + useEffect?</h4>
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>useSyncExternalStore</th>
+                    <th>useState + useEffect</th>
+                </tr>
+                <tr>
+                    <td>Re-renders</td>
+                    <td>Zero extra renders</td>
+                    <td>Causes re-render after mount</td>
+                </tr>
+                <tr>
+                    <td>SSR Support</td>
+                    <td>Built-in server/client snapshots</td>
+                    <td>Requires manual handling</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>More efficient</td>
+                    <td>Effect scheduling overhead</td>
+                </tr>
+                <tr>
+                    <td>Hydration</td>
+                    <td>No warnings</td>
+                    <td>May cause hydration warnings</td>
+                </tr>
+            </table>
         </div>
 
         <!-- Footer -->
@@ -641,6 +739,10 @@ return &lt;div&gt;{content}&lt;/div&gt;;
                 <a href="Reactfunctiondeclarations.html" class="nav-card">
                     <strong>⚡ Function Declarations</strong><br>
                     <small>Different ways to declare functions</small>
+                </a>
+                <a href="react18-hydration-fix-summary.html" class="nav-card">
+                    <strong>🔧 React 18 Hydration Fix</strong><br>
+                    <small>useSyncExternalStore SSR solution</small>
                 </a>
             </div>
             
