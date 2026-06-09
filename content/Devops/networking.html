@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Networking</h2>
+    <p>
+    9. there are 5 different type of built in network drivers in docker - use -> docket network ls (will list all networks)
+    a) bridge - is default network (docker0) -> docker network inspect bridge - gives bridge network details.
+    b) host - 
+    d) none
+    e) overlay
+    f) macvelan 
+
+    </p>
+    <section>
+        
+        <p>
+            <h2>bridge Networking will be created using bridge driver</h2>
+            in this cover -
+            1. how do u create networking 
+            2. how u crate containers under bridge network 
+            <p>
+            1. u need networking to communicate with other container.
+            2. to access app from container out side world u need networking.
+            3.ip config gives ur system ip 
+            4. subnet - ip config range 
+            5.in linux - lo 
+            6.eth0 - used to connect ur server with outside outside world
+            7. docker0 - created when u install docker, this contains docker default address.
+            8. container have ip address - when u install docker - docker 0(docker network interface) will create this.
+            9. when we create docker with out mentioning any network then it will create under default bridge network. all the containers created under this network can talk each other.
+            10. docker exec c2 hostname -i -> will give ip of container.
+            11. docker exec c1 ping "c2 ip" -> u can check weather u can connect c2 or not  
+            12.  docker network create --driver bridge mynet --subnet 21.22.0.0/16 -- it will create custom mynet bridge
+            13. docker run -td --name c3 --network mynet --subnet 21.22.0.0/16 --> this will create under mynet network
+            14. docker network inspect mynet -> it will show all containers under this network
+            15. why we need to custom network - to isolate urs from default
+            16. we can connect mynet with default network using vpc pairing 
+            </p>
+        </p>
+        <p>
+            <h3>none network - no ip address</h3>
+            if we create container using none network then it will be allocated with no ip address.
+            containers created in none container for higly secured apps.
+            u cant access it from anywhere.
+            if u want to create a container in isolated way then u can create like this.
+        </p>
+
+        <p>
+            <h2>host network </h2>
+            <p>
+               1. let say inside c1 container u want access google -> container - docker 0 -> host network -> router(acces ec2 instance ip) -> outside world
+               2. with host network u can directly access through ec2 instance roter -> in between things wont happen -> we dont use 99% 
+               3. docker run -td --name c10 --network host alpine 
+               do -> docker exec c10 hostname -i -> this will expose ec2 private IP -> u will get extreme performance but u should not use 99.9 percent -- but it will create security issue
+               bcs u tightly binding ur ec2 so that hacker can access all container in host 
+            </p>
+        </p>
+        <p>
+            <h3>overlay networking</h3>
+            let say i want to connect all containers connect each other(here c1, c2 under default and c3,c4 under myney) will be achieved through overlay network
+            overlay network spans across multiple networks.
+        </p>
+    </section>
+</body>
+</html>

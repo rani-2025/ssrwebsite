@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Basics - Complete Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #61dafb; border-bottom: 3px solid #61dafb; padding-bottom: 10px; }
+        h2 { color: #282c34; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; }
+        .code-block { background: #f4f4f4; padding: 15px; border-left: 4px solid #61dafb; margin: 10px 0; border-radius: 5px; }
+        .highlight { background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .interview-section { background: #f8f9fa; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .nav-card { padding: 15px; border: 2px solid #61dafb; border-radius: 8px; text-decoration: none; color: #282c34; background: #f8f9fa; transition: all 0.3s; display: block; }
+        .nav-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(97, 218, 251, 0.3); }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f8f9fa; }
+        code { background: #f1f1f1; padding: 2px 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #61dafb;">
+            <h3>🏠 Navigation</h3>
+            <p><a href="ReactMainIndex.html" style="color: #61dafb; text-decoration: none;">← Back to Main Index</a></p>
+        </div>
+
+        <header>
+            <h1>🚀 React Basics - Complete Guide</h1>
+            <p><strong>Comprehensive guide to React fundamentals, event handling, state management, and best practices</strong></p>
+        </header>
+
+        <!-- Navigation -->
+        <div class="section">
+            <h2>📋 Quick Navigation</h2>
+            <div class="nav-grid">
+                <a href="ReactMainIndex.html" class="nav-card">
+                    <strong>🏠 React 18 Notes</strong><br>
+                    <small>Main React documentation</small>
+                </a>
+                <a href="#event-handling" class="nav-card">
+                    <strong>⚡ Event Handling</strong><br>
+                    <small>onClick, forms, and events</small>
+                </a>
+                <a href="#state-management" class="nav-card">
+                    <strong>🔄 State Management</strong><br>
+                    <small>useState, props, and lifecycle</small>
+                </a>
+                <a href="#project-structure" class="nav-card">
+                    <strong>📁 Project Structure</strong><br>
+                    <small>Files, configuration, and setup</small>
+                </a>
+                <a href="react18-hydration-fix-summary.html" class="nav-card">
+                    <strong>🔧 Hydration Fix</strong><br>
+                    <small>useSyncExternalStore guide</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- Event Handling Section -->
+        <div id="event-handling" class="section">
+            <h2>⚡ Event Handling in React</h2>
+            
+            <h3>Basic Event Handling</h3>
+            <p>In React, event handling uses JSX event attributes similar to HTML, but with camelCase naming:</p>
+            <ul>
+                <li><strong>JSX:</strong> <code>onClick</code></li>
+                <li><strong>HTML:</strong> <code>onclick</code></li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Key Rule:</strong> Pass function reference, not function call
+                <ul>
+                    <li>✅ Correct: <code>onClick={handleClick}</code></li>
+                    <li>❌ Wrong: <code>onClick={handleClick()}</code></li>
+                </ul>
+            </div>
+
+            <h3>Event Handler Example</h3>
+            <div class="code-block">
+<pre>
+function MyComponent() {
+  const handleClick = () => {
+    console.log('Button was clicked!');
+  };
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      Click me
+    &lt;/button&gt;
+  );
+}
+</pre>
+            </div>
+
+            <h3>Template Literals and String Embedding</h3>
+            <p>Use backticks (`) for template literals to embed expressions in strings:</p>
+            <div class="code-block">
+<pre>
+let randomNum = 5;
+let userInput = 3;
+let message = `Computer number: ${randomNum}, Your guess: ${userInput}`;
+console.log(message); // "Computer number: 5, Your guess: 3"
+</pre>
+            </div>
+
+            <h3>Function Declaration Methods</h3>
+            <p>React supports multiple ways to declare functions. See <a href="Reactfunctiondeclarations.html">Function Declarations Guide</a> for detailed examples.</p>
+        </div>
+
+        <!-- State Management Section -->
+        <div id="state-management" class="section">
+            <h2>🔄 State Management in React</h2>
+            
+            <h3>useState Hook</h3>
+            <p>useState allows components to have their own state:</p>
+            <div class="code-block">
+<pre>
+import { useState } from 'react';
+
+const LightSwitch = () => {
+    const [lightOn, setLightOn] = useState(false);
+    
+    const handleLight = () => {
+        setLightOn(!lightOn);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Light is turned on: {lightOn ? 'Yes' : 'No'}&lt;/h1&gt;
+            &lt;button onClick={handleLight}&gt;Toggle Light&lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Stateful vs Stateless Components</h3>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Stateful Components</th>
+                    <th>Stateless Components</th>
+                </tr>
+                <tr>
+                    <td>State Management</td>
+                    <td>Maintains own state</td>
+                    <td>No state, receives data via props</td>
+                </tr>
+                <tr>
+                    <td>Data Source</td>
+                    <td>useState, useContext</td>
+                    <td>Props from parent</td>
+                </tr>
+                <tr>
+                    <td>Mutability</td>
+                    <td>State can change</td>
+                    <td>Props are immutable</td>
+                </tr>
+                <tr>
+                    <td>Use Case</td>
+                    <td>Interactive components</td>
+                    <td>Display components</td>
+                </tr>
+            </table>
+
+            <h3>Advanced State Example</h3>
+            <div class="code-block">
+<pre>
+const MovieWatchlist = () => {
+    const [watchList, setWatchList] = useState([]);
+    
+    const toggleWatchList = (movieId) => {
+        setWatchList(prev => 
+            prev.includes(movieId) 
+                ? prev.filter(id => id !== movieId)  // Remove if exists
+                : [...prev, movieId]                 // Add if doesn't exist
+        );
+    };
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Watchlist: {watchList.length} movies&lt;/p&gt;
+        &lt;/div&gt;
+    );
+};
+</pre>
+            </div>
+
+            <h3>Prop Drilling</h3>
+            <p>Prop drilling occurs when you pass data from parent to child to grandchild components. Solutions include:</p>
+            <ul>
+                <li><strong>Context API:</strong> Share data without passing props</li>
+                <li><strong>Redux:</strong> Global state management</li>
+                <li><strong>Component composition:</strong> Restructure component hierarchy</li>
+            </ul>
+
+            <h3>useSyncExternalStore Hook</h3>
+            <p>React 18 hook for subscribing to external stores and handling SSR/client differences:</p>
+            <div class="code-block">
+<pre>
+import { useSyncExternalStore } from 'react';
+
+const useHydrationFix = () => {
+    return useSyncExternalStore(
+        () => () => {},      // subscribe: no-op
+        () => true,          // getSnapshot: client returns true
+        () => false          // getServerSnapshot: server returns false
+    );
+};
+
+// Usage
+const isHydrated = useHydrationFix();
+</pre>
+            </div>
+
+            <h4>Key Features:</h4>
+            <ul>
+                <li><strong>SSR Support:</strong> Different values for server and client rendering</li>
+                <li><strong>Zero Re-renders:</strong> No useEffect scheduling needed</li>
+                <li><strong>Hydration Fix:</strong> Prevents flash of incorrect content</li>
+                <li><strong>External Stores:</strong> Subscribe to browser APIs like localStorage</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Use Case:</strong> Perfect for client-only features (localStorage, geolocation) during SSR. See <a href="react18-hydration-fix-summary.html">React 18 Hydration Fix</a> for detailed implementation.
+            </div>
+        </div>
+
+        <!-- Project Structure Section -->
+        <div id="project-structure" class="section">
+            <h2>📁 Project Structure & Configuration</h2>
+            
+            <h3>Creating React App</h3>
+            <div class="code-block">
+<pre>
+npx create-react-app my-app
+cd my-app
+npm start
+</pre>
+            </div>
+
+            <h3>📦 Import Syntax Summary</h3>
+            <p>Understanding the difference between named and default exports is crucial for React development:</p>
+            
+            <div class="highlight">
+                <strong>Key Rule:</strong> Named exports need curly braces and exact name. Default exports don't need curly braces and can use any name.
+            </div>
+
+            <h4>Named Export - Use { }</h4>
+            <div class="code-block">
+<pre>
+import {MovieCard} from './MovieCard'
+// Requires: export function MovieCard() {}
+</pre>
+            </div>
+
+            <h4>Default Export - No { }</h4>
+            <div class="code-block">
+<pre>
+import MovieCard from './MovieCard'
+// Requires: export default function MovieCard() {}
+</pre>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Export Type</th>
+                    <th>Import Syntax</th>
+                    <th>Export Syntax</th>
+                </tr>
+                <tr>
+                    <td>Named Export</td>
+                    <td><code>import {MovieCard} from './MovieCard'</code></td>
+                    <td><code>export function MovieCard() {}</code></td>
+                </tr>
+                <tr>
+                    <td>Default Export</td>
+                    <td><code>import MovieCard from './MovieCard'</code></td>
+                    <td><code>export default function MovieCard() {}</code></td>
+                </tr>
+            </table>
+
+            <h3>Key Configuration Files</h3>
+            
+            <h4>package.json</h4>
+            <p>Contains project metadata, dependencies, and scripts</p>
+            
+            <h4>package-lock.json</h4>
+            <p>Locks exact versions of dependencies, ensuring consistent installs across environments</p>
+            
+            <h4>.npmrc File</h4>
+            <p>NPM configuration file with common settings:</p>
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>registry</td>
+                    <td>Sets the default npm registry</td>
+                </tr>
+                <tr>
+                    <td>strict-ssl</td>
+                    <td>Ensures SSL is used for connections</td>
+                </tr>
+                <tr>
+                    <td>save-exact</td>
+                    <td>Always save exact versions in package.json</td>
+                </tr>
+                <tr>
+                    <td>legacy-peer-deps</td>
+                    <td>Ignores peer dependency conflicts</td>
+                </tr>
+            </table>
+
+            <h4>.eslintrc File</h4>
+            <p>ESLint configuration for code quality and style enforcement:</p>
+            <ul>
+                <li>Identifies and fixes JavaScript problems</li>
+                <li>Enforces consistent coding styles</li>
+                <li>Prevents common bugs and errors</li>
+            </ul>
+
+            <h3>Version Declaration (^ vs ~)</h3>
+            <table>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Example</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td>^ (Caret)</td>
+                    <td>"lodash": "^4.17.15"</td>
+                    <td>Accept minor and patch updates (4.17.21 ✅, 5.0.0 ❌)</td>
+                </tr>
+                <tr>
+                    <td>~ (Tilde)</td>
+                    <td>"lodash": "~4.17.15"</td>
+                    <td>Accept only patch updates (4.17.21 ✅, 4.18.0 ❌)</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Navigation & Routing -->
+        <div class="section">
+            <h2>🧭 React Navigation & Routing</h2>
+            
+            <h3>Traditional vs Single Page Applications</h3>
+            <table>
+                <tr>
+                    <th>Traditional Web Apps</th>
+                    <th>Single Page Applications (SPA)</th>
+                </tr>
+                <tr>
+                    <td>Full page reload on navigation</td>
+                    <td>Dynamic content updates without reload</td>
+                </tr>
+                <tr>
+                    <td>Server renders complete HTML</td>
+                    <td>Client-side rendering with JavaScript</td>
+                </tr>
+                <tr>
+                    <td>Higher server load</td>
+                    <td>Better user experience</td>
+                </tr>
+            </table>
+
+            <h3>React Router Setup</h3>
+            <div class="code-block">
+<pre>
+// 1. Install React Router
+npm i react-router-dom@6.22.3
+
+// 2. Setup in index.js
+import { BrowserRouter } from 'react-router-dom';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    &lt;BrowserRouter&gt;
+        &lt;App /&gt;
+    &lt;/BrowserRouter&gt;
+);
+
+// 3. Setup routes in App.js
+import { Routes, Route, Link } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;nav&gt;
+                &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                &lt;Link to="/about"&gt;About&lt;/Link&gt;
+            &lt;/nav&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/div&gt;
+    );
+}
+</pre>
+            </div>
+        </div>
+
+        <!-- Conditional Rendering -->
+        <div class="section">
+            <h2>🔀 Conditional Rendering</h2>
+            
+            <h3>If-Else Conditional Rendering</h3>
+            <div class="code-block">
+<pre>
+function CurrentMessage({day}) {
+    const weekday = (day >= 1 && day <= 5);
+    const weekend = (day >= 6 && day <= 7);
+    let message;
+    
+    if (weekday) {
+        message = &lt;Workdays /&gt;;
+    } else if (weekend) {
+        message = &lt;Weekends /&gt;;
+    } else {
+        message = &lt;ErrorComponent /&gt;;
+    }
+    
+    return &lt;div&gt;{message}&lt;/div&gt;;
+}
+</pre>
+            </div>
+
+            <h3>Logical AND Operator</h3>
+            <div class="code-block">
+<pre>
+function LogicalAndExample() {
+    const [showMessage, setShowMessage] = useState(false);
+    
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Conditional Display&lt;/h1&gt;
+            {showMessage && &lt;h2&gt;This message is conditionally shown!&lt;/h2&gt;}
+            &lt;button onClick={() =&gt; setShowMessage(!showMessage)}&gt;
+                Toggle Message
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+</pre>
+            </div>
+        </div>
+
+        <!-- Assets and Media -->
+        <div class="section">
+            <h2>🎨 Assets and Media in React</h2>
+            
+            <h3>What are Assets?</h3>
+            <p>Assets include images, stylesheets, fonts, and any files needed for your app to function properly.</p>
+            
+            <h3>Asset Loading Methods</h3>
+            <div class="code-block">
+<pre>
+// 1. Import method
+import logo from './assets/logo.png';
+&lt;img src={logo} alt="Logo" /&gt;
+
+// 2. Require method
+&lt;img src={require('./assets/logo.png')} alt="Logo" /&gt;
+
+// 3. External URL
+const imageUrl = "https://example.com/image.jpg";
+&lt;img src={imageUrl} alt="External" /&gt;
+</pre>
+            </div>
+
+            <h3>Video Integration</h3>
+            <div class="code-block">
+<pre>
+// Using react-player package
+npm install react-player
+
+import ReactPlayer from 'react-player';
+
+const VideoComponent = () => {
+    return (
+        &lt;ReactPlayer 
+            url='https://www.youtube.com/watch?v=example'
+            playing={false}
+            volume={0.5}
+            controls
+        /&gt;
+    );
+};
+</pre>
+            </div>
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="section interview-section">
+            <h2>❓ React Basics Interview Questions & Answers</h2>
+            
+            <h3>Fundamental Questions</h3>
+            
+            <h4>Q1: What is the difference between props and state?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Props:</strong> Immutable data passed from parent to child components</li>
+                <li><strong>State:</strong> Mutable data managed within a component using useState</li>
+                <li><strong>Props flow:</strong> Unidirectional (parent to child)</li>
+                <li><strong>State updates:</strong> Trigger re-renders</li>
+            </ul>
+
+            <h4>Q2: Why should you pass function reference instead of calling the function in event handlers?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><code>onClick={handleClick}</code> passes the function reference</li>
+                <li><code>onClick={handleClick()}</code> executes the function immediately</li>
+                <li>Immediate execution happens on every render, not on click</li>
+                <li>Can cause infinite re-render loops</li>
+            </ul>
+
+            <h4>Q3: What is prop drilling and how can you avoid it?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Prop drilling:</strong> Passing props through multiple component levels</li>
+                <li><strong>Solutions:</strong> Context API, Redux, component composition</li>
+                <li><strong>Context API:</strong> Provides global state without prop passing</li>
+                <li><strong>Redux:</strong> Centralized state management</li>
+            </ul>
+
+            <h4>Q4: Explain the difference between stateful and stateless components</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Stateful:</strong> Manage their own state using useState/useReducer</li>
+                <li><strong>Stateless:</strong> Receive data only through props</li>
+                <li><strong>Stateful use case:</strong> Interactive components (forms, counters)</li>
+                <li><strong>Stateless use case:</strong> Display components (headers, cards)</li>
+            </ul>
+
+            <h3>Technical Questions</h3>
+            
+            <h4>Q5: What is the Virtual DOM and why is it important?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li>JavaScript representation of the real DOM</li>
+                <li>Enables efficient diffing and reconciliation</li>
+                <li>Minimizes expensive DOM operations</li>
+                <li>Improves performance through batched updates</li>
+            </ul>
+
+            <h4>Q6: How does React handle events differently from vanilla JavaScript?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>SyntheticEvents:</strong> React wraps native events</li>
+                <li><strong>Cross-browser compatibility:</strong> Consistent behavior</li>
+                <li><strong>Event pooling:</strong> Reuses event objects for performance</li>
+                <li><strong>CamelCase naming:</strong> onClick instead of onclick</li>
+            </ul>
+
+            <h4>Q7: What is the difference between ^ and ~ in package.json versions?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>^ (Caret):</strong> Allows minor and patch updates</li>
+                <li><strong>~ (Tilde):</strong> Allows only patch updates</li>
+                <li><strong>Example:</strong> ^1.2.3 allows 1.3.0, ~1.2.3 allows 1.2.4</li>
+                <li><strong>Best practice:</strong> Use ^ for most dependencies</li>
+            </ul>
+
+            <h4>Q8: What is the difference between named and default exports in React?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Named Export:</strong> Use curly braces with exact name: <code>import {MovieCard} from './MovieCard'</code></li>
+                <li><strong>Default Export:</strong> No curly braces, any name: <code>import MovieCard from './MovieCard'</code></li>
+                <li><strong>Named requires:</strong> <code>export function MovieCard() {}</code></li>
+                <li><strong>Default requires:</strong> <code>export default function MovieCard() {}</code></li>
+                <li><strong>Key rule:</strong> Named exports need exact name match, default exports can be renamed on import</li>
+            </ul>
+
+            <h3>Practical Questions</h3>
+            
+            <h4>Q9: How do you handle form inputs in React?</h4>
+            <div class="code-block">
+<pre>
+function ContactForm() {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: ''
+    });
+    
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Form data:', formData);
+    };
+    
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name"
+            /&gt;
+            &lt;input 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+            /&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</pre>
+            </div>
+
+            <h4>Q10: How do you conditionally render components?</h4>
+            <div class="code-block">
+<pre>
+// Method 1: Ternary operator
+{isLoggedIn ? &lt;Dashboard /&gt; : &lt;Login /&gt;}
+
+// Method 2: Logical AND
+{isLoggedIn && &lt;Dashboard /&gt;}
+
+// Method 3: If-else with variables
+let content;
+if (isLoggedIn) {
+    content = &lt;Dashboard /&gt;;
+} else {
+    content = &lt;Login /&gt;;
+}
+return &lt;div&gt;{content}&lt;/div&gt;;
+</pre>
+            </div>
+
+            <h4>Q11: What are the rules of hooks?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Only call at top level:</strong> Not inside loops, conditions, or nested functions</li>
+                <li><strong>Only call from React functions:</strong> Components or custom hooks</li>
+                <li><strong>Custom hooks:</strong> Must start with "use"</li>
+                <li><strong>Consistent order:</strong> Same hooks in same order every render</li>
+            </ul>
+
+            <h4>Q12: What is useSyncExternalStore and when should you use it?</h4>
+            <p><strong>Answer:</strong></p>
+            <ul>
+                <li><strong>Purpose:</strong> React 18 hook for subscribing to external stores</li>
+                <li><strong>SSR Support:</strong> Handles server/client rendering differences</li>
+                <li><strong>Use cases:</strong> localStorage, browser APIs, external state management</li>
+                <li><strong>Prevents:</strong> Hydration mismatches and content flashing</li>
+            </ul>
+
+            <h4>Q13: How do you fix hydration mismatches in React 18?</h4>
+            <p><strong>Answer:</strong></p>
+            <div class="code-block">
+<pre>
+// Problem: Server has no localStorage, client does
+const useHydrationFix = () => {
+    return useSyncExternalStore(
+        () => () => {},      // subscribe
+        () => true,          // client snapshot
+        () => false          // server snapshot
+    );
+};
+
+// Usage
+const isHydrated = useHydrationFix();
+{isHydrated && &lt;ClientOnlyComponent /&gt;}
+</pre>
+            </div>
+            <ul>
+                <li><strong>Better than useEffect:</strong> No extra re-render</li>
+                <li><strong>React recommended:</strong> Official pattern for SSR differences</li>
+                <li><strong>Zero flash:</strong> Seamless hydration without visual glitches</li>
+            </ul>
+
+            <h4>Q14: What's the difference between useSyncExternalStore and useState + useEffect?</h4>
+            <p><strong>Answer:</strong></p>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>useSyncExternalStore</th>
+                    <th>useState + useEffect</th>
+                </tr>
+                <tr>
+                    <td>Re-renders</td>
+                    <td>Zero extra renders</td>
+                    <td>Causes re-render after mount</td>
+                </tr>
+                <tr>
+                    <td>SSR Support</td>
+                    <td>Built-in server/client snapshots</td>
+                    <td>Requires manual handling</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>More efficient</td>
+                    <td>Effect scheduling overhead</td>
+                </tr>
+                <tr>
+                    <td>Hydration</td>
+                    <td>No warnings</td>
+                    <td>May cause hydration warnings</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Footer -->
+        <footer class="section">
+            <h2>📚 Additional Resources</h2>
+            <div class="nav-grid">
+                <a href="ReactMainIndex.html" class="nav-card">
+                    <strong>🏠 React Main Index</strong><br>
+                    <small>Complete React documentation</small>
+                </a>
+                <a href="Reactstate.html" class="nav-card">
+                    <strong>🔄 React State</strong><br>
+                    <small>Advanced state management</small>
+                </a>
+                <a href="ReactArrayMethods.html" class="nav-card">
+                    <strong>🔢 Array Methods</strong><br>
+                    <small>JavaScript array methods for React</small>
+                </a>
+                <a href="Reactfunctiondeclarations.html" class="nav-card">
+                    <strong>⚡ Function Declarations</strong><br>
+                    <small>Different ways to declare functions</small>
+                </a>
+                <a href="react18-hydration-fix-summary.html" class="nav-card">
+                    <strong>🔧 React 18 Hydration Fix</strong><br>
+                    <small>useSyncExternalStore SSR solution</small>
+                </a>
+            </div>
+            
+            <p><em>Last updated: 2024 | React Basics Complete Guide</em></p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Page</title>
+</head>
+<body>
+    <header>
+        <h1>Azure networking and vnet</h1>
+    </header>
+
+    <section>
+        <h3>IP address  calculation</h3>
+      <p>
+
+        1. class A - range 10.0.0.8 (office generally we have)
+        2. class b
+        3. class c - for home network - 192
+        <a href="/Assets/ipAddresscaliculation.png">IP Address caliculation in networking </a>
+        <a href="/Assets/caliculationofsubnetmask.png">subnetmask caliculation</a>
+        <a href="/Assets/caliculationofsubnetmask1.png">subnetmask caliculation1</a>
+        <a href="/Assets/caliculationofsubnetmask2.png">subnetmask caliculation2</a>
+
+        4. <a href="/Assets/caliculationofwildcard.png">wildcard caliculation2</a>
+        5. <a href="/Assets/lastIpcaliculation.png">lastIp caliculation2</a>
+      </p>
+      <p>
+        1. example with above formulas for following ip
+        192.168.0.8/29
+
+        Binary - 11111111.11111111.11111111.11111000
+        Subnetmask - 255.255.255.248
+        Wildcard - 0.0.0.7
+        First ip address -192.168.0.8
+        Second ip address - 192.168.0.15
+
+      </p>
+      <p>
+        <h3>
+            Reserved IP Address in Subnet
+        </h3>
+        192.168.0.0/24
+      </p>
+  
+    </section>
+
+    <section>
+      <h3> vnet creation</h3>
+      in Azure world VM's connect through vNet
+
+    </section>
+      
+   <section>
+    <h3> vNET peering</h3>
+     if we want to connect one vnet to another vnet is called vnet pairing.
+     1. here scenario how it pairs
+     steps - 1 vnet create in india
+     2. vnet in east
+     3. one in india
+
+     when vnet pairing with 2 different regions then that is called global vnet peering
+     if 2 vnets in same regions then thats called vnetpairing -- that happens through private networking
+     Private IP communication between VNets in the same region is cost-effective and does not incur additional charges for the network traffic itself.
+
+     Public IP communication incurs costs for public IP addresses (static or dynamic) and egress data transfer to the public internet.
+
+     If you expose Azure resources to the public internet using public IPs, you need to factor in additional charges for public IP addresses and outbound data traffic.
+   
+     we have static and dynamic IP if we shutdown dynamic ip will change but static ip wont change
+
+     by default when u create vm it will create private with dynamic IP
+     if you want to assign specific IP after VM creation -> go to vm - settings - ip configuration - then assign static ip
+  </section>
+   <section>
+    <h3> what is Network interface card</h3>
+    <p>
+        all IP address allocate for VM does at NIC level
+        when create VM all IP adress setting u see under Network Interface what NIC settings
+        security also attach at NIC level.
+        Topology how the connectivity happens in VM.
+    </p>
+   </section>
+   <section>
+    <h3> Azure Secrity group</h3>
+    <p> NSG (Network Secuirty group) used to encapsulare rules for azure resource, for each rule we need to provide source and destination.   
+      when ever u create NSG either u can apply at aubnet level or NIC level.
+      if its NIC it will just apply to the VM attached to NIC but if u apply at subnet level then all vms inside subnet will be protected. 
+      best practice is give at subnet level.
+
+      we can even add rules at subnet level and NIC Level combination as well.
+    </p>
+    lower rule is the priority in NSG order
+    <a href ="/Assets/Nsgruleorderexample.png">In this 100 rule will be processed first its lower is first priorty</a>
+    <a href ="/Assets/NSGordersample2.png">write down which rule will be processed for each sample</a>
+    there are NSG inbound default rules which cant be deleted
+   </section>
+   <section>
+    <h3>
+      bastrain host
+    </h3>
+    <p>
+      1. this needs dedicated subnet
+      2. name always azurebastionsubnet
+      3. single bastnet only single vnet
+      4. Azure Bastion is a fully managed service that provides secure and seamless Remote Desktop Protocol (RDP) and Secure Shell Protocol (SSH) access to virtual machines (VMs) in Azure, 
+      without exposing them to the public internet, acting as a secure jump box or bastion host. 
+
+      <p>
+        POC
+      1. create one window and linux vm with out public IP
+      2. Create bastron host
+      3. using bastron host we can connect those 2 vm even with out having public IP
+    </p>
+   </section>
+   <section>
+    <h3> Application gateway </h3>
+    if it is pathway specifo
+   </section>
+</body>
+</html>

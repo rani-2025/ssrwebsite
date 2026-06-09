@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h2>Docker Notes</h2>
+        <p>
+             1. container is mini server on its own it contain all required softwares to run the app it can be installed on any server.
+             2. Hypervisor -> a program used to run and manage one or more virtual machines on a computer/ its a software that creates and runs virtual machines (VMs).
+             3. vm is rented by datacenters in cloud environment - starting and stopping server time taking, backup of vm also expensive, 
+             4. we can use vm in a better way using containeration -- we can create multiple containers on one vm --> they share vm's OS container doesnt have any OS ->
+             container backup image will be created in articatory
+             backup of container doesnt contain OS only contain libraries to run the app.
+             5. vm -> everything been packaged in a image 
+             6. docker desktop is software - contains a light weight virtual machine to run linux kernal
+            
+        </p>
+        <p>
+            <h3> steps to create docker instance </h3>
+            <p>
+                1. create ec2 instance on amazon / azure vm
+                2. install docker engine - https://docs.docker.com/engine/install/ - go to ubuntu - since ec2 instance on it.
+                3. install docker packages 
+                4. docker ps -> command gives u how many containers running
+                5. if i dont want to use sudo docker ps again again
+                6. sudo usermod -aG docker ubuntu -> this command will add ubuntu user to the docker session (ag means - adding to group)
+                7. docker images -> will list all docker images - after immediate u dont see anything here get docker image from one of artifactory e.g - docker hub
+                8. docker hub -> is the global container having set of already existing images -> u can see jenkins image also here
+                9. docker pull nginx -> will pull nginx image / docker pull jenkins -> then jenkins will be downloaded on ec2 instanse filesystem/ then run -> docker images -> it will show downloaded image
+                10. docker run -it -> command will run container in interactive mode
+                11. docker run -it --name c1 nginx /bin/bash -> here c1 container created by pulling nginx from docker hub image then it will enter into c1 container ,
+                /bin/bash  -- will open terminal in container -- here if we dont do docker pull and execute run command directly then it will pull from docker hub then istall 
+                12. run exit command here to exit from container
+                12. now it created a container -> u can install anything u want
+                13. docker ps -a -> will give all the containers which are active or not as well / docker ps -> list only active once
+                14. docker images -> will list all images
+                docker rmi "imageid" // image id from above command - will delete the container
+                15. we can't create container without any image
+                16. docker run -dt --name c1 ubuntu - it will run the command in detach mode, in dt mode i can run multiple containers
+                17. docker exec -it c2 bash -> it will take u again into c2 container (Exec - exit current process and enter into c2)
+                18. docker exec c3 df -h (exec 'container name' then add what ever the command u want to execute in that container)
+                19.docker run --it --name c4 nginx -> after installation
+                curl http://localhost:80 -> will hit nginx --> 
+                if i want to access from out side machine -> then we need to do port mapping between container and ec2 instance -> then using ec2 IP we can access outside
+                20. docker run -dt --name test11 portmappedcontainer -p 8000:80 nginx -> using container created with port mapping after this allow port using security group as below
+                21.edit inboundrules on ec2-> custom tcp -> add 8000 -> then with ec2IP:8000 -> we can access nginx -> this will serve nginx from container 
+                22. while creating container only we have to do port mapping (8000 is random port)
+                23. to restart docker - docker start c2
+                24. docker rm c2 -> to remove docker container - we cant remove running container -> but we can kill - docker kill c2 - will remove / kill running container as well
+                25. to do all these we need to create account in docker hub 
+                26. if wants to create a container from running image 
+                docker commit c1 appleimage ->  its called custom image
+                push ur custom image to docker hub repository by using following command(follow -> 27 to 29 steps)
+                27. in ur dockerhub -> repositories -> create repository -> 
+                docker tag appleimage(imagename):latest(by default latest else give version) punnetguari/mywebsite(docerhub repo name):v1 (image name)
+
+                28. docker login -u punnetguari (username) -> then it will prompt password
+                29. docker push punnetguari/mywebsite:v1 -> it will push v1 image
+                push container image (follow steps 30 -> 31)
+                30. docker container c1 punnetguari/mywebsite:new 
+                31. docker push punnetguari/mywebsite:new
+                32. docker images are builtin layers -> when we pull image that image has multiple layers will be downloaded automatically
+                32. go killercoda.com select -> playground -> ubuntu -> we have already docker instlled -> 
+                we can practice any commands -> its free environment with all platforms
+                33. few times images are very large then use -> docker pull alpine-> to make lighter 
+                34. ephemeral -> is a temporary storage it will be wipe our when we kill or remove container --> container doesnt have its own storage it will shared from ec2 instanse
+                35.creating a docker volumme -> docker volume create my_volume -> its a logical volume 
+                docker run -td --name c1 -v my_volume:/data ubuntu --> it will create logical volume at data directory -> that means what ever created under data directory getting stored in my volume
+                when we dont specify my volume then it will store in overlay folder
+                we can share same volume with multiple containers
+                36. let say in ec2 instance -> pwd -> list all directories
+                    1. creating a folder1 -> mkdir folder1, do cd folder1, create -> touch dev-config.text, qa-cofig.tx
+                    2. create container -> docker run -td --name c1 -v /folder1:/data ubuntu -> here data directory on container mapped with ec2 folder1 -> this is called bind mount here container and host folders are tightly coupled
+                    not recommanded rather docker volume map is recommanded option 
+
+                37. custom image will be created using -> docker exec -it c2 bash-> then -> docker commit c2 my_image
+                38. create custom image with step by step approach -> // this is to help to create custom image with automation steps with all commands what ever requires
+                     1. v1 Dockerfile // open dockerfile
+                     2. cat Dockerfile
+                        FROM ubuntu // ubuntu is a base image this is mandatory .. u can use jenkins what ever u want
+                        RUN apt update && apt install -y phython3
+                        RUN touch hello.txt
+                        COPY file1.txt 
+                        VOLUME v1
+                        docker build -t appleimage .
+
+                this will create appleimage with all these steps.
+
+                now u can create container from this appleimage 
+                docker run -it --name applecont appleimage (by default it goes to root directory)
+
+                39. another custom image creation with steps
+                
+                FROM appleimage
+                    WORKDIR /tmp --> from root to cd /tmp here
+                    RUN echo "hello"
+
+                once save exit run
+                docker build -t bananaimage // this will create bananaimage
+
+                40. as a devops engineer u will be creating dockerfile --> its very very important
+            </p>
+           
+        </p>
+    </section>
+    <section>
+        <h3>docker compose</h3>
+        <p>
+            <p>
+                let say in real time app - u have UI, businees logic, DB layer all three needs to interacted and deployed 
+                instead repeating commands to create container for each
+
+                we can achieve throguh docker compose
+                this can be achieved through yml -> here we write all the code  in a declarative way to get all the apps and deploy
+            </p>
+            <p>
+                <h3> creating yml file</h3>
+                <p>
+                    YML stands for YAML Ain't Markup Language (originally "Yet Another Markup Language")
+                    YAML is a human-readable data serialization standard commonly used for:
+                    Configuration files
+                    Docker Compose files
+                    Kubernetes manifests
+                    CI/CD pipelines
+                    API specifications
+                    It uses indentation and simple syntax to represent data structures like lists, dictionaries, and key-value pairs.
+                </p>
+                e.g -> we have this docker command ->
+                1. docker volume create myvol
+                2. docker network create --driver bridge mynet
+                docker run -td --name c1 --network mynetwork -p 8081:80 -v myvol:/data ubuntu
+
+                in yml all these converted into strcture way
+                1. create yml file -> vi compose.yml
+                2. docker-compose up -> it will execute all commands -> u dont need to give in same order automatically this command take care order of tags
+                3. in yml we need to add depends on if something depends on others to create e.g create db before -> then under web write depends-on:db
+                4. in yml file indentation is very important.
+                  e.g u need to created -> services: db: image
+                  services: // for each child give one identation
+                   db:
+                    image: ubuntu 
+
+                5. this is how u can identation in yml using vscode ->
+                        Enable "Format on Save" in VS Code settings
+                        Set default formatter to Prettier for YAML files
+                        Configure tab size to 2 spaces for YAML
+            </p>
+        </p>
+    </section>
+    <section>
+        <h3>
+            container orchestration - way to manage containers
+        </h3>
+        <p>
+            docker inc - came with docker swam -> this helps container orchestration  (but dont waste time to learn)
+            bcs now kuberneties created by google helps to manage container orchestration also it does lot of other things - its very popular
+          </p>
+        <p>
+            <p> docker does basic things but to manage advance stuff we need other tools docker came up with docker swam now after kuberneties this become old</p>
+            in prod environments we deploy the app in mutiple containers 
+            1. if any of container crashes other will serve as backup - self healing
+            2. need a load balancer will distribute the traffic to all containers - load balancing
+            3. let say traffic increases in peak time - we want automatically noof containers increases
+            and decrease when not needed - auto scaling
+            4. to manage the deployments
+            5. advance networking 
+        </p>
+       <section>
+        <h3> Kuberneties </h3>
+        <p>
+            we have following tools in market does container orchestration
+                1. kuberneties // thus is very very popular
+                2. aws ecs
+                3. CNCF 
+        </p>
+       </section>
+    </section>
+    <section>
+        <p>
+            <h3> docker assignment</h3>
+            <p>
+                <h3>what is virtualization?</h3>
+                its a process of running multiple virtual systems or resources on top of single physical machine. resources could be OS , software, storgae, network etc..
+                adv - 
+                reduce spending on intial server setup.
+                faster setup time
+                resources utilized more efficiently
+                easily to scale and maintain.
+            </p>
+            <p>
+                1. what is Docker?
+                a. its a containeration tool.
+                b. it can be used to create custom images.
+                c. it can be used to containerize and pack the entire dependencies / libraries.
+
+                2. why docker is required?
+                sometimes everyone is not having same kind of configuration in that case we can use docker.
+
+                3. what is EC2 instance?
+                Ec2 instance is a virtual server created in AWS cloud with requested configuration.
+                we use this to install all required softwares to run my application.
+
+            </p>
+            <p>
+                <h3>what is containerization? </h3>
+                <p>
+                    1. its on OS-level virtualization method used to deploy and run distributed applications with out launching an entire VM for each app.
+                    2. with containers, all the environment issues were solved. The developer could easily wrap their code in a leightweight container and pass on to operations team.
+                    adv - they are not resource hungry 
+                    they are leightweight and hence portable.
+                    they are developer friendly and can be configured through the code.
+                </p>
+                <p>
+                    <h3>Containerization tools? </h3>
+                     1. mesos 
+                     2. rkt
+                     3. docker
+
+                     docker is the most famous among all
+                </p>
+                <p>
+                    <h3>  what is docker? </h3>
+                    <p>
+                        docker is a computer program that performs os level - virtualization, also known as "containerization".
+                        first release in 2013 developed by docker Inc. 
+
+                        docker is used to run software packages called "containers."
+
+                        docker written in go language which is from google.
+                    </p>
+                    <h3> docker lifecycle?</h3>
+                    <p>
+                        docker engine pull the image docker hub
+                        create container based on the image
+                        then manage run, start , stop of containers.
+                    </p>
+                    <h3> components of docker eco system </h3>
+                    <p>
+                        docker hub - public docker registry
+                        docker engine -its heart of docker eco system,  responsible for managing and running containers, 
+                                       store custom docker images,works on top of os level, utlizes kernal of the underlying OS.
+                        docker images - containers created based on it, its free and public, its like a template of a container, its created in layers, 
+                                        any new change in image results in creating a new layer.
+                                        one can launch multiple containers from a single docker image.
+                        containers -    its a lightweight software environment.
+                                        works on top of underlying OS kernal.
+                                        its small in size and highly portable.
+                                        created using docker image.
+                                        they cant persist the data.
+                                        to persist data we use docker volume.
+                        docker volumes - this is to persist data.
+                                         it can connect to multiple containers simultaniously.
+                                         if not created explicitly, volume automatically  created when we create a container.
+                        docker file -  its YAML file used to create custom containers.
+                                        it can include commands that have to be run on the command line.
+                                        this can be used to built custom container images.
+
+                    </p>
+                </p>
+            </p>
+        </p>
+    </section>
+    <section>
+        <p>
+            
+        </p>
+    </section>
+</body>
+<footer>
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+        <p>
+            <h2> following is the docker compose material</h2>
+            <a href="https://github.com/puneetgavri/awesome-compose/tree/master"> punnet docker notes</a>
+           
+        </p>
+        <p>
+            <h2> for uploading images onto dockerhub</h2>
+            <a href="https://app.docker.com/">docker hub</a>
+            gmail - rlearnings24@gmail.com pwd: Learning24@
+            username - devopslearning125
+        </p>
+        <p>
+            <h2> rlearning gmail-- same used for coursera labs</h2>
+            <a href="gmail.com">gmail</a>
+            gmail - rlearnings24@gmail.com pwd: Learning2026!
+
+        </p>
+    </footer>
+</footer>
+</html>

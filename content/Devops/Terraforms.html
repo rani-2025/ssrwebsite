@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Terraforms Notes</h2>
+    <section>
+        <p>
+            <h3>To run App we need following</h3>
+
+            problem statement - 
+            for each environment - dev, test we need to create manually (we can forgot, mistakes in config, time consume, deletion also time taken)
+            1. services
+            2. storages
+            3. LBs
+            4. networking (vpc, subnet)
+            5. autoscaking
+            6. Databases
+            7. s3 bucket
+            8. iam roles, policies
+            
+            solution - 
+            solution to this problem is create infrastructure as a code (IAC)
+            - all required configurations write as a code -> when ever needs to be executed we can execute code with environment val
+
+            to create this we have different tools
+            1. cloudformation (aws)
+            2. azure resource manager (arm)
+            3. Terraform (using this we can infrastructure independent to environment like aws, azure etc...)
+
+        </p>
+        <p>
+            <h3> how to create terraform</h3>
+            <p>
+                    1. its a tool
+                    2. install it some where (https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+                    3. Hashicorp is the company who created terraform
+                    4. language we use terraform is HCL (hashicorp language) here we can define as block
+                    4. aws console - for programatic access we need to following setup
+                      a. create IAM user -> IAM - users -> create terraforn_user , unselect console access then save
+                      b. add permission in cole -> attach plicy directory-> select administrator access -> add permission
+                      c. create access key -> add some tag value -> create access key for cli , Description tag value(terraforn_tag)
+                      accesskey - <PLACEHOLDER_ACCESS_KEY> secretaccesscode - <PLACEHOLDER_SECRET_KEY>
+
+                  5. once done go vs code - install aws cli (https://docs.aws.amazon.com/cli/v1/userguide/install-macos.html)
+                  6. go to vs code - aws configure enter aws access key id, secret accesskey, region name - us-east-1, outputformat - json
+                  7. aws ec2 stop-instances \ 'instance id' (command from vscode to stop ec2)
+                  8. how does terraform know u writing script for aws / azure -> u need to install terraform provider (depends on aws/azure/gcp u need to install related providers)
+                  (https://registry.terraform.io/browse/providers)
+                  in vscode folder -> create provider.tf (name not important extension should be .tf --> inside content is important p-> add )
+                  terraform {
+                    required_providers {
+                        aws = {
+                            source = "hashicorp/aws"
+                            version = "6.4.0" // its good practice to provide version if we skip it always downloads latest version
+                        }
+                    }
+                  }
+
+                  provider "aws" {
+                    region = "us-east-1"
+                    access_key = "" // not a good practice but needed we can 
+                  }
+                  
+                    once done -- in terminal run 
+                    a. terraform init // initialize the code by scan all .tf and try to find required providers and download on laptop
+
+                    when we do init -> it will create terraform.lock.hcl -> it includes locked version so by using this it will download specific version 
+                9.HashiCorp Terraform - its a vs code extension helps to format terraform file
+                10. multiple terraform blocks -> 
+              
+            </p>
+            <p>
+                <h3>terraform commands</h3>
+                <p>
+                    1.  a. terraform init // initialize the code by scan all .tf and try to find required providers and download on laptop
+
+                    when we do init -> it will create terraform.lock.hcl -> it includes locked version so by using this it will download specific version 
+                    2. terraform plan // will go through all tf files and create resources by refering resource block its just creates blue print
+                     terraform apply // then it creates actual resource as per the plan.
+                     this will create .tfstate file it helps to manage the state 
+                     .tfstate is very crusial file should not be deleted 
+                    3.  .tfstate plays a key rule when terrofrm apply like below
+                        when we do  - terraform create -> terraform does following steps
+                            a. scan all files for resources 
+                            b. check whats there in tfstate then match actual file configuration state 
+                            c. then it will just create what ever added now // then -> terraform apply -> only apply state what ever updated
+
+                    let say we have team of 10 -> to manage tfstate we will manage in global state called (github)  to avoid multiple users update at same time
+                    while terroform apply initiated then -> tfstate file will be locked once its done that will be released 
+                    4. terraform destroy - destroy all resources
+                    5. teffaform destroy target "resource" // it will destroy particular resource
+                    6. when we create resource if we depends-on then it will create dependent one first then actual one
+                    7. variable "bucket_name" { // in tf we can add this variable then  who apply my terraform needs to pass the bucket_name rather hardcoding data
+                        type = string
+                    }
+                     resource "aws_s3_bucket" "mys3" {
+                        bucket = var.bucket_name
+                     }
+                     resource "aws_instance" "myec2" { // it will create 2 ec2 instances based on count
+                        count = 2
+                        ami = var.ami_id
+                        instance_type = var.i_type
+                     }
+                     when we do terraform apply .. it will ask provide val for bucket_name
+
+                     or 
+                     terraform apply -var="bucket_name=testval" // this is another way of applying applying variable va
+                     
+                     or 
+                     .tfvars -> create a file with extension .tfvars and declare and pass all the params
+                     terraform apply -var-file="dev.tfvars"
+
+                     8. how r u managing tfstate -> ans - through state locking remote backend 
+                        1. i dont do local
+                        2. i will apply through backend like below - create .tf file  -- it is safest bcs highly available 
+                        terraform {
+                            backend "s3" {
+                              bucket = "terraform-july-tfstate"
+                              key = "terraform.tfstate"
+                              region = "us-east-1"
+                              encrypt = true
+                              use_lockfile = true // in 2024 added this, before.. dynamob_table = "value" // by adding lock true when we apply tfstate lock file will be created and will be released once done 
+                            }
+                          }
+
+                          // this s3 bucket should be highly secure - manage all precautions to make it secure
+
+                          // output "ec2_ip" {
+                            value = aws_instance.myec2[0].public_ip  // when we do terraform apply -- it will print instance public ip as output 
+                          }
+                     
+                    9. terraform destroy // will delete all resources 
+                    10. how to creare seperare tf files as per environment .. workspace allows you to deploy different infrastrucure as per environment
+                        terraform workspace list  // gives as default
+                       a. workspace is like logical area 
+                       b. terraform workspace new dev // will create new workspace for dev
+                       c. terraform workspace new test // will create new workspace for test
+                       d. terraform workspace new prod // will create new workspace for prod
+
+                       teraform workspace select dev  // this will create dev folder with dev resources
+                       then terraform apply -var-file="dev.tfvars"
+
+                       teraform workspace select test  // this will create test folder with dev resources
+                       then terraform apply -var-file="test.tfvars"
+                       terraform destroy -var-file="test.tfvars" // this will delete test workspace resources
+
+
+                </p> 
+            </p>
+        </p>
+    </section>
+</body>
+<footer>
+    <h3>IAM teraform credentials created in above aws console</h3>
+    <p><strong>username:</strong> terraforn_user </p>
+    <p><strong>description tag:</strong> terraforn_tag </p>
+    <a href="https://github.com/puneetgavri/Devops-interview-prep"> puneet notes for devops interview questions</a>
+    <a href="https://github.com/puneetgavri/terraform-world"> punnet terraform notes</a>
+</footer>
+</html>

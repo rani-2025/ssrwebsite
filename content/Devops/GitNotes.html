@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Git Notes</h2>
+
+    <div class="section">
+        <h3>Trainer Notes</h3>
+        <a href="https://github.com/puneetgavri">Punnet trainer notes</a>
+        <a href="https://github.com/puneetgavri/Devops-interview-prep">git notes</a>
+        <div class="command-list">1.install git from https://git-scm.com/downloads
+2. mkdir myproj, cd myproj
+3. initialize the git -> git init
+4. then 
+       use git config --global user.name "test" // this helps to know the people who commited 
+       use git config --global user.email "test@email.com"
+4. create afile using -> touch 1.txt then do git add .. -> it will stash the changes
+5. git status - will track things what all activities 
+6. ls -lart - list all files including hidden with permissions in folder 
+7. after commit do git log --it will display name, email which were given on git config
+8. git show 'commitid' -> we can get commit id from log 
+9. local git commit on local, global one on cloud 
+10. remote repositories can be managed using multiple ways (github, gitlab, bitbucket etc..) -- 
+if mutiple devs needs to work then we need to push to remote repos
+12. on git hub -> settings -> developersettings -> tokens -> generate token -> given name of token -> give permissions on token
+-> best practice expire on 30 days -> u can set as per ur preference -> personal access tokens -> save the token it wont ask credentials everytime ->
+then it wont ask password 
+
+11. to add from local to remote repository
+  git remote -v --> will show linked remote repos
+  git remote add origin "add remote .git path here" --> it will link remote repo to ur local, 
+  here rather origin u can give other name but best practice is to use this --> origin in alias to remote repo url
+
+  to push the changes -> git push origin "branch name" before push to git pull origin "branch name" / git pull .. to make sure u get latest updates
+
+  to merge changes to main branch ->
+   a. git checkout main
+   b. git merge featureA -> to merge featureA changes with main 
+   c. git push origin main 
+
+  12. to make changes on existing files and do merge
+      git checkout main -> if any conflict on file then do
+      git v1.txt (will open files -> enter data do  ->wq!)
+      git add . and do git commit 
+      git merge featureA -> resolve commit then do push
+
+  13. rm rf git -> command -> remove all the files 
+  14. git log --oneline -> will show local commits
+  15. git log --oneline --graph --all --decorate -- it will show all commits in graphical way
+  16. git fetch vs git pull -> let say 1.txt file one user does local git commit at same time another user does same line change directly in github
+  git fetch -> it still pull to local but not to original will compain as main branch diverged 
+  then do git pull -> here it will show conflict fix and push 
+  17. scenario test1 created a branch 1 and did 4 commits, at same time main branch do 1 commit -> when i try to merge it will conflicts
+  do -> git merge main -> then main changes will merge on to branch 1 then i will push branch1 -> merge preserves the history 
+  git fetch -> Downloads changes (commits, branches, tags) from the remote repository, but does not merge or modify your local working branch.
+  git merge -> Essentially runs git fetch followed by git merge,  It will automatically attempt to integrate the fetched changes into your current branch.
+
+  18. Merge vs Rebase - 
+  git merge main - it will create new commit id with merge along with merge commit history,
+  where as in rebase it will merge main commit with commited id and all other commits on top of it merge with new id so we lost the commit history.
+  rebase does cleaner operations 
+
+  19. to merge changes on to local branch where local also have few changes
+        --> git fetch -> will fetch changes onto local
+      --> do git rebase origin/featureA --> then it will add origin branch changes on top of it will add ur local changes --> 
+      issue is it will change ur local commit id but still safe bcs its ur branch
+  19. git reset --hard HEAD~1 --> it will remove (first latest commit)
+
+  20. merge multiple commits into single commit -> 
+      a. git rebase -i HEAD~5 --> then it squash first 5 commits -> it will open up editor shows pick
+      then replace pick with s (squash)
+      then comment all the comments add single comment for all
+      then do wq! --> save changes 
+
+      to Reset to the commit before the ones you want to squash
+      git reset --soft HEAD~N
+
+      git rebase --abort   - to abort the rebase Commit
+
+      git reset --soft HEAD~25           // squash last 25 commits with one message
+      git commit -m "email hash fix"
+
+
+  
+  21. branching strategies -> popular one -> gitflow 
+    a. Main - should always clean - it will have production release code
+    b. hotfix - this branch will be created from develop then merge on to main 
+    c. release -> release branch created from developer -> then merge onto main branch
+    d. develop -> its sourch of truth for all developers
+    e. feature -> as per features feature branches will be created - once done merge into develop branch
+
+  23. git fork vs clone 
+  🍴  git fork (on GitHub, GitLab, etc.)
+      What it does: Creates a copy of a repository under your own GitHub (or other Git hosting) account
+      Happens on the server (e.g., GitHub.com).
+      You can make changes in your fork and submit pull requests back to the original repo.  
+      Useful for contributing to projects you don’t own.
+
+      git clone : 
+      What it does: Makes a local copy of a remote repository (whether it's the original or a fork).
+      Happens on your local machine.
+      You use this to start working on code.     
+
+   24. git stash  -- store value to local 
+   a. create a file using .. touch hello.txt
+   b. do ... git add .. , 
+   c. do.. vi hello.txt // enter something then do :wq! to save
+   d. then do .. git stash push -m "r18feature" // for creating stash
+   e. do.. git stash -- will show clean 
+   f. git stash List -- will show ur list
+   e. git stash apply stashid (u get stash id from stsh list) -- to apply stash
+   f. git stash clear -- to clear all stash 
+   g. git stash drop stashid -- to drop particular stash id
+   h. git commit --allow-empty -m "retrigger build"
+   git push --> this is to retrigger the build with out any changes 
+  
+  </div>
+
+
+
+    <div class="section">
+        <h3>Git Real time scenarios</h3>
+        to prevent direct push to Main branch
+       <p>
+            got to github -> branches -> setting-> we have an option to setting rules 
+            like how many approvers, only through PR's like that 
+       </p>
+    </div>
+
+    <div class="section">
+        <h3>Git Commands</h3>
+        <p><a href="https://github.com/discover-devops/Git_Commands/blob/main/01_GItRest_Introduction.md">kumar trainer git notes</a></p>
+        
+        <div class="command-list">1. git branch is a powerful feature that allows create an independent line of development branch- seperate from main/master  branch.
+2. after commitng changes you can do ... 
+git log 
+it will show the commit id and the branch name.
+
+1. after creatig directory do .. git init -- initialization
+1. git branch
+2. ls -- show all lines added
+3. cat story.txt - create file if not there else show the content if its there
+4. echo "hello" > story.txt
+5. git add story.txt (to stage the changes)
+6. git commit -m "updated" (to commit changes)
+4. git diff master featurebranch
+5. git merge faturebranch 
+6. while merging featutre branch into master if no new changes in master then git does fast forward /linear merge ..
+here u can see same commitID bcs no changes made in between
+7. while merging if there is a change on same line from master and feture one - 
+then git will complain there is a conflict
+8. vi story.txt will open file and show conflict.. then Update as per
+9.wq! - will save and exit.. then do git commit to push (this is called three way merge)
+10. git log -- it will show both commit nos 
+7. git branch -d featurebranch -- will delete branch
+8. revert the changes ->
+   a) soft --> git reset --soft (git reset --soft HEAD~1) -- WILL RESET to that staging level just to confirm
+   git restore <file> to discard changes in working dir -- this will discard changes
+   b) mixed -->  git reset --mixed (git )
+   c) hard --> git reset --hard
+
+9. let say u have commit 1, 2, 3 --> if u do revert on commit 2 -> 4th commit have 3rd commit exclude 2
+10. let say u have commit 1, 2, 3 --> if u do reset on commit 2 -> it will go back to commit 1 both 2 & 3 will be excluded means go to initial version</div>
+    </div>
+
+    <div class="section assignment">
+        <h3>Git Assignment</h3>
+        
+        <h4>Task-1</h4>
+        <p>Based on what you have learnt in the class, do the following steps:<br>
+        a. Create a new folder<br>
+        b. Put the following files in the folder<br>
+        ● Code.txt<br>
+        ● Log.txt<br>
+        ● Output.txt<br>
+        c. Stage the Code.txt and Output.txt files<br>
+        d. Commit them</p>
+
+        <h4>Answer:</h4>
+        <div class="terminal-output">DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents
+$ mkdir git-a-17-06
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents
+$ cd git-a-17-06
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ lsgi
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ mkdir task1
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06
+$ cd task1
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1
+$ ls
+code.txt  log.txt  output.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1
+$ git status
+fatal: not a git repository (or any of the parent directories): .git
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1
+$ git init
+Initialized empty Git repository in C:/Users/DELL/Documents/git-a-17-06/task1/.git/
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git add code.txt output.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   code.txt
+        new file:   output.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        log.txt
+
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git commit -m "commiting code.txt and output.txt"
+[master (root-commit) 9ed1723] commiting code.txt and output.txt
+ 2 files changed, 2 insertions(+)
+ create mode 100644 code.txt
+ create mode 100644 output.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        log.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git add log.txt
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   log.txt
+
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git rm --cached log.txt
+rm 'log.txt'
+
+DELL@DESKTOP-9GRAAF5 MINGW64 ~/Documents/git-a-17-06/task1 (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        log.txt
+
+nothing added to commit but untracked files present (use "git add" to track)</div>
+
+        <h4>Task-2</h4>
+        <p>1. Create a Git working directory with feature1.txt and feature2.txt in the master branch<br>
+        2. Create 3 branches develop, feature1 and feature2<br>
+        3. In develop branch create develop.txt, do not stage or commit it<br>
+        4. Check out to feature1 branch<br>
+        5. Create new.txt file in feature1 b</p>
+    </div>
+
+</body>
+</html>

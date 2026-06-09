@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>SQL Notes</h2>
+    <section>
+        <p>
+            1. SQL is a structured language and its not case sensitive
+            2. it contains structured data - we define types for each col.      
+            3. This structure called client - server architecture
+            4. server is central location where data will be stored 
+            5. all client machines connected to server
+            6. MS SQL - serevr (when we install) , SSMS - sql server management studio - client
+            7. if server doesnt work check services - MS SQL Server - should be running
+            8. odbc - open database connection - using which SSMs will connect to serevr  
+            9. data stored in server in database.
+            10. Relational database management system   
+            11. let say in employee table - emp id - primary key if it has aadhar , pan 
+            since they should be unique always we need to create them as candidate keys
+            12. in primary key we cant store null but in candidate key null is allowed
+            13. orphan record means it doesnt have parent record in parent table
+        </p>
+        <p>
+            1. create database retail // it will create retail
+            2. use retail -> this will allow to use retail
+         </p>
+         <p>
+            <h2>Different ways of inserting data </h2>
+            1. INSERT INTO salespeople VALUES (1002, 'Serres', 'San Jose', 0.13); 
+            // adding multiple values
+            2. INSERT INTO salespeople VALUES (1004, 'Motika', 'London', 0.11), (1007, 'Rifkin', 'Barcelona', 0.15), (1003, 'AxelRod', 'New York', 0.10), (1005, 'Fran', 'London', 0.26);
+            // adding with given column name
+            3. INSERT INTO salespeople(snum, sname, comm, city) VALUES (1008, 'Serres', 0.13, 'San Jose'); 
+         </p>
+         <p>
+            1. select * from salespeople; // get all records // here ; not required but good practice for readability
+            2. select snum, sname from salespeople; // get only 2 columns data //column wise filtering
+            3. select * from salespeople where city = 'London'; // all records who live in london // row wise filter
+            4. select * from salespeople where city = 'London' or city = 'new york'; // will give all records who lives in both london and newyork
+            // here no and bcs one person cant stay both london and new york 
+
+            5. select * from salespeople where city in ('London','new york') // this also gives all people lives in london also new york same  as or result; 
+            6. select * from salespeople where city = 'London' and comm < 0.5 // this will result all people who lives in lodon and their comm < 0.5 // it should match both conditions
+            7. select * from salespeople where (city = 'London' or city='new york') and comm < 0.5 // here it will filter london, newyork city people with comm < 0.5
+            8. select * from salespeople where comm > 0.10 and comm < 0.18 // this will list all people whose comm range between 0.11 to 0.17, its above 0.10 and less tgan 18
+            9. select * from salespeople where comm >= 0.10 and comm <= 0.18 // this will list all people whose comm range between 0.10 to 0.18
+            10. select * from salespeople where comm between 0.10 and 0.18; //  this will list all people whose comm range between 0.11 to 0.17 same as row 8
+            11. select * from salespeople where city ='London' and sname = 'peel' // this list people who lives in london and their sname should be peel
+
+            12.update salespeople set sname = 'bob' where snum = 1001 // update always give where condition
+            13. update salespeople set sname = 'bob', comm = 0.16 where snum = 1001 // both sname and comm will be  updated
+            14. update salespeople set comm = 0.20 where snum in(1001, 1002) // this will update 1001 and 1002 records
+
+            15. delete salespeople where snum = 1002 // this will delete 1002 record
+
+            16. when we have child record we cant delete from parent table until we delete from child record
+
+            17. select * into temp from sakespeople; // create temp table
+            18. drop table temp // it will drop temp
+
+            19. CREATE TABLE customer (  // foriegn key syntax
+                cnum INT NOT NULL,
+                cname VARCHAR(30) NOT NULL,
+                city VARCHAR(30) NOT NULL,
+                rating int not null,
+                snum int NOT NULL,
+                PRIMARY KEY (cnum),
+                FOREIGN KEY (snum) REFERENCES salespeople(snum)
+                );
+
+            20. exec sp_help customer; // by executing sp_help stored proc will give complete details including foreign key
+           
+        </p>
+        <p>
+            <h3> where clauses</h3>
+            1. fnd by
+            2. groupby
+            3. countby 
+
+           
+        </p>
+        <p>
+            1.select count(cnum) from customer // give total records 
+            2 select count(cnum) as 'count of customers' from customer  // / give total records  under this alias count of customers
+            
+            3. select count(cnum) from customer where city = 'London' // give total records under london 
+
+            4. select city, count(cnum) from customer group by city; // find count of customers in each city * heavily used one
+            5. select rating, count(cnum) from customer group by rating; // group by first segregate then filer the data
+
+            6.select city, count(cnum) from customer where city in ('London', 'Rome') group by city; // find the count of customers living in rome and london
+            7. where - filter raw data, group by - aggregate data, having - filter aggregated data
+            8. where comes before group by
+
+            9. find count of cust in cities where customer count is 1
+            select city, count(cnum) from customer group by city having count(cnum) = 1; 
+
+            10. order by - sorting data , we can apply on raw data or aggregated data it always comes end.
+            select * from customer order by city; default asc order no need to mention asc, means low to high / a - z
+
+            select * from customer order by city desc; // high to low / z- a
+
+            select rating, count(cnum) from customer group by rating order bt count(cnum); this do order by on aggregated count 
+
+            10. syntax of clauses 
+            where -> group by -> having-> order by 
+
+            11. having always work with group by 
+
+
+        </p>
+        <p>
+            Joins 
+            1. inner 
+            2. left
+            3. right
+            4. outer
+
+            in our example - customer contains snum foriegnkey from salespeople. so here for customer salespeople is the lookup table.
+            always in join give the main table then lookuptable as the order.
+
+            <p>
+                <h3>Inner join</h3>
+            inner join - joins 2 tables on common values - 2 tables like a and b 
+            common recors a intersection b
+
+            select * from tableA join tableB on tableA.id = tableB.id 
+
+            select * from customer join salespeople on customer.snum = salespeople.snum;
+            here we see all columns from both tables and matching rows.
+
+            select c.snum, sname, count(cnum) from customer c join salespeople s on c.snum = s.snum group by c.snum, sname;
+
+            here join will execute frist, then group by, then count 
+         </p>
+         <p>
+            <h3> left outer join </h3>
+
+            get all data from left and mathing data from right table.
+            if no match records at right table will print null with left table data 
+
+         </p>
+
+         <p>
+            <h3> right outer join </h3>
+
+            get all data from right and mathing data from left table.
+            if no match records at left table will print null with right table data 
+
+            select * from customer right outer join salespeople on customer.snum = salespeople.snum;
+         </p>
+
+         <p>
+            <h3> full  join </h3>
+
+            get all data from right and left hand side. like a union b - common data wont be repeated.
+
+         </p>
+
+        </p>
+
+        <p>
+            <h3> functions</h3>
+            <p>
+
+                2 type of functions inbuilt and userdefined 
+                    1. inbuilt functions are in built programs. e.g count, sum, aggregator, string, math, date etc .. 
+                    2. alwats return something.
+                     
+                    3. user-defined needs to be created
+                    they will have round bracket
+                    functions will have parameter.
+
+                    count, sum, max, min, avg - are aggregate functions
+                
+            </p>
+            <p>
+                1. select sum(amt) as totalorders from orders; // find total amount
+                2. select cnum, sum(amt) from orders group by cnum; // find orders made by each customer
+                3. select customer.cnum,cname,sum(amt) as tot_order_amt from orders join customer on orders.cnum = customer.cnum group by customer.cnum,cname; // find orders made by each customer also display customer name
+                4. in above query if we use alias then tablename. wont work u need to use alias
+                5. in 3rd query if we want to receive whose orders most as first then we need to append same query with order by sum(amt) desc;
+                select customer.cnum,cname,sum(amt) as tot_order_amt from orders join customer on orders.cnum = customer.cnum group by customer.cnum,cname order by tot_order_amt desc; // find orders made by each customer also display customer name
+
+            </p>
+        </p>
+    </section>
+    <section>
+        <p>
+            <h3> join more then 2 tables e.g orderd, customer, sales</h3>
+            (table1 join table2 on top of whole result join table 3 -- follow the order of main and look up )
+
+            select * from orders o join customer c on o.cnum = c.cnum join salespeople s on c.snum = s.num;
+
+            // calculate comm payable to each salesperson 
+            // here when no data null
+             select s.snum, sname,  sum (comm * amt) as "total commision" from orders o join customer c on o.cnum = c.cnum join salespeople s on c.snum = s.snum group by s.snum, s.sname;
+
+            // here nul display zero
+            select s.snum, sname,  coalesce(sum (comm * amt), 0) as "total commision" from orders o join customer c on o.cnum = c.cnum right outer join salespeople s on c.snum = s.snum group by s.snum, s.sname;
+        
+            // this is the order of select when given aggrgation functions needs to use
+            select...from ...join ...where ..group .. having --- order by
+        </p>
+        <p>
+            <h3>string functions</h3>
+            https://learn.microsoft.com/en-us/sql/t-sql/functions/string-functions-transact-sql?view=sql-server-ver17
+            1. select snum, upper(sname), lower(city) from salespeople;
+            2. select concat(sname, city) from salespeople; // it will concat sname and city
+            
+            3. update salespeople set city = ' London' where snum = 1009;
+              select * from salespeople where city='London'; // only give 2 even three exists due to space
+
+              select * from salespeople where trim(city)='London'; // always recommended trim with string comparison // this will give three results  // trim function removes extra leading places at end.
+            4.  select value from string_split('hello how r u', ' '); -- will split based on space
+
+            5. substring function will take 3 params , 1. actual string, 2 nd one is starting position where u starts, 3rd one no of characters
+
+            select SUBSTRING('hello', 1, 2) // returns he
+            select SUBSTRING('habbit', 4, 3) // return bit .. 4 starting position, 3 no of characters
+            select CONCAT(SUBSTRING(sname, 1, 1), ' ',SUBSTRING(city, 1, 1)) from salespeople // print frist character of sname and city in single string
+
+
+            5. like command use for pattern search 
+            select * from salespeople where sname like '%r%';  // find all snames which contain letter r // like command (pattern search)
+        
+            6. -- extract first letter from james, first letter from mark then combine with smith
+
+            select concat(substring('james', 1, 1), ' ', substring('mark',1,1), ' ', 'smith'); 
+        </p>
+        <p>
+            <h3> mathematical functions</h3>
+            https://learn.microsoft.com/en-us/sql/t-sql/functions/mathematical-functions-transact-sql?view=sql-server-ver17
+            ROUND(number, decimal_places)
+            Purpose:
+            Rounds a number to the nearest value using standard rounding rules.
+
+            How it works:
+
+            If the next digit is 5 or more, round up.
+
+            If it's less than 5, round down.
+
+            Examples:
+
+            ROUND(25.755, 1) → 25.8      -- Look at 2nd decimal (5), round up
+            ROUND(25.415, 2) → 25.42     -- Look at 3rd decimal (5), round up
+            ROUND(5.45, 1) → 5.5  
+            ROUND(5.44, 1) → 5.4  
+            ROUND(5.5, 0) → 6
+            ⬆️ 2. CEILING(number)
+            Purpose:
+            Always rounds up to the next highest whole number, no matter the decimal part.
+
+            Examples:
+
+            CEILING(5.1) → 6  
+            CEILING(5.9) → 6  
+            CEILING(-5.1) → -5    -- Still "up" toward zero
+            ⬇️ 3. FLOOR(number)
+            Purpose:
+            Always rounds down to the previous whole number, regardless of the decimal.
+
+            Examples:
+
+            FLOOR(5.9) → 5  
+            FLOOR(5.1) → 5  
+            FLOOR(-5.1) → -6    -- Down (further from zero)
+            🧠 Interview Tip:
+            "ROUND() gives you the nearest value based on regular rounding rules.
+            CEILING() always rounds up (toward positive infinity).
+            FLOOR() always rounds down (toward negative infinity).
+            These functions are especially useful in billing, pagination, or quantity calculations where direction of rounding matters."**
+        </p>
+        <p>
+            <h3> few more math functions</h3>
+            select round(25.95, 1); -- round up to 2 decimals .. 26.00
+
+            select square(9); -- 81
+
+            select sqrt(81); -- 9
+
+            select power(2,3); -- 8
+
+            select pi() * square(7);  -- area of circle - radius 7
+
+            select round(pi() * square(7), 0);  -- area of circle - radius 7 -- 154
+        </p>
+        <p>
+            <h3> ranking functions</h3>
+            <p>
+                1.2 types
+                rank , dense rank 
+                
+                a. let say 4 students a - 100 - 1st rank, b - 90, c - 90, d - 85 
+                 here rank results as a -1, b & c - 2, d - 4th rank (it will skip 3 bcs 3rd one allocated 2)
+
+                 with dense ranking
+                 here rank results as a -1, b & c - 2, d - 3rd rank (it wont skip like rank)
+
+                 if we want to get Top 5 customers as per sales which one will u use -> dense rank - bcs we done give gap if 2 customers have same sales
+            </p>
+        </p>
+    </section>
+    <section>
+        <p>
+           <h3>Date functions</h3>
+           https://learn.microsoft.com/en-us/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-ver17
+            
+       </p>
+    </section>
+    <footer>
+        https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG - sandeep tutor link 
+
+        https://drive.google.com/drive/folders/1qTkN8W_UmibfCsHwlUMTFOm9fuWvWuqG?usp=drive_link - assignments link
+
+        https://www.geeksforgeeks.org/sql/sql-exercises/ -- sql samples for practice
+        
+        https://ci-ceit.edu.ck/wp-content/uploads/2021/01/sql-the-complete-reference-third-edition-sep-2009.pdf
+        
+    </footer>
+</body>
+</html>

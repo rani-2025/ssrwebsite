@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Page</title>
+</head>
+<body>
+    <header>
+        <h1>Azure storage</h1>
+        <a href = "https://azure.microsoft.com/en-us/products/storage/storage-explorer"> down load storage explorer from this link</a>
+    </header>
+    <section>
+        <h3>
+            What is VM?
+        </h3>
+        <p>
+           A virtual machine (VM) is a virtual emulation of a physical computer system. It is a virtual
+           environment that includes components such as CPUs, memory, network interfaces, and more
+           giving end-users the same experience on a virtual machine as they would have on a normal
+           physical computer machine
+        </p>
+        <h3>where to create VM</h3>
+        <p>
+            A virtual machine can be created on a physical computer system, and it will be called the
+            host machine. VMs can also be created on servers or in the cloud.
+        </p>
+        <h3> Advantages of Vms</h3>
+        <p>
+            1. Create multiple virtual machines and run all single physical computer.
+            2. Create single-purpose servers without actually having to set up
+            whole physical computer
+            3. Create high-availability clusters and minimize downtime
+        </p>
+        <p>
+            Azure offers different types of VMs, categorized based on memory storage and compute types
+            1. general purpose Vms.
+            2. high compute workload.
+            3. large storage.
+            4. high processing power.
+        </p>
+    </section>
+    <section>
+        <h3>
+            Types of Azure Virtual Machines
+        </h3>
+        <p>
+            <ul>
+                <li>A Series VM</li>
+                <p> This VM is used for  entry-level workloads like development and
+                    test machines. It is economical and provides low-cost options</p>
+            </ul>
+            <ul>
+                <li> D Series VM</li>
+                <p> This type of VM is used to run  applicationswith high compute power and
+                    temporary disk performance</p>
+            </ul>
+            <ul>
+                <li> F Series VM</li>
+                <p>F series VMs are optimized for intensive workloads,
+                    and they provide higher CPU-tomemory ratio</p>
+            </ul>
+            <ul>
+            <li>G Series</li>
+            <p>This is a storage or memory-optimized VM, 
+                offering 2 times more memory and 4times more storage than the D series</p>
+            </ul>
+            <ul>
+                <li>H Series</li>
+                <p> H series virtual machines are the next-generation high-performance
+                    computing virtual machines</p>
+            </ul>
+            <ul>
+                <li> L Series </li>
+                <p>
+                    These are storageoptimized virtual machines. They are ideal for the applicationsthat require low latency
+                </p>
+            </ul>
+            <ul>
+                <li>
+                    M Series
+                </li>
+                <p>
+                    These are the largest memoryoptimized VMs. They are ideal for heavy in-memory workloads like SAP HANA
+                </p>
+            </ul>
+            <ul>
+                <li>
+                    N Series
+                </li>
+                <p>
+                    N series virtual machines are GPUenabled (graphic processing unit- enabled) virtual machines.
+                </p>
+            </ul>
+        </p>
+    </section>
+    <section>
+        <h3>Virtual machines </h3>
+       <p>
+       different types of virtual machines
+       a,b - series for development
+       d- > for QA low esage
+       f - high 
+       g- data bases
+       h & m - hevy grade machines learning
+       l & m - high configuration db 
+       n -> dedicated gpu enabled 
+    </p>
+    <p>
+        While it's difficult to pinpoint one definitive "most used" series, the D-series is widely considered a popular and well-rounded choice for general-purpose workloads in Azure, offering a good balance of CPU, memory, and storage. 
+        most cheapest vm - east us where microsoft head quearter 
+    </p>
+    </section>
+    <section>
+        <p>
+            to increase the size of VM go to VM overview -> stop first once doesn
+            under availability + scale -> size -> then go to vm series -> then do resize -> resize will chagre the amount
+            as long as VM in start state it wil be charged
+            to avoid charges setup autoshut down in off hours by going operations -> auto shut down -> then set the time -> u will get alerts once its shutdown
+            
+            There are 2 kind of ips - 1- static ip, 2- dynamic ips
+
+            when vm create - select authentication type - password based 
+            
+            by default public ip - is static 
+            if vm stopped called as deallocated state 
+
+          
+
+            POC - 
+            create one dynamic and static ip vms 
+            once done note their ip addresses 
+            stop both of them and then start -
+            now check static and dynamic ip addresses -> static ip - never change but dynamic ip will change, 
+            make sure 99.99 % use static there is no specific advantage of dynamic ip over static ip
+
+            scenRIO - LETS assume vm stop for 1 month reset vm pwd ->
+           vm - help -> reset pwd 
+           azure will stare uname in cache
+        </p>
+    </section>
+    <section>
+        <h3>vm disks</h3>
+        <p>when azure create it will create with 2 disks - os disk and temporary disk,
+        u cant add mutliple os disks in single vm
+        if windows - os disk mapped to c drive</p>
+        more details refer following screenshots
+        <a href = "/Assets/disksinVM.png">VM disk types</a>
+        <a href="/Assets/vmdisksmoredetails.png"> More details on vm disks</a>
+        
+        with the VM d-series -> u can see options of localstorage -> this local storage called temporarary storage - this will vary as per vm size
+
+        intially when create VM max u can 2 TB 
+
+        to use VM after created -> go to VM -> click on connect then download RDP file - oncw downloaded click on rdp  - it will ask uname and pwd - once enter it will connect
+        on RDP vm machine what ever stored in OS disk will exist after stop and start but it will be deleted the one stored in temp disk
+
+        do not create partition on OS disk on VM - it will create issues 
+        <a href = "/Assets/connectvm.png">Connect VM</a>
+
+        by default tmp stored in C drive we can change to d drive by going to environment variables
+        <a href = "/Assets/updatevmtempstoragedrive.png">Map temp storage</a>
+    
+        create new partition only with unallocated space
+    </section>
+    <section>
+        <h3> vm size update</h3>
+        Does azure allows to reduce size of disk? No - bcs of data loss
+        at os level - we can shrink the volume but it doesnt allow to reduce size at azure level
+
+        <p>
+            how to increase size vm ->first stop vm -> 
+            <a href = "/Assets/stopVM.png">How to stop VM</a>
+            once completed then go to vm -> disk -> settings -> size + performance -> down u can see custom size there u can enter once done stop and start VM
+            <a href = "/Assets/VMcustomsizeincrease.png">VM customsize location</a>
+            once done restart VM 
+            then download VM -> connect RDP ->
+            once u connect RDP u still see old size on drives to see the increased size - in windows go to Diskmanagement > there u can see unallocated -> there extend (function() {
+                
+            <a href = "/Assets/extendVMdisksize.png">Extended VM Disk</a>
+            
+        </p>
+        <p>
+            <h3> Attach single datadisk with single VM</h3>
+            if we want to attach external disk we need to attach data disk
+            <a href = "/Assets/datadisksinvm.png">External Harddisks (Data disk) definition</a>
+            <a href = "/Assets/createdatadisk.png">how to create Harddisks (Data disk) - settings in portal(as per storage type u get through put)</a>
+            every datadisk has lun number (logical unique number) for azure to identify the data disk
+            There are different type of data disks
+
+            if u want to share datadisks to multiple VM's recommanded to go filestorage
+            to intialize the datadisk in VM(RDP) go to Diskmanagement and attach unallocated memory
+
+        </p>
+        <p>
+            <h3> Attach signle datadisk to multiple vms (following is the approach but not recommanded) </h3>
+            1. we need to disbale host caching (in disk host cache select none)
+            2. dettach all existsing VMs which are been attached to this disk (beside hist cach detach option)
+            3. under datadisk config select max disks capacity to 3 
+            4. after that go to VM and click attach existing datadisk then click on apply 
+
+            to move vms to different resource group follow the below settings
+            <a href = "/Assets/movevmstodifferentresourcegroup.png">Move vms to different resource group go this setting and click on move</a>
+        </p>
+    </section>
+    <section>
+        <h3>Linux Vms</h3>
+        there is no gui associated with linux Vms
+        for inbount ports - select 22 for windows its 33 , port no 80 for ssh same for both
+        from cmd line to connect to linux -> type -- ssh username (e.g: ssh amol@74.225.202.252)
+        if u create vm with public key then use this command
+        ssh username -i enterkey 
+        if u want key readonly - type chmod 400
+    </section>
+    <section>
+        High availability Vms
+        if u r in a region no availability zone then this wont be applied to that region
+        <a href = "/Assets/highavailabilityvms.png">high availability vm</a>
+        <a href = "/Assets/highavailabilityvms.png">high availability vm settings add multiple zones and multiple vm names</a>
+        here each vm allocated in one zone for eg if one vm go down it will pickup from other
+        there is no sync between Vms
+    </section>
+    <section>
+        <p>
+        <h3> custom Images</h3>
+        1. custom image when we take a laptop office we get preinstalled OS thats called custom image
+        2. whenever we create VM we have all things installed that can be happend through customimages
+
+        1. we need to create vm
+        2. on VM need to setup IIS -> manage -> Add roles and Features wizard - you need to do lot of manual steps like bleow (all three urls),
+        if u want to do on 100 VM's its impossible to install each and every one to resolve we need to create custom image with all setup
+        <a href = "/Assets/IISinstallationonVM.png">IIS installation on VM settings</a>
+        <a href = "/Assets/afterinstallationgotothis.png">After IIS installation go to this file</a>
+        <a href = "/Assets/updateiisstart.png">update iisstart file here</a>
+        </p>
+        <p>
+            <h3>
+                steps to create custom image
+                1. create VM and setup IIS once done come back stop VM then go to settings click on capture
+
+                custom image needs to be created under sameregion as VM if we try to do different it wont allow.
+                once u created custom image u cant merge new changes if we need any changes we need to create new custom image.
+                
+                in windows IIS in linux we have apache
+                
+                when creating custom image we have an option to create generalized and specialized image type
+                if generalized its always ask username and password
+            </h3>
+        </p>
+    </section>
+    <section>
+        <h3> working of autoscaling (VMSS) </h3>
+        vms count will increase and decrease as per the workload 
+        <a href = "/Assets/vmscaling.png">we can configure all this scaling setup</a>
+        <a href = "/Assets/azurescalingconfig1.png"> azure will scaling as per query condition time given</a>
+        if we delete vm under vmss automatically will create new one by azure why because it has to maintain minimun number of vms 1
+        if we configure min 2 then it always create 2 when vm been deleted.
+        also new vm will be created cpu load increases as well to balance the load.
+        this can be set it up at - vm - settings - scaling  
+    </section>
+</body>
+</html>

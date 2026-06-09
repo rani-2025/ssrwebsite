@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+        body {font-size:16px;}
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .subnav:hover .subnavbtn {
+            background-color: #007BFF;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            background-color: red;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .subnav-content a {
+            float: left;
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+
+        .back-to-menu {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .back-to-menu:hover {
+            background-color: #218838;
+        }
+
+        section {
+            margin: 20px;
+        }
+
+        section a {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Company<br>Name</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="../index.html#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a> 
+    <a href="../index.html#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a> 
+    <a href="../index.html#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Designers</a> 
+    <a href="../index.html#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
+    <a href="../index.html#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+    <a href="azure-resources.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Azure Resources</a>
+    <a href="../React/ReactMainIndex.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">React Guide</a>
+  </div>
+  <div class="w3-bar-block" style="margin-top:20px;">
+    <div class="subnav">
+      <button class="subnavbtn">Azure Topics <i class="fa fa-caret-down"></i></button>
+      <div class="subnav-content">
+        <a href="#references-html">All Website References</a>
+        <a href="#azurereferences-html">What is Azure</a>
+        <a href="#limitations-on-premise-html">Azure Limitations On-Premise</a>
+        <a href="#cloud-models-html">Azure Cloud Models</a>
+        <a href="#cloud-competitor-html">Azure Cloud Competitors</a>
+        <a href="#cloud-deployment-html">Azure Cloud Deployments</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+    <div class="w3-container" style="margin-top:80px">
+        <h1 class="w3-jumbo"><b>Azure Resources</b></h1>
+        <p>Here is your guide to navigating the Azure portal and related resources.</p>
+    </div>
+
+    <!-- Sections -->
+    <section id="references-html">
+        <h2>All Website References</h2>
+        <a href="references.html" target="_blank">References</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
+    </section>
+
+    <section id="azurereferences-html">
+        <h2>What is Azure</h2>
+        <img src="../Assets/azurereference.png" alt="cloud models" width="400" height="300" />
+        <a href="#top" class="back-to-menu">Back to Menu</a>
+    </section>
+
+    <section id="limitations-on-premise-html">
+        <h2>Azure Limitations On-Premise</h2>
+        <p>Click the link below to explore additional details:</p>
+        <a href="limitations-on-premise.html" target="_blank">Limitations on premise</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
+    </section>
+
+    <section id="cloud-models-html">
+        <h2>Azure Cloud Models</h2>
+        <p>Click the link below to explore additional details:</p>
+        <a href="cloud-models.html" target="_blank">Cloud Model</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
+    </section>
+
+    <section id="cloud-competitor-html">
+        <h2>Azure Cloud Competitors</h2>
+        <p>Click the link below to explore additional details:</p>
+        <a href="cloud-competitors.html" target="_blank">Cloud Competitors</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
+    </section>
+
+    <section id="cloud-deployment-html">
+        <h2>Azure Cloud Deployments</h2>
+        <p>Click the link below to explore additional details:</p>
+        <a href="cloud-deployment.html" target="_blank">Cloud Deployments</a>
+        <a href="#top" class="back-to-menu">Back to Menu</a>
+    </section>
+
+    <footer>
+        <p>For support with assignments, submit them via email: 
+            <a href="mailto:support@intellipaat.com">support@intellipaat.com</a>
+        </p>
+    </footer>
+</div>
+
+<script>
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>

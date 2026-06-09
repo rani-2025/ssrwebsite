@@ -1,0 +1,13 @@
+for myvalut disable softdelete option for lab account
+because if this is there backup option apply for 14 days which will incur cost unnessasry
+if ur vm in east us create recovery service also in same region else it will cost more.
+there are 2 type of recovery - 1. file recovery  2. virtual machine recovery
+scenario - let say someone deleted important file from vm then we can go to recovery vault and select file recovery..in file recovery
+we will get an option where recovery data will be mapped
+once recovery done in vm u can see additional recovery drive. once we copy data from recovery drive we can unmount the drive
+
+vm storage - need to create storage account 
+there are 2 restore points in vm storage - 
+1. createnew - when vm completly corrupted or vm been deleted accidental
+2. replace existing - when u update new OS causing some failure then we can choose replace existing then it will restore with previous OS
+azure-sql reading https://learn.microsoft.com/en-us/azure/azure-sql/?view=azuresql

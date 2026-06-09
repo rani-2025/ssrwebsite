@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>What is Cloud computing</title>
+</head>
+<body>
+  <section>
+  <h1>Before Cloud computing</h1>
+<p>
+  <ul>
+  <li> companies used to invest money to buy servers then launch application.</li>
+  <li>  as they they gain popularity on application, they need to invest more money to buy more servers. </li>
+  however increase in load might crash servers.
+  <li> here company needs to make initial investment and then again hire maintainance team to fix broken servers.
+  this is an expensive option.</li>
+  <li>As the load increases keeping extra servers and maintaining regularly adds to ur billing.</li>
+  <li>following are the issues we have before cloud computing </li>
+  <img src="../Assets/beforecloudcomouting.png" alt="beforecloudcomputing" width="800" height="400" />
+  </ul>
+</p>
+</section>
+<section>
+  <h1>After Cloud computing</h1>
+  <p>
+    <ul>
+     <li> All above image with before cloud computing been addressed. </li>
+     <li> cloud computing is the delivery of computing services - such as servers, storages, databases, networking, software and more 
+      over the internet with faster innovation, flexible resources and economies of scale. 
+
+      or 
+
+      its a use of various computer resources based on pay as you go modal via the internet.
+     </li>
+   </ul>
+  </p>
+  <p>
+    <h1>
+      Types of cloud models
+    </h1>
+    <ul>
+      <li>
+        Cloud models are basically different business models adapted by cloud providers.
+        <ol>
+          <li>
+            Service models (PaaS, SaaS, IaaS)
+            <ul>
+              <li>IaaS - Infrastructure as a Service - full access on server, can install any service.</li>
+              <li>PaaS - Platform as a Service - Azure provides preconfigured server with limited settings.</li>
+              <li>SaaS - Software as a Service - delivers software like Outlook, Gmail.</li>
+            </ul>
+          </li>
+          <li>
+            Deployment models (Public, Private, Hybrid)
+            <ul>
+              <li>Public - Users share the same infrastructure for their applications.</li>
+              <li>Private - Services exclusive for a single org, either owned or rented.</li>
+              <li>Hybrid - A combination of both public and private.</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </p>
+  <p>
+    <h1> What is microsoft Azure? </h1>
+    <ul>
+   <li> Azure is a cloud provider owned by Microsoft. following are the facts with azure.</li>
+   <li><img src="../Assets/azurefacts.png" alt="azurefacts" width="800" height="400" /></li>
+   <li>Azure has more regions than other providers. in total 54 regions worldwide available in 140 countries</li>
+   <li> azure provides various cloud based services which are grouped together based on different bussiness usage. 
+    these groups are called domains. Main domains are listed below</li>
+    <img src="../Assets/azurebussinessdomains.png" alt="azurebusinessdomains" width="800" height="400" />
+    <li> following are the services under azure compute</li>
+    <img src="../Assets/azurecomputeservices.png" alt="azurecomputeservices" width="800" height="400" />
+    <li> following are the services under azure networking services</li>
+    <img src="../Assets/azurenetworkingservices.png" alt="azurecomputeservices" width="800" height="400" />
+    <li> following are the services under azure storage services</li>
+    <img src="../Assets/azurestorageservices1.png" alt="azurestorageservices1" width="800" height="400" />
+    <img src="../Assets/azurestorageservices2.png" alt="azurestorageservices2" width="800" height="400" />
+    <li> following are the services under azure database </li>
+    <img src="../Assets/azuredatabaseservices.png" alt="azurestorageservices1" width="800" height="400" />
+    <li> following steps to create microsoft azure account</li>
+    <img src="../Assets/azureaccountcreationsteps.png" alt="azurestorageservices1" width="800" height="400" />
+  </ul>
+  </p>
+  <p>
+    <h1>various ways to aceess azure portal</h1>
+    <ul>
+      <li> Azure provide various ways to access azure portal</li>
+      <li>azure portal - its webbased console lets users to access and manages azure services</li>
+      <li>azure powershell - task based commandline built on .net framework</li>
+      <li>azure cli - cross platform commandline tool used to manage and monitor azure services.</li>
+    </ul>
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1ncWFGwyOCI84rLa5T8WfCpNeyPZZg3U_">
+    various commands to execute in powershell and cludshell assignment url
+  </a>
+  </p>
+</section>  
+<section>
+  <h3> list of azure commands for reference</h3>
+  <p>
+    BASH COMMANDS:
+az account list: gives the details of the existing azure account
+az account list --output table : gives the details of the existing azure account but in a table format
+az account list -o table : gives the details of the existing azure account but in a table format[While writing the full form we use (--) double hypen,
+but while using the shortcut we use single hypen(-)]
+
+To create Azure Resource Group:
+az group create --name new-rg --loaction southcentralus
+To create multiple resource group in a region using one command:
+az group create -n rg-1 -l westus && az group create -n rg-2 -l westus && az group create -n rg-3 -l westus
+To list all the resource groups present in a particular location:
+az group list --output table | grep westus
+az group list --query "[?location=='westus']" -o table
+
+      Delete resourcegroup for a particular region
+      az group list --query "[?location=='westus']".name -o tsv | xargs -otl az group delete -n
+
+
+      POWERSHELL COMMANDS:
+      To get details about our subscription
+      Get-Azsubscription
+      
+      To create resource group:
+      New-Azresourcegroup -n rg-powershell -l southcentralus
+      
+      To create multiple resource groups using a single command:
+      New-AzresourceGroup -n rg1 -l westus && New-AzresourceGroup -n rg2 -l westus && New-AzresourceGroup -n rg3 -l westus
+      
+      List all the resource groups in a particular region
+      
+      Get-Azresourcegroup -l westus
+      Get-Azresourcegroup -l westus | Format-table 
+      
+      Delete resourcegroup for a particular region
+      
+      Get-AzResourcegroup -l southcentralus | remove-azresourcegroup
+ 
+ <a href="https://learn.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-13.0.0#find-commands">
+  Azure commands document
+ </a>
+
+  </p>
+</section>
+  
+</body>
+</html>
