@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG & AI Concepts</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 2rem; background: #f9f9f9; color: #333; line-height: 1.7; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a2e; border-bottom: 3px solid #4fc3f7; padding-bottom: 0.5rem; }
+        h2 { color: #16213e; margin-top: 2.5rem; }
+        h3 { color: #0277bd; }
+        .concept-box { background: #fff; padding: 1.5rem; border-radius: 10px; margin: 1rem 0; box-shadow: 0 2px 6px rgba(0,0,0,0.08); border-left: 4px solid #4fc3f7; }
+        .example { background: #e8f5e9; padding: 1rem; border-radius: 8px; margin: 0.8rem 0; }
+        .example strong { color: #2e7d32; }
+        .interview-q { background: #fff3e0; padding: 1rem; border-radius: 8px; margin: 0.5rem 0; }
+        .interview-q strong { color: #e65100; }
+        .flow-diagram { background: #e3f2fd; padding: 1.5rem; border-radius: 10px; font-family: monospace; margin: 1rem 0; text-align: center; font-size: 0.95rem; }
+        .flow-diagram .arrow { color: #0277bd; font-weight: bold; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
+        .tag { display: inline-block; background: #e3f2fd; padding: 0.3rem 0.7rem; border-radius: 15px; margin: 0.2rem; font-size: 0.8rem; color: #0277bd; }
+        .summary-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .summary-table th, .summary-table td { border: 1px solid #ddd; padding: 0.8rem; text-align: left; }
+        .summary-table th { background: #1a1a2e; color: #fff; }
+        .summary-table tr:nth-child(even) { background: #f5f5f5; }
+    </style>
+</head>
+<body>
+
+<h1>🤖 RAG & AI Concepts - Beginner Guide</h1>
+<p><em>Last updated: June 2025</em></p>
+
+<!-- ==================== BIG PICTURE ==================== -->
+<h2>🎯 The Big Picture - Why RAG?</h2>
+<div class="concept-box">
+    <p><strong>Problem:</strong> LLMs (like ChatGPT) only know what they were trained on. They can't answer questions about YOUR company data, new documents, or private info.</p>
+    <p><strong>Solution:</strong> RAG = <strong>Retrieval Augmented Generation</strong></p>
+    <p>Instead of retraining the whole model, you <em>retrieve</em> relevant info from your data and <em>feed it</em> to the LLM along with the question.</p>
+</div>
+
+<div class="example">
+    <strong>🍕 Simple Analogy:</strong><br>
+    LLM = A smart chef who knows all recipes<br>
+    RAG = Giving that chef YOUR menu card before asking "What should I cook tonight?"<br>
+    Without RAG → Chef gives generic answer<br>
+    With RAG → Chef answers based on YOUR specific menu
+</div>
+
+<!-- ==================== FLOW ==================== -->
+<h2>🔄 How RAG Works - The Flow</h2>
+<div class="flow-diagram">
+    <p>📄 Your Documents</p>
+    <p class="arrow">↓ (1) Chunking</p>
+    <p>📦 Small Chunks of Text</p>
+    <p class="arrow">↓ (2) Embedding</p>
+    <p>🔢 Vectors (numbers)</p>
+    <p class="arrow">↓ (3) Store</p>
+    <p>🗄️ Vector Database</p>
+    <p>━━━━━━━━━━━━━━━━━━━━━━</p>
+    <p>🙋 User asks a question</p>
+    <p class="arrow">↓ (4) Smart Search</p>
+    <p>🎯 Find relevant chunks</p>
+    <p class="arrow">↓ (5) Send to LLM</p>
+    <p>💬 LLM generates answer using those chunks</p>
+</div>
+
+<!-- ==================== CHUNKING ==================== -->
+<h2>✂️ 1. Chunking</h2>
+<div class="concept-box">
+    <p><strong>What:</strong> Breaking large documents into smaller pieces (chunks)</p>
+    <p><strong>Why:</strong> LLMs have token limits. You can't send a 500-page PDF at once. Smaller chunks = more precise retrieval.</p>
+</div>
+
+<div class="example">
+    <strong>Example:</strong><br>
+    <p>Original document (1000 words about Azure VMs):</p>
+    <p>→ Chunk 1: "Azure VMs are virtual machines in the cloud..." (200 words)</p>
+    <p>→ Chunk 2: "VM sizes include B-series for dev/test..." (200 words)</p>
+    <p>→ Chunk 3: "To connect to a VM, use RDP or SSH..." (200 words)</p>
+</div>
+
+<h3>Common Chunking Strategies:</h3>
+<table class="summary-table">
+    <tr><th>Strategy</th><th>How</th><th>When to Use</th></tr>
+    <tr><td>Fixed size</td><td>Every 500 characters</td><td>Simple, general docs</td></tr>
+    <tr><td>Sentence-based</td><td>Split by sentences</td><td>Short docs, FAQs</td></tr>
+    <tr><td>Paragraph-based</td><td>Split by paragraphs</td><td>Blog posts, articles</td></tr>
+    <tr><td>Overlap</td><td>Chunks share some text</td><td>Avoid losing context at edges</td></tr>
+</table>
+
+<div class="example">
+    <strong>Overlap Example (chunk size=100, overlap=20):</strong><br>
+    Chunk 1: words 1-100<br>
+    Chunk 2: words 80-180 (overlaps 20 words with chunk 1)<br>
+    Chunk 3: words 160-260
+</div>
+
+<!-- ==================== EMBEDDING ==================== -->
+<h2>🔢 2. Embedding</h2>
+<div class="concept-box">
+    <p><strong>What:</strong> Converting text into numbers (vectors) that capture the <em>meaning</em></p>
+    <p><strong>Why:</strong> Computers can't understand "Azure VM" but they can compare numbers like [0.23, 0.87, 0.12...]</p>
+    <p><strong>Key Idea:</strong> Similar meanings → similar numbers (close in space)</p>
+</div>
+
+<div class="example">
+    <strong>Example:</strong><br>
+    <p>"dog" → [0.9, 0.1, 0.8, 0.2]</p>
+    <p>"puppy" → [0.85, 0.15, 0.75, 0.25] ← very close to "dog"!</p>
+    <p>"car" → [0.1, 0.9, 0.2, 0.7] ← very different from "dog"</p>
+</div>
+
+<h3>Popular Embedding Models:</h3>
+<table class="summary-table">
+    <tr><th>Model</th><th>By</th><th>Note</th></tr>
+    <tr><td>text-embedding-ada-002</td><td>OpenAI</td><td>Most popular, paid</td></tr>
+    <tr><td>Amazon Titan Embeddings</td><td>AWS Bedrock</td><td>Good for AWS projects</td></tr>
+    <tr><td>all-MiniLM-L6-v2</td><td>Open source</td><td>Free, runs locally</td></tr>
+</table>
+
+<!-- ==================== VECTOR DB ==================== -->
+<h2>🗄️ 3. Vector Database</h2>
+<div class="concept-box">
+    <p><strong>What:</strong> A special database designed to store and search vectors (embeddings)</p>
+    <p><strong>Why:</strong> Regular databases (SQL) search by exact match. Vector DBs search by <em>similarity</em> (closest meaning).</p>
+</div>
+
+<div class="example">
+    <strong>Regular DB vs Vector DB:</strong><br>
+    <p>SQL: <code>SELECT * FROM docs WHERE title = 'Azure VM'</code> → exact match only</p>
+    <p>Vector DB: "Tell me about virtual machines in cloud" → finds "Azure VM" docs even without exact words!</p>
+</div>
+
+<h3>Popular Vector Databases:</h3>
+<table class="summary-table">
+    <tr><th>Name</th><th>Type</th><th>Note</th></tr>
+    <tr><td>Pinecone</td><td>Cloud (managed)</td><td>Easy to start, popular</td></tr>
+    <tr><td>Amazon OpenSearch</td><td>AWS managed</td><td>Good for AWS stack</td></tr>
+    <tr><td>ChromaDB</td><td>Open source</td><td>Great for local dev/testing</td></tr>
+    <tr><td>FAISS</td><td>Library (Meta)</td><td>Fast, runs in memory</td></tr>
+    <tr><td>Weaviate</td><td>Open source</td><td>Full-featured</td></tr>
+</table>
+
+<!-- ==================== DATA INGESTION ==================== -->
+<h2>📥 4. Data Ingestion Pipeline</h2>
+<div class="concept-box">
+    <p><strong>What:</strong> The process of getting your raw data INTO the vector database (ready for search)</p>
+    <p><strong>Steps:</strong> Load docs → Clean → Chunk → Embed → Store in Vector DB</p>
+</div>
+
+<div class="flow-diagram">
+    📄 PDF, Word, Web pages, CSVs<br>
+    <span class="arrow">↓</span> Load (read files)<br>
+    🧹 Clean (remove junk, headers, footers)<br>
+    <span class="arrow">↓</span> Chunk (split into pieces)<br>
+    ✂️ Chunks with metadata (source, page number)<br>
+    <span class="arrow">↓</span> Embed (convert to vectors)<br>
+    🔢 Vectors<br>
+    <span class="arrow">↓</span> Store<br>
+    🗄️ Vector Database
+</div>
+
+<div class="example">
+    <strong>Real Example - Ingesting company HR policy:</strong><br>
+    1. Load: Read HR_Policy.pdf (50 pages)<br>
+    2. Clean: Remove headers/footers/page numbers<br>
+    3. Chunk: Split into 200 chunks (overlap 50 chars)<br>
+    4. Embed: Convert each chunk → vector using Amazon Titan<br>
+    5. Store: Save all 200 vectors in OpenSearch with metadata (page#, section name)
+</div>
+
+<!-- ==================== SMART SEARCH ==================== -->
+<h2>🔍 5. Smart Search (Semantic Search)</h2>
+<div class="concept-box">
+    <p><strong>What:</strong> Finding relevant chunks based on MEANING, not just keywords</p>
+    <p><strong>How:</strong> Convert the user's question → vector → find closest vectors in DB</p>
+</div>
+
+<div class="example">
+    <strong>Example:</strong><br>
+    <p>User asks: "How many vacation days do I get?"</p>
+    <p>Search finds chunk: "Employees are entitled to 15 days of paid time off annually"</p>
+    <p>→ No exact word match ("vacation" vs "paid time off") but meaning is similar!</p>
+</div>
+
+<h3>Search Types:</h3>
+<table class="summary-table">
+    <tr><th>Type</th><th>How</th><th>Best For</th></tr>
+    <tr><td>Keyword search</td><td>Exact word match</td><td>Known terms</td></tr>
+    <tr><td>Semantic search</td><td>Meaning-based (vectors)</td><td>Natural questions</td></tr>
+    <tr><td>Hybrid search</td><td>Both combined</td><td>Best results (recommended)</td></tr>
+</table>
+
+<!-- ==================== LLM INTERACTION ==================== -->
+<h2>🤝 6. How It Interacts with the LLM</h2>
+<div class="concept-box">
+    <p><strong>The Final Step:</strong> Take retrieved chunks + user question → send to LLM → get answer</p>
+</div>
+
+<div class="example">
+    <strong>What actually gets sent to the LLM:</strong><br><br>
+    <code>
+    SYSTEM: You are a helpful assistant. Answer based ONLY on the context below.<br><br>
+    CONTEXT:<br>
+    [Chunk 1]: "Employees get 15 days PTO per year..."<br>
+    [Chunk 2]: "After 5 years, PTO increases to 20 days..."<br><br>
+    USER QUESTION: "How many vacation days do I get?"<br><br>
+    LLM ANSWER: "You get 15 days of PTO per year. After 5 years, it increases to 20 days."
+    </code>
+</div>
+
+<h3>Key Points:</h3>
+<ul>
+    <li><strong>Context window:</strong> LLMs have a limit (e.g., 4K, 8K, 128K tokens). Retrieved chunks must fit within this.</li>
+    <li><strong>Grounding:</strong> LLM answers based on YOUR data, not its training data → reduces hallucination</li>
+    <li><strong>Prompt template:</strong> You control how the LLM uses the context (e.g., "only answer from context")</li>
+</ul>
+
+<!-- ==================== COMPLETE FLOW ==================== -->
+<h2>🏗️ Complete RAG Architecture</h2>
+<div class="flow-diagram" style="text-align: left; padding: 2rem;">
+    <strong>OFFLINE (one-time setup):</strong><br>
+    Documents → Chunking → Embedding → Store in Vector DB<br><br>
+    <strong>ONLINE (every user query):</strong><br>
+    User Question → Embed Question → Search Vector DB → Get Top 3-5 Chunks → Send (Question + Chunks) to LLM → Return Answer to User
+</div>
+
+<!-- ==================== AWS SERVICES ==================== -->
+<h2>☁️ AWS Services for RAG</h2>
+<table class="summary-table">
+    <tr><th>Step</th><th>AWS Service</th></tr>
+    <tr><td>LLM</td><td>Amazon Bedrock (Claude, Titan, Llama)</td></tr>
+    <tr><td>Embedding</td><td>Amazon Titan Embeddings (via Bedrock)</td></tr>
+    <tr><td>Vector DB</td><td>Amazon OpenSearch Serverless</td></tr>
+    <tr><td>Storage</td><td>Amazon S3 (store documents)</td></tr>
+    <tr><td>Orchestration</td><td>Amazon Bedrock Knowledge Base (does it all!)</td></tr>
+</table>
+
+<div class="example">
+    <strong>Easiest way on AWS:</strong><br>
+    Amazon Bedrock Knowledge Base = handles chunking + embedding + vector store + retrieval automatically!<br>
+    You just: Upload docs to S3 → Create Knowledge Base → Ask questions ✅
+</div>
+
+<!-- ==================== INTERVIEW QUESTIONS ==================== -->
+<h2>💼 Interview Questions & Answers</h2>
+
+<div class="interview-q">
+    <strong>Q: What is RAG?</strong><br>
+    A: RAG (Retrieval Augmented Generation) is a technique where you retrieve relevant documents from a knowledge base and provide them as context to an LLM, so it can generate accurate answers based on your specific data.
+</div>
+
+<div class="interview-q">
+    <strong>Q: Why use RAG instead of fine-tuning?</strong><br>
+    A: RAG is cheaper, faster to set up, data stays fresh (just update docs), no retraining needed. Fine-tuning is better for changing the model's style/behavior.
+</div>
+
+<div class="interview-q">
+    <strong>Q: What is chunking and why is it important?</strong><br>
+    A: Chunking is splitting documents into smaller pieces. It's important because: (1) LLMs have token limits, (2) smaller chunks give more precise search results, (3) reduces noise in context.
+</div>
+
+<div class="interview-q">
+    <strong>Q: What is an embedding?</strong><br>
+    A: An embedding is a numerical representation (vector) of text that captures its semantic meaning. Similar texts have similar vectors, enabling meaning-based search.
+</div>
+
+<div class="interview-q">
+    <strong>Q: Vector DB vs Regular DB?</strong><br>
+    A: Regular DBs use exact match (WHERE name='X'). Vector DBs use similarity search — they find the closest vectors by meaning, even without exact word matches.
+</div>
+
+<div class="interview-q">
+    <strong>Q: What is semantic search?</strong><br>
+    A: Searching by meaning rather than keywords. "vacation days" finds "paid time off" because the vectors are similar even though words are different.
+</div>
+
+<div class="interview-q">
+    <strong>Q: How do you reduce hallucination in RAG?</strong><br>
+    A: (1) Use "answer only from context" in prompt, (2) Retrieve more relevant chunks, (3) Add source citations, (4) Use lower temperature setting.
+</div>
+
+<div class="interview-q">
+    <strong>Q: What is a data ingestion pipeline?</strong><br>
+    A: The process of loading raw documents, cleaning them, splitting into chunks, generating embeddings, and storing them in a vector database for later retrieval.
+</div>
+
+<!-- ==================== QUICK REFERENCE ==================== -->
+<h2>📋 Quick Reference Card</h2>
+<table class="summary-table">
+    <tr><th>Term</th><th>One-Line Definition</th></tr>
+    <tr><td>RAG</td><td>Retrieve relevant docs + feed to LLM for better answers</td></tr>
+    <tr><td>Chunking</td><td>Splitting big docs into small pieces</td></tr>
+    <tr><td>Embedding</td><td>Converting text to numbers (vectors) that capture meaning</td></tr>
+    <tr><td>Vector DB</td><td>Database that searches by similarity, not exact match</td></tr>
+    <tr><td>Data Ingestion</td><td>Pipeline: Load → Clean → Chunk → Embed → Store</td></tr>
+    <tr><td>Semantic Search</td><td>Finding info by meaning, not keywords</td></tr>
+    <tr><td>Context Window</td><td>Max tokens an LLM can process at once</td></tr>
+    <tr><td>Hallucination</td><td>LLM making up incorrect answers</td></tr>
+    <tr><td>Grounding</td><td>Making LLM answer only from provided data</td></tr>
+    <tr><td>Hybrid Search</td><td>Combining keyword + semantic search for best results</td></tr>
+</table>
+
+</body>
+</html>
