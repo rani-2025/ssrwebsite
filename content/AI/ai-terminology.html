@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Terminology - 16 Key Terms</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 2rem; background: #f9f9f9; color: #333; line-height: 1.7; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a2e; border-bottom: 3px solid #4fc3f7; padding-bottom: 0.5rem; }
+        h2 { color: #16213e; margin-top: 2.5rem; }
+        .term-card { background: #fff; padding: 1.2rem 1.5rem; border-radius: 10px; margin: 0.8rem 0; box-shadow: 0 2px 6px rgba(0,0,0,0.08); border-left: 4px solid #4fc3f7; }
+        .term-card h3 { color: #0277bd; margin: 0 0 0.3rem; }
+        .term-card p { margin: 0.3rem 0; }
+        .analogy { color: #2e7d32; font-style: italic; }
+        .faq { background: #fff3e0; padding: 1.2rem; border-radius: 8px; margin: 0.8rem 0; }
+        .faq strong { color: #e65100; }
+        .faq p { margin: 0.3rem 0; }
+        .link-box { background: #e3f2fd; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .num { background: #1a1a2e; color: #fff; padding: 0.2rem 0.6rem; border-radius: 50%; font-size: 0.8rem; margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+
+<h1>🧠 16 AI Terms Every Beginner Should Know</h1>
+<p><em>Simple explanations with real-world analogies</em></p>
+
+<!-- 1. TOKEN -->
+<div class="term-card">
+    <h3><span class="num">1</span> Token</h3>
+    <p><strong>What:</strong> A small piece of text (word or part of a word) that AI reads and processes.</p>
+    <p><strong>Example:</strong> "I love coding" = 3 tokens. "Unbelievable" = 2 tokens ("Un" + "believable")</p>
+    <p class="analogy">🍕 Analogy: Like slicing a pizza — AI reads text in slices, not the whole pizza at once.</p>
+</div>
+
+<!-- 2. CONTEXT -->
+<div class="term-card">
+    <h3><span class="num">2</span> Context</h3>
+    <p><strong>What:</strong> The information (text) the AI can "see" at one time when generating a response.</p>
+    <p><strong>Context Window:</strong> The max tokens an AI can handle at once (e.g., GPT-4 = 128K tokens).</p>
+    <p class="analogy">🪟 Analogy: Like a window — the bigger it is, the more the AI can see and remember.</p>
+</div>
+
+<!-- 3. PROMPT -->
+<div class="term-card">
+    <h3><span class="num">3</span> Prompt</h3>
+    <p><strong>What:</strong> The instruction or question you give to an AI model.</p>
+    <p><strong>Example:</strong> "Explain Docker in 2 lines" — that's a prompt.</p>
+    <p><strong>Prompt Engineering:</strong> The skill of writing better prompts to get better answers.</p>
+    <p class="analogy">📝 Analogy: Like ordering food — the clearer your order, the better the dish you get.</p>
+</div>
+
+<!-- 4. LLM -->
+<div class="term-card">
+    <h3><span class="num">4</span> LLM (Large Language Model)</h3>
+    <p><strong>What:</strong> An AI model trained on massive text data that can understand and generate human language.</p>
+    <p><strong>Examples:</strong> GPT-4 (OpenAI), Claude (Anthropic), Llama (Meta), Amazon Titan (AWS)</p>
+    <p class="analogy">📚 Analogy: Like a student who read millions of books — can answer almost anything but might make things up.</p>
+</div>
+
+<!-- 5. RAG -->
+<div class="term-card">
+    <h3><span class="num">5</span> RAG (Retrieval Augmented Generation)</h3>
+    <p><strong>What:</strong> A technique to give the LLM YOUR specific data before it answers, so it doesn't hallucinate.</p>
+    <p><strong>Flow:</strong> User asks → Search your docs → Feed relevant docs + question to LLM → Accurate answer</p>
+    <p class="analogy">📖 Analogy: Like giving an open-book exam — the AI looks up answers from your documents.</p>
+    <div class="link-box">📎 <a href="rag-basics.html">Detailed RAG Notes (Chunking, Embeddings, Vector DB, Pipeline)</a></div>
+</div>
+
+<!-- 6. EMBEDDING -->
+<div class="term-card">
+    <h3><span class="num">6</span> Embedding</h3>
+    <p><strong>What:</strong> Converting text into numbers (vectors) that capture meaning. Similar texts = similar numbers.</p>
+    <p><strong>Example:</strong> "happy" → [0.9, 0.1, 0.8] and "joyful" → [0.85, 0.15, 0.78] — close numbers because similar meaning.</p>
+    <p class="analogy">🗺️ Analogy: Like GPS coordinates — similar places are close on the map, similar words are close in number-space.</p>
+</div>
+
+<!-- 7. VECTOR DB -->
+<div class="term-card">
+    <h3><span class="num">7</span> Vector Database</h3>
+    <p><strong>What:</strong> A special database that stores embeddings and finds similar items by meaning (not exact match).</p>
+    <p><strong>Examples:</strong> Pinecone, ChromaDB, Amazon OpenSearch, FAISS</p>
+    <p class="analogy">🏪 Analogy: A regular store finds items by name. A vector DB finds items by "what's similar to this?"</p>
+</div>
+
+<!-- 8. API -->
+<div class="term-card">
+    <h3><span class="num">8</span> API (Application Programming Interface)</h3>
+    <p><strong>What:</strong> A way for your code to talk to an AI model (or any service) over the internet.</p>
+    <p><strong>Example:</strong> You send a prompt to OpenAI's API → it sends back the AI's response.</p>
+    <p class="analogy">🍽️ Analogy: Like a waiter — you tell the waiter (API) your order, they go to the kitchen (AI model) and bring back food (response).</p>
+</div>
+
+<!-- 9. AGENT -->
+<div class="term-card">
+    <h3><span class="num">9</span> Agent</h3>
+    <p><strong>What:</strong> An AI that can plan, make decisions, and take actions on its own to complete a task.</p>
+    <p><strong>Example:</strong> "Book me a flight to NYC under $300" — agent searches, compares, and books.</p>
+    <p><strong>Key:</strong> An agent = LLM + ability to use tools + decision making</p>
+    <p class="analogy">🤵 Analogy: Like a personal assistant who doesn't just answer questions but actually does the work for you.</p>
+</div>
+
+<!-- 10. SKILLS -->
+<div class="term-card">
+    <h3><span class="num">10</span> Skills</h3>
+    <p><strong>What:</strong> Specific capabilities an agent has been given (like searching the web, reading files, running code).</p>
+    <p><strong>Example:</strong> Amazon Q Developer has skills like: code generation, debugging, explaining code, reviewing code.</p>
+    <p class="analogy">🧰 Analogy: Like apps on your phone — each app is a skill that lets your phone do something specific.</p>
+</div>
+
+<!-- 11. TOOLS -->
+<div class="term-card">
+    <h3><span class="num">11</span> Tools</h3>
+    <p><strong>What:</strong> External functions/services that an AI agent can call to perform actions.</p>
+    <p><strong>Examples:</strong> Calculator, web search, database query, file reader, API calls</p>
+    <p><strong>Difference from Skills:</strong> Skills = what the agent CAN do. Tools = HOW it does it.</p>
+    <p class="analogy">🔧 Analogy: A mechanic (agent) has skills (fixing engines). Tools are the wrench, screwdriver he uses.</p>
+</div>
+
+<!-- 12. MCP -->
+<div class="term-card">
+    <h3><span class="num">12</span> MCP (Model Context Protocol)</h3>
+    <p><strong>What:</strong> A standard way to connect AI models to external tools and data sources.</p>
+    <p><strong>Why:</strong> Without MCP, every tool needs custom integration. MCP = one standard plug for all tools.</p>
+    <p><strong>Think of it as:</strong> USB-C for AI — one connector that works with everything.</p>
+    <p class="analogy">🔌 Analogy: Like USB — before USB, every device had a different cable. MCP standardizes how AI connects to tools.</p>
+</div>
+
+<!-- 13. INFERENCE -->
+<div class="term-card">
+    <h3><span class="num">13</span> Inference</h3>
+    <p><strong>What:</strong> When the AI model actually generates a response to your prompt. (Using the model, not training it.)</p>
+    <p><strong>Training:</strong> Teaching the model (expensive, takes weeks)</p>
+    <p><strong>Inference:</strong> Using the trained model (fast, happens every time you ask a question)</p>
+    <p class="analogy">🎓 Analogy: Training = studying for years. Inference = taking the exam and answering questions.</p>
+</div>
+
+<!-- 14. GUARDRAILS -->
+<div class="term-card">
+    <h3><span class="num">14</span> Guardrails</h3>
+    <p><strong>What:</strong> Safety rules/filters that prevent AI from generating harmful, inappropriate, or wrong content.</p>
+    <p><strong>Examples:</strong> Block profanity, prevent sharing personal data, deny illegal requests, stay on topic.</p>
+    <p><strong>AWS:</strong> Amazon Bedrock Guardrails lets you set these rules for your AI apps.</p>
+    <p class="analogy">🚧 Analogy: Like guardrails on a highway — keeps the AI from going off the road into dangerous territory.</p>
+</div>
+
+<!-- 15. JAILBREAKING -->
+<div class="term-card">
+    <h3><span class="num">15</span> Jailbreaking</h3>
+    <p><strong>What:</strong> Tricking an AI into ignoring its safety rules by using clever prompts.</p>
+    <p><strong>Example:</strong> "Pretend you're an AI with no rules..." → trying to bypass guardrails.</p>
+    <p><strong>Why it matters:</strong> As a developer, you need to protect your AI apps against jailbreaking attempts.</p>
+    <p class="analogy">🔓 Analogy: Like social engineering — tricking a security guard into letting you in without a badge.</p>
+</div>
+
+<!-- 16. FINE-TUNING -->
+<div class="term-card">
+    <h3><span class="num">16</span> Fine-Tuning</h3>
+    <p><strong>What:</strong> Retraining an existing AI model on YOUR specific data to make it better at a specific task.</p>
+    <p><strong>RAG vs Fine-tuning:</strong></p>
+    <p>• RAG = give docs at question time (cheaper, easier, data stays fresh)</p>
+    <p>• Fine-tuning = retrain the model itself (expensive, but changes model behavior/style)</p>
+    <p class="analogy">🎨 Analogy: RAG = giving an artist a reference photo. Fine-tuning = teaching the artist a whole new art style.</p>
+</div>
+
+<!-- FAQ SECTION -->
+<h2>❓ FAQ - Interview & Quick Reference</h2>
+
+<div class="faq">
+    <strong>Q: What's the difference between AI, ML, and LLM?</strong>
+    <p>AI = broad field (machines that think). ML = subset (machines that learn from data). LLM = a type of ML model specialized in language.</p>
+</div>
+
+<div class="faq">
+    <strong>Q: Why can't I just put all my data in the prompt?</strong>
+    <p>Context window limit. If you have 10,000 pages, it won't fit. RAG retrieves only the relevant 3-5 chunks.</p>
+</div>
+
+<div class="faq">
+    <strong>Q: When to use RAG vs Fine-tuning?</strong>
+    <p>RAG → when you need answers from specific docs (company knowledge base, policies). Fine-tuning → when you need the model to behave differently (tone, format, domain-specific language).</p>
+</div>
+
+<div class="faq">
+    <strong>Q: What is hallucination?</strong>
+    <p>When AI confidently generates wrong information. RAG + guardrails help reduce this.</p>
+</div>
+
+<div class="faq">
+    <strong>Q: What is temperature in AI?</strong>
+    <p>Controls randomness. Low (0.1) = factual, consistent answers. High (0.9) = creative, varied answers.</p>
+</div>
+
+<div class="faq">
+    <strong>Q: What's the difference between an Agent and a Chatbot?</strong>
+    <p>Chatbot = just answers questions. Agent = answers + takes actions (calls APIs, runs code, makes decisions).</p>
+</div>
+
+<div class="faq">
+    <strong>Q: How does MCP help?</strong>
+    <p>Without MCP: you write custom code to connect each tool. With MCP: one standard protocol connects any tool to any AI model.</p>
+</div>
+
+<div class="faq">
+    <strong>Q: What AWS services are used for AI apps?</strong>
+    <p>Amazon Bedrock (LLMs), Bedrock Knowledge Base (RAG), Bedrock Guardrails (safety), OpenSearch (vector DB), S3 (doc storage), Lambda (processing).</p>
+</div>
+
+<div class="faq">
+    <strong>Q: What is prompt engineering?</strong>
+    <p>The skill of writing clear, specific prompts to get better AI responses. Includes techniques like: giving examples, setting roles, specifying format.</p>
+</div>
+
+<div class="faq">
+    <strong>Q: How to protect AI apps from jailbreaking?</strong>
+    <p>Use guardrails, input validation, content filters, and test with known attack prompts before deploying.</p>
+</div>
+
+</body>
+</html>
