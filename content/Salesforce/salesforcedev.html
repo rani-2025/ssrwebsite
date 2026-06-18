@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+      SalesForce Developer course
+    </header>
+   
+    <section>
+      <h3>
+       OOPS
+      </h3>
+      <p>
+       in salesforce all around oops concept
+       1. class is a blueprint 
+       2. Instance is a in memory representation of a class.
+       2. class includes attributes and functionality
+       3. parent and child relation will be created using - inheritance
+       4. depending on the input behaviour is called - polymorphisam
+       5. accssmodifier - controls the visbility or accesslevel at  class or method level
+          class level - public , private 
+          method level- public, private, protected and default
+      6. variable is a memory location capable of storing data of a particular type
+         variable is a memory location capable of pointing to other memory location.
+         it has its own datatype.
+         for optimam memory mgt we need to define every variable to be of a particular datatype.
+         the data types are classified
+         primitive -- integer, string, date, boolean
+         non-primitive -- sobject, list, set, map 
+      
+         let say if we delare variable at class level - called as instance variables
+         these are available to all methods in class.
+         these are kind Let - variable one place changes will be available to subsequent methods.
+
+         in methodoverloading or overriding case variable will be instantiated then after its been initialized.
+         but with constructor variable will initalized at the time of creating itself.
+        constructor is the special method with the same name as that of a class. its need not be explictitly called using instance variable, 
+        instead it automatically initalized as soon as instanse created.
+
+        by default default constructor will be created . for example if we override passing prams to constructor u must need define default constrtuctor
+
+        public class test1()
+        {
+          public test1() {}
+          public test1(inetger a, integer b)
+          {
+            c= a+b;
+            system.debug(c)
+          }
+        }
+
+
+        7. this is how swicth syntx looks in salesforce
+        // here in switch it wont allow when i> 10 always needs value
+        public static void methodSwitch() {
+          integer i = I0;
+          Switch on i {
+            When 1,2,3,4 {
+              system.debug('The value of i is less than 5');
+            }
+            when 6,7,8,9 {
+              system.debug('The value of i less than 6');
+            }
+          }
+        }
+
+        8. do while -> always do executes fist then go to while until satisfies in realtime we mostly does at enter username and password conditions.
+        while, swicth case 
+         
+      </p>
+    </section>
+    <section>
+      <h3> List, Set and Map</h3>
+      Set exactly same as list but doesnt allow duplicates.
+      <p>
+        List - 
+          a. its a collection of ordered elements.
+          b. allows duplicates
+          c. its a dynamically sized variable
+          List <integer> l = new List </integer> ();
+          integer range = Integer.ValueOf(math.random() * 10)
+          integer val ;
+          for(integer k = 0; k < range; k++){
+            val = Integer.ValueOf(math.random()*10);
+            l.add(val);
+          }
+          System.debug('Random number generated is...' +range);
+          System.debug('the values in the list are...' );
+          for(integer k=0; k < range; k++)
+          {
+            System.debug(l[k]);
+          }
+
+      </p>
+      <p>
+        Set - wont allow duplicates
+        Set<Integer> s = new Set<Integer>();
+          List<Integer> l = new List<Integer>();
+          Integer range = Integer.ValueOf(Math.random() * 10);
+          Integer val ;
+           for(integer k = 0; k < range; k++){
+             val = Integer.ValueOf(math.random()*10);
+             s.add(val);
+             l.add(val);
+           }
+           System.debug('Random number generated is...' +range);
+           System.debug('the values in the set are...'+s );
+           System.debug('the values in the list are...'+l );
+      </p>
+      <p>
+        Map - 
+        In Salesforce Apex, a Map is a collection of key–value pairs where each key is unique, and each key maps to a single value.
+        Think of it like a dictionary: you look up data by a key instead of by position (like in a List).
+
+        Map<String, Integer> studentScores = new Map<String, Integer>();
+        studentScores.put('Alice', 90);
+        studentScores.put('Bob', 85);
+        System.debug(studentScores.get('Alice')); // 90
+        System.debug(studentScores.containsKey('Bob')); // true
+
+      </p>
+    </section>
+   <section>
+    <p>
+      <h3>
+        what is SOSL?
+      </h3>
+      SOSL = Salesforce Object Search Language
+      It’s used to search text across multiple objects and fields at the same time, similar to the global search in Salesforce.
+      there was third party tool called - workforce using which we can write SOSL.
+    </p>
+    <p>
+      <h3>
+        What is SOQL?
+      </h3>
+       List<Account> alist = new List<Account>();
+        alist = [SELECT Name, Industry From Account];
+        for(Account a: alist){
+            System.debug('Account...'+a.Name+'...Industry...'+a.Industry);
+        }
+    </p>
+   </section>
+    <footer>
+
+    </footer>
+</body>
+</html>

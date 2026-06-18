@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Azure Resources</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+</head>
+<body>
+    <header>
+        <h1>TailwindCSS</h1>
+    </header>
+    
+    <section>
+        <h2>How to set tailwind css dynamically setting to the className</h2>
+        <p>
+            <pre>
+                <code>
+                className={hasContent ? dt(['mb-6']) : dt([h-['${isMobile ? 556.2 : 629.9}'px]])} 
+            </code>
+            </pre>
+        </p>
+        <p>
+            <h3> here are the details on this expression </h3>
+            This is a JSX (React) expression that is dynamically setting the className attribute. It's using conditional logic (hasContent ? ... : ...) to decide what classes to apply based on whether hasContent is true or false. Here's a step-by-step breakdown:
+
+            1. hasContent ? dt(['mb-6']) : dt([h-['${isMobile ? 556.2 : 629.9}'px]])
+            This is a ternary conditional operator.
+
+            If hasContent is true, it will apply mb-6 (a Tailwind class for setting a margin-bottom of 1.5rem which 24px).
+
+            If hasContent is false, it applies a dynamic height class based on the value of isMobile.
+
+            2. dt(['mb-6'])
+            dt here seems to be a function or utility (possibly a custom helper or a utility for applying Tailwind classes).
+
+            When hasContent is true, it generates an array with the class mb-6, which is a Tailwind class for margin-bottom (1.5rem).
+
+            3. dt([h-['${isMobile ? 556.2 : 629.9}'px]])
+            When hasContent is false, it uses the height (h-) based on whether the device is mobile or not.
+
+            isMobile ? 556.2 : 629.9: This checks if isMobile is true. If it is, the height will be 556.2px. If not (i.e., for larger screens), it will be 629.9px.
+
+            The height is dynamically inserted into the class name string with h-[...]px. Tailwind allows arbitrary values to be used in class names, so the final class might look like h-[556.2px] or h-[629.9px].
+        </p>
+        <p>
+            Quick Conversion Table (for a base of 16px):
+                rem	    px
+                0.25	4px
+                0.5	    8px
+                0.75	12px
+                1	    16px
+                1.5	    24px
+                2	    32px
+                3	    48px
+                4	    64px
+        </p>
+        <p>
+            <h3> what is mb-6 value</h3>
+            <p>
+                In Tailwind CSS, the mb-6 class is part of Tailwind's default spacing scale, and it's defined in rem units by default. The reason mb-6 equals 1.5rem comes from how Tailwind's spacing scale is set
+            </p>
+            <p>
+                <h3>How Tailwind's Spacing Scale Works</h3>
+                Tailwind CSS defines its spacing utilities like margin (m-), padding (p-), etc., based on a scale. The values in this scale are often based on rem units, which are relative to the root font size.
+
+                Here's a part of Tailwind's default spacing scale:
+
+                mb-1 = 0.25rem (4px if root font size is 16px)
+
+                mb-2 = 0.5rem (8px if root font size is 16px)
+
+                mb-3 = 0.75rem (12px if root font size is 16px)
+
+                mb-4 = 1rem (16px if root font size is 16px)
+
+                mb-5 = 1.25rem (20px if root font size is 16px)
+
+                mb-6 = 1.5rem (24px if root font size is 16px)
+
+                mb-7 = 1.75rem (28px if root font size is 16px)
+
+                mb-8 = 2rem (32px if root font size is 16px)
+            </p>
+            <p>
+                You can customize the spacing scale in your Tailwind configuration if you need different values. Here's how you'd adjust it:
+                <pre>
+                    <code>
+                        module.exports = {
+                            theme: {
+                              extend: {
+                                spacing: {
+                                  '6': '1.5rem',  // This is the default, but you can modify it
+                                },
+                              },
+                            },
+                          }
+                    </code>
+                </pre>
+                In this default setup, Tailwind uses a spacing scale based on rem values, and mb-6 corresponds to 1.5rem because it's part of that pre-defined scale.
+            </p>
+        </p>
+    </section>
+ 
+    <footer>
+        <p>
+
+        </p>
+    </footer>
+</body>
+</html>

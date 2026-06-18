@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .command-list {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+        }
+        .assignment {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .terminal-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>SFRA</h2>
+    <section>
+        <p>
+          Storefront resource architecture
+        </p>
+        <p>
+          1. Realm - 30 to 40 sandbox
+          2. each dev can have one sandbox 
+          3. merchants setup content in staging
+          4. sandbox will connect to staging 
+          5. development instance for UAT testing
+          6. datacenter - point of delivery (POD)
+          7. ways to access SFRA - > business manager or github (recommanded)
+          8. if any changes merchant tools -> search index -> select index -> rebuild
+          9. from businessmanager -> once we create site -> u cant change site definitions like currancy, 
+        </p>
+    </section>
+</body>
+</html>

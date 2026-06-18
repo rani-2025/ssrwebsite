@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2C Commerce Cartridge Development Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #2980b9;
+        }
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 10px 0;
+        }
+        .structure {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .nav {
+            background: #34495e;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .nav a:hover {
+            background: #3498db;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>B2C Commerce Cartridge Development Guide</h1>
+        
+        <div class="nav">
+            <a href="#overview">Overview</a>
+            <a href="#setup">Setup</a>
+            <a href="#structure">Structure</a>
+            <a href="#controllers">Controllers</a>
+            <a href="#models">Models</a>
+            <a href="#templates">Templates</a>
+            <a href="#examples">Examples</a>
+            <a href="#hello-world">Hello World</a>
+        </div>
+
+        <section id="overview">
+            <h2>What is B2C Commerce?</h2>
+            <p>Salesforce B2C Commerce (formerly Demandware) is a cloud-based ecommerce platform that enables businesses to create engaging shopping experiences across web, mobile, and social channels.</p>
+            
+            <h3>What is a Cartridge?</h3>
+            <p>A cartridge is a modular component in B2C Commerce that contains:</p>
+            <ul>
+                <li>Business logic (controllers, models, scripts)</li>
+                <li>Templates and static content</li>
+                <li>Configuration files</li>
+                <li>Custom functionality and integrations</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Key Concept:</strong> Cartridges allow you to customize and extend the platform without modifying core functionality.
+            </div>
+        </section>
+
+        <section id="setup">
+            <h2>Development Setup</h2>
+            
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Salesforce B2C Commerce Developer Sandbox</li>
+                <li>Visual Studio Code with Prophet Debugger extension</li>
+                <li>Node.js and npm</li>
+                <li>Git for version control</li>
+            </ul>
+
+            <h3>Project Initialization</h3>
+            <div class="code-block">
+# Create new cartridge
+mkdir my_custom_cartridge
+cd my_custom_cartridge
+
+# Initialize package.json
+npm init -y
+
+# Install SFCC build tools
+npm install --save-dev sgmf-scripts
+            </div>
+        </section>
+
+        <section id="structure">
+            <h2>Cartridge Structure</h2>
+            
+            <div class="structure">
+my_custom_cartridge/
+├── cartridge/
+│   ├── controllers/
+│   │   ├── Product.js
+│   │   └── Cart.js
+│   ├── models/
+│   │   ├── product.js
+│   │   └── cart.js
+│   ├── scripts/
+│   │   └── helpers/
+│   ├── templates/
+│   │   ├── default/
+│   │   └── resources/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+│   ├── client/
+│   │   ├── css/
+│   │   └── js/
+│   └── experience/
+├── metadata/
+└── package.json
+            </div>
+
+            <h3>Key Directories</h3>
+            <table>
+                <tr>
+                    <th>Directory</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>controllers/</td>
+                    <td>Handle HTTP requests and business logic</td>
+                </tr>
+                <tr>
+                    <td>models/</td>
+                    <td>Data models and business objects</td>
+                </tr>
+                <tr>
+                    <td>templates/</td>
+                    <td>ISML templates for rendering HTML</td>
+                </tr>
+                <tr>
+                    <td>static/</td>
+                    <td>CSS, JavaScript, images</td>
+                </tr>
+                <tr>
+                    <td>scripts/</td>
+                    <td>Utility functions and helpers</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="controllers">
+            <h2>Controllers</h2>
+            <p>Controllers handle HTTP requests and contain the main business logic.</p>
+
+            <h3>Basic Controller Example</h3>
+            <div class="code-block">
+// cartridge/controllers/Product.js
+'use strict';
+
+var server = require('server');
+var ProductMgr = require('dw/catalog/ProductMgr');
+var URLUtils = require('dw/web/URLUtils');
+
+server.get('Show', function (req, res, next) {
+    var productID = req.querystring.pid;
+    var product = ProductMgr.getProduct(productID);
+    
+    if (!product || !product.online) {
+        res.setStatusCode(404);
+        res.render('error/notfound');
+        return next();
+    }
+    
+    res.render('product/productDetails', {
+        product: product,
+        addToCartUrl: URLUtils.url('Cart-AddProduct')
+    });
+    
+    next();
+});
+
+module.exports = server.exports();
+            </div>
+
+            <h3>Cart Controller Example</h3>
+            <div class="code-block">
+// cartridge/controllers/Cart.js
+'use strict';
+
+var server = require('server');
+var BasketMgr = require('dw/order/BasketMgr');
+var Transaction = require('dw/system/Transaction');
+
+server.post('AddProduct', function (req, res, next) {
+    var productID = req.form.pid;
+    var quantity = parseInt(req.form.quantity, 10) || 1;
+    
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var product = ProductMgr.getProduct(productID);
+    
+    if (!product) {
+        res.json({
+            error: true,
+            message: 'Product not found'
+        });
+        return next();
+    }
+    
+    Transaction.wrap(function () {
+        var productLineItem = currentBasket.createProductLineItem(
+            productID, 
+            null, 
+            quantity
+        );
+    });
+    
+    res.json({
+        success: true,
+        cartTotal: currentBasket.totalGrossPrice.value,
+        itemCount: currentBasket.productQuantityTotal
+    });
+    
+    next();
+});
+
+module.exports = server.exports();
+            </div>
+        </section>
+
+        <section id="models">
+            <h2>Models</h2>
+            <p>Models represent data and business logic in a reusable format.</p>
+
+            <h3>Product Model Example</h3>
+            <div class="code-block">
+// cartridge/models/product.js
+'use strict';
+
+var URLUtils = require('dw/web/URLUtils');
+var ImageModel = require('*/cartridge/models/product/productImages');
+
+function ProductModel(product, options) {
+    this.id = product.ID;
+    this.name = product.name;
+    this.shortDescription = product.shortDescription;
+    this.longDescription = product.longDescription;
+    this.price = {
+        sales: product.priceModel.price.value,
+        list: product.priceModel.priceInfo.priceBook.getPrice(product.ID).value
+    };
+    this.available = product.availabilityModel.availability > 0;
+    this.images = new ImageModel(product, options);
+    this.url = URLUtils.url('Product-Show', 'pid', product.ID);
+}
+
+ProductModel.prototype.isOnSale = function () {
+    return this.price.sales < this.price.list;
+};
+
+module.exports = ProductModel;
+            </div>
+
+            <h3>Cart Model Example</h3>
+            <div class="code-block">
+// cartridge/models/cart.js
+'use strict';
+
+function CartModel(basket) {
+    if (!basket) {
+        this.items = [];
+        this.totalPrice = 0;
+        this.itemCount = 0;
+        return;
+    }
+    
+    this.items = basket.productLineItems.toArray().map(function (item) {
+        return {
+            productID: item.productID,
+            productName: item.productName,
+            quantity: item.quantityValue,
+            price: item.price.value,
+            totalPrice: item.grossPrice.value
+        };
+    });
+    
+    this.totalPrice = basket.totalGrossPrice.value;
+    this.itemCount = basket.productQuantityTotal;
+    this.currency = basket.currencyCode;
+}
+
+CartModel.prototype.isEmpty = function () {
+    return this.itemCount === 0;
+};
+
+module.exports = CartModel;
+            </div>
+        </section>
+
+        <section id="templates">
+            <h2>Templates (ISML)</h2>
+            <p>ISML (Internet Store Markup Language) templates render the HTML output.</p>
+
+            <h3>Product Details Template</h3>
+            <div class="code-block">
+&lt;!-- cartridge/templates/default/product/productDetails.isml --&gt;
+&lt;iscontent type="text/html" charset="UTF-8" compact="true" /&gt;
+&lt;isinclude template="/components/header/pageHeader" /&gt;
+
+&lt;div class="product-detail"&gt;
+    &lt;div class="product-images"&gt;
+        &lt;img src="${pdict.product.images.large[0].url}" 
+             alt="${pdict.product.name}" 
+             class="product-image" /&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="product-info"&gt;
+        &lt;h1 class="product-name"&gt;${pdict.product.name}&lt;/h1&gt;
+        &lt;p class="product-description"&gt;${pdict.product.shortDescription}&lt;/p&gt;
+        
+        &lt;div class="product-price"&gt;
+            &lt;span class="price-sales"&gt;$${pdict.product.price.sales}&lt;/span&gt;
+            &lt;isif condition="${pdict.product.isOnSale()}"&gt;
+                &lt;span class="price-list"&gt;$${pdict.product.price.list}&lt;/span&gt;
+            &lt;/isif&gt;
+        &lt;/div&gt;
+        
+        &lt;form action="${pdict.addToCartUrl}" method="post" class="add-to-cart-form"&gt;
+            &lt;input type="hidden" name="pid" value="${pdict.product.id}" /&gt;
+            &lt;div class="quantity-selector"&gt;
+                &lt;label for="quantity"&gt;Quantity:&lt;/label&gt;
+                &lt;select name="quantity" id="quantity"&gt;
+                    &lt;isloop items="${[1,2,3,4,5]}" var="qty"&gt;
+                        &lt;option value="${qty}"&gt;${qty}&lt;/option&gt;
+                    &lt;/isloop&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+            &lt;button type="submit" class="btn-add-to-cart"&gt;Add to Cart&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;isinclude template="/components/footer/pageFooter" /&gt;
+            </div>
+
+            <h3>Cart Summary Template</h3>
+            <div class="code-block">
+&lt;!-- cartridge/templates/default/cart/cartSummary.isml --&gt;
+&lt;div class="cart-summary"&gt;
+    &lt;h2&gt;Shopping Cart&lt;/h2&gt;
+    
+    &lt;isif condition="${pdict.cart.isEmpty()}"&gt;
+        &lt;p class="empty-cart"&gt;Your cart is empty&lt;/p&gt;
+    &lt;iselse&gt;
+        &lt;div class="cart-items"&gt;
+            &lt;isloop items="${pdict.cart.items}" var="item"&gt;
+                &lt;div class="cart-item"&gt;
+                    &lt;span class="item-name"&gt;${item.productName}&lt;/span&gt;
+                    &lt;span class="item-quantity"&gt;Qty: ${item.quantity}&lt;/span&gt;
+                    &lt;span class="item-price"&gt;$${item.totalPrice}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/isloop&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="cart-total"&gt;
+            &lt;strong&gt;Total: $${pdict.cart.totalPrice}&lt;/strong&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="cart-actions"&gt;
+            &lt;a href="${URLUtils.url('Checkout-Begin')}" class="btn-checkout"&gt;
+                Proceed to Checkout
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/isif&gt;
+&lt;/div&gt;
+            </div>
+        </section>
+
+        <section id="examples">
+            <h2>Complete Ecommerce Examples</h2>
+
+            <h3>1. Custom Product Search</h3>
+            <div class="code-block">
+// cartridge/controllers/Search.js
+'use strict';
+
+var server = require('server');
+var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+var ProductSearch = require('*/cartridge/models/search');
+
+server.get('Show', function (req, res, next) {
+    var searchPhrase = req.querystring.q;
+    var categoryID = req.querystring.cgid;
+    
+    var productSearch = new ProductSearchModel();
+    
+    if (searchPhrase) {
+        productSearch.setSearchPhrase(searchPhrase);
+    }
+    
+    if (categoryID) {
+        productSearch.setCategoryID(categoryID);
+    }
+    
+    productSearch.search();
+    
+    var searchResult = new ProductSearch(
+        productSearch,
+        req.querystring,
+        null,
+        CatalogMgr.getSiteCatalog()
+    );
+    
+    res.render('search/searchResults', {
+        searchResult: searchResult,
+        searchPhrase: searchPhrase
+    });
+    
+    next();
+});
+            </div>
+
+            <h3>2. Wishlist Functionality</h3>
+            <div class="code-block">
+// cartridge/controllers/Wishlist.js
+'use strict';
+
+var server = require('server');
+var CustomerMgr = require('dw/customer/CustomerMgr');
+var ProductListMgr = require('dw/customer/ProductListMgr');
+
+server.post('AddProduct', function (req, res, next) {
+    var customer = req.currentCustomer.raw;
+    var productID = req.form.pid;
+    
+    if (!customer.authenticated) {
+        res.json({
+            error: true,
+            redirectUrl: URLUtils.url('Login-Show')
+        });
+        return next();
+    }
+    
+    var wishlist = ProductListMgr.getProductLists(
+        customer, 
+        ProductList.TYPE_WISH_LIST
+    ).iterator().next();
+    
+    if (!wishlist) {
+        wishlist = ProductListMgr.createProductList(
+            customer, 
+            ProductList.TYPE_WISH_LIST
+        );
+    }
+    
+    Transaction.wrap(function () {
+        wishlist.createProductItem(productID);
+    });
+    
+    res.json({
+        success: true,
+        message: 'Product added to wishlist'
+    });
+    
+    next();
+});
+            </div>
+
+            <h3>3. Product Recommendations</h3>
+            <div class="code-block">
+// cartridge/scripts/helpers/recommendations.js
+'use strict';
+
+var ProductMgr = require('dw/catalog/ProductMgr');
+var RecommendationMgr = require('dw/catalog/RecommendationMgr');
+
+function getRecommendations(product, type, count) {
+    var recommendations = [];
+    var recType = type || RecommendationMgr.RECOMMENDATION_TYPE_PRODUCT_TO_PRODUCT;
+    var maxCount = count || 4;
+    
+    var recs = RecommendationMgr.getRecommendations(product, recType);
+    
+    if (recs && recs.length > 0) {
+        for (var i = 0; i < Math.min(recs.length, maxCount); i++) {
+            var recProduct = ProductMgr.getProduct(recs[i].recommendedItemID);
+            if (recProduct && recProduct.online) {
+                recommendations.push(new ProductModel(recProduct));
+            }
+        }
+    }
+    
+    return recommendations;
+}
+
+module.exports = {
+    getRecommendations: getRecommendations
+};
+            </div>
+
+            <h3>4. Custom Checkout Step</h3>
+            <div class="code-block">
+// cartridge/controllers/CheckoutServices.js
+'use strict';
+
+var server = require('server');
+var BasketMgr = require('dw/order/BasketMgr');
+var OrderMgr = require('dw/order/OrderMgr');
+var Transaction = require('dw/system/Transaction');
+
+server.post('PlaceOrder', function (req, res, next) {
+    var currentBasket = BasketMgr.getCurrentBasket();
+    
+    if (!currentBasket) {
+        res.json({
+            error: true,
+            message: 'No basket found'
+        });
+        return next();
+    }
+    
+    // Validate basket
+    var validationResult = validateBasket(currentBasket);
+    if (!validationResult.valid) {
+        res.json({
+            error: true,
+            message: validationResult.message
+        });
+        return next();
+    }
+    
+    var order;
+    Transaction.wrap(function () {
+        order = OrderMgr.createOrder(currentBasket);
+        
+        // Set order status
+        order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+        order.setExportStatus(Order.EXPORT_STATUS_READY);
+    });
+    
+    res.json({
+        success: true,
+        orderNumber: order.orderNo,
+        orderTotal: order.totalGrossPrice.value
+    });
+    
+    next();
+});
+
+function validateBasket(basket) {
+    if (basket.productLineItems.length === 0) {
+        return { valid: false, message: 'Basket is empty' };
+    }
+    
+    if (!basket.billingAddress) {
+        return { valid: false, message: 'Billing address required' };
+    }
+    
+    return { valid: true };
+}
+            </div>
+        </section>
+
+        <div class="highlight">
+            <h3>Best Practices for Beginners</h3>
+            <ul>
+                <li><strong>Start Small:</strong> Begin with simple customizations before complex features</li>
+                <li><strong>Use Existing APIs:</strong> Leverage B2C Commerce's built-in functionality</li>
+                <li><strong>Follow Naming Conventions:</strong> Use clear, descriptive names for files and functions</li>
+                <li><strong>Test Thoroughly:</strong> Test on sandbox before deploying to production</li>
+                <li><strong>Version Control:</strong> Use Git to track changes and collaborate</li>
+                <li><strong>Documentation:</strong> Comment your code and maintain documentation</li>
+            </ul>
+        </div>
+
+        <section id="hello-world">
+            <h2>Hello World Tutorial</h2>
+            
+            <h3>Step 1: Create Cartridge Structure</h3>
+            <div class="code-block">
+# Create cartridge directory
+mkdir my_custom_cartridge
+cd my_custom_cartridge
+
+# Initialize npm
+npm init -y
+npm install --save-dev sgmf-scripts
+
+# Create directory structure
+mkdir -p cartridge/controllers
+mkdir -p cartridge/templates/default/hello
+            </div>
+
+            <h3>Step 2: Create Hello Controller</h3>
+            <div class="code-block">
+// cartridge/controllers/Hello.js
+'use strict';
+
+var server = require('server');
+
+server.get('World', function (req, res, next) {
+    res.render('hello/helloWorld', {
+        message: 'Hello from your custom cartridge!',
+        timestamp: new Date().toISOString()
+    });
+    next();
+});
+
+module.exports = server.exports();
+            </div>
+
+            <h3>Step 3: Create ISML Template</h3>
+            <div class="code-block">
+&lt;!-- cartridge/templates/default/hello/helloWorld.isml --&gt;
+&lt;iscontent type="text/html" charset="UTF-8" compact="true" /&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello World - Custom Cartridge&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .container { max-width: 600px; margin: 0 auto; text-align: center; }
+        .message { color: #2c3e50; font-size: 24px; margin: 20px 0; }
+        .timestamp { color: #7f8c8d; font-size: 14px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;B2C Commerce Custom Cartridge&lt;/h1&gt;
+        &lt;div class="message"&gt;${pdict.message}&lt;/div&gt;
+        &lt;div class="timestamp"&gt;Generated at: ${pdict.timestamp}&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+
+            <h3>Step 4: Get Your Sandbox URL</h3>
+            <p>To find your B2C Commerce sandbox URL:</p>
+            <ul>
+                <li><strong>Business Manager:</strong> https://[realm]-[instance].demandware.net/on/demandware.store/Sites-Site</li>
+                <li><strong>Storefront:</strong> https://[realm]-[instance].demandware.net/s/[SiteID]/</li>
+                <li><strong>Your Controller:</strong> https://[realm]-[instance].demandware.net/s/[SiteID]/Hello-World</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>Example:</strong> If your realm is "mycompany" and instance is "dev", your URL would be:<br>
+                <code>https://mycompany-dev.demandware.net/s/RefArch/Hello-World</code>
+            </div>
+
+            <h3>Step 5: Deploy and Test</h3>
+            <ol>
+                <li>Upload cartridge to your B2C Commerce sandbox</li>
+                <li>Add cartridge to cartridge path in Business Manager</li>
+                <li>Navigate to: <code>/Hello-World</code></li>
+                <li>You should see your "Hello World" message</li>
+            </ol>
+        </section>
+
+        <h2>Next Steps</h2>
+        <ol>
+            <li>✅ Set up your development environment</li>
+            <li>✅ Create a simple "Hello World" cartridge</li>
+            <li>Implement basic product display functionality</li>
+            <li>Add cart management features</li>
+            <li>Explore advanced features like search and recommendations</li>
+            <li>Learn about integrations and third-party services</li>
+        </ol>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #ecf0f1; border-radius: 5px;">
+            <p><strong>Happy Coding!</strong> This guide provides the foundation for B2C Commerce development. Practice with these examples and gradually build more complex features.</p>
+        </div>
+    </div>
+</body>
+</html>

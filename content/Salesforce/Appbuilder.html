@@ -1,0 +1,187 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Azure Resources</title>
+      <link rel="stylesheet" href="styles.css"> <!-- Optional: link to an external CSS file for styling -->
+  </head>
+  <body>
+      <header>
+       Salesforce Appbuilder Notes
+      </header>
+      <section>
+        <h3>
+          Salesforce Appbuilder 
+        </h3>
+        <p>
+          <ul>
+            1. Create Apps
+            2. objetcs
+            3. fields
+            4. relationships
+            5. validations
+          </ul>
+        
+        </p>
+        <section>
+          <h3> customer asked to create basic datamodel for auto insurance</h3>
+          <p>
+            personal details - he will collect  (firstname, last name, email, dob, address)
+          </p>
+          <p>
+            vehicle details - name , model, year, vpn 
+          </p>
+          <p>
+            policy details - type, amount , premium, frequency of payment
+          </p>
+
+          in DB here we create tables, columns, rows / records collectively all caleed as View
+          in saless force table called as object / fileds/ records collectivel called as list view 
+        </section>
+      </section>
+      <section>
+        <h3> Data loading</h3>
+        <p>
+          <ul>
+            Data import wizard
+            data loader
+            work bench
+          </ul>
+        </p>
+      </section>
+    
+      <section>
+        <h3>
+          Relationships
+        </h3>
+        <p>
+          <ul>
+            1. ont to one
+            2. one to many
+            3. many to many
+            4. roll up summary
+          </ul>
+         
+        </p>
+      </section>
+      <section>
+        <p>
+          In salesforce there are objects where we dont need a tab (e.g. Membership object)
+          1. going to create HR App
+          part of it 
+          we have AppName - HR Onboarding
+          objects - Employee, Department, Device, Club, Membership
+          Tab -     Employees, Departments, Devices, Clubs , N/A 
+          what does each object do?
+        
+          2. home -> app launcher -> hr onboarding wont visible by deafult -> go to -> settings userprofile -> add system admin -> then it will be visible
+
+          home -> app launcher -> vew all -> u can see all apps
+          
+        </p>
+        <p>
+          Relationships (always look relationships from right to left)
+          e.g -> employee -> departments (its going to one to one)
+          Department -> employees (many to one)
+          employee -> device (one to many)
+          employee -> club, club -> employee  (Many to Many)
+        </p>
+      </section>
+      <section>
+        <h3> how to create custom object</h3>
+        1.  object manager -> schema builder -> custom object/ custom object from excel spread sheet --> here schema bulder -> custom object 90 % usage
+        steps -> select custom object -> label - employee, plural label - employees(tab names), record name - is the field going to be hyperlink
+        object is not assigned to any profile - while creating
+        to show under tab -> we need to assign profile 
+
+        2. we can assign to be profiles as well as application
+
+        custom object from excel  -> should be csv file
+
+        as soon as new object created 4 default fields will be created - field name always start with capital letter
+        a. first name, created by, owner, lasmodified by (by default name field will be hyperlink )
+
+        go to objectmanager -> select object -> select fields & relationships where u can create new field
+        filed is assigned to pagelayout and profile
+
+        by default for each tan it shows recently viewed data in list view format this default format only can be changed by system admin only.
+      </section>
+      <section>
+        <h3> userprofile </h3>
+       1. created a user -> assigned to a profile
+       2. created application -> assigned to a profile
+       3. created tab -> assigned to profile and application
+       4. created object -> assigned to profile
+      </section>
+      <section>
+        <p>
+          <h3> 
+            Fields and Relationships
+          </h3>
+
+        </p>
+      </section>
+      <section>
+        <h3> Tools for importing the data</h3>
+        <p>
+          all these in csv format
+          1. Data import wizard
+             cloud based , 50 k records
+          2. data loader - on premise, 5 m
+          3. workbench - cloud based, 5 m
+        </p>
+      </section>
+      <section>
+        <h3> steps to install dataloader </h3>
+        <p>
+          1. Login to the salesforce system
+          2. Open admin UI
+          3. Search for data loader in quick finder
+          4. Click on downloads
+          5. Click confirmClick on down load link
+          6. Open a new browser tab and Type azul.com
+          7. Click on down load now
+          8. Under java version Choose java  21, os choose windows / Mac, architecture x86/64, javapackage JRE
+          9. Click dropdown besides and choose msi file to down load java
+          10. Go to downloads folder, do double click on Zulu msi to install java
+          11. Then in downloads folder do extract all for dataloader_v64.0.1 then go inside click on install to complete the setup
+
+        </p>
+        <h3>while loading data using dataloader following is the format we need to follow in csv file</h3>
+        1. when created a filed and click on hyperlink u can id in url which is generated by salesforce u can this id as key when u do update, delete, upsert operations from csv file.
+        2. in salesforce - the one defined in statement 1 considered as id , what ever unique field  in object going to be defined as e.g mobileno then that that should be listed under
+        mobileno -External ID
+        3. for insert / export no ID required but other operations we need to ID.
+        4. the ID will get created only when insert operation happens.
+        5. let say for example in csv u define ID for few records and no ID assigned for few, then it will treat what ever record had ID it will consider as update 
+        remaining it will treat as insert.
+        6. let say id we delete any records -> go to recycle in dataloader -> and do un delete -> it will restore the data 
+        </p>
+      </section>
+      <section>
+        <h3> workbench</h3>
+        go to -> workbench.salesforce.com
+        from here also we can do restore data
+      </section>
+      <section>
+        <h3>Relationships</h3>
+        <p> In salesforce one to one / may to one relationship is denifed by creating a relationship field 
+          one relationship created with datatype as lookup relationship
+        many relationship will be created with datatype as manyside object only</p>
+        <p>
+          one to many relationship will be created using master detail relationship
+          reverse relation is not possible -> eg - emple to device (one to many) once its created
+          we cant create reverse relation -> from device to employee -> bcs when we delete parent -> child records also will be deleted automatic,
+          always relation ship will be created many object using master detail relationship
+         in filed and relationship u can see rollup summary filed only for master fiels if enable that in 
+        </p>
+      </section>
+      <footer>
+
+      </footer>
+  </body>
+  </html>
+  
