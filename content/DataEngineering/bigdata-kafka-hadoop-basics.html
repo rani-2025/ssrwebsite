@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Engineering Basics - Kafka, Big Data, Hadoop</title>
+</head>
+<body>
+
+<!-- ==================== KAFKA ==================== -->
+<section>
+  <h2>What is Kafka? (Simple Explanation)</h2>
+  <p>
+    Kafka is a <strong>messaging system</strong> — think of it like a post office for your applications.
+    One app sends a message (producer), Kafka holds it, and another app picks it up (consumer).
+  </p>
+  <p>
+    <strong>Why use it?</strong> When you have multiple services that need to talk to each other without waiting — like order service telling inventory service "hey someone bought something" without blocking.
+  </p>
+
+  <h3>Key Terms</h3>
+  <ul>
+    <li><strong>Producer</strong> — the app that sends/publishes messages (e.g., your order service)</li>
+    <li><strong>Consumer</strong> — the app that reads/receives messages (e.g., inventory service, email service)</li>
+    <li><strong>Topic</strong> — a category/channel name for messages (e.g., "orders", "payments")</li>
+    <li><strong>Broker</strong> — a Kafka server that stores messages</li>
+    <li><strong>Partition</strong> — a topic is split into partitions for parallel processing</li>
+    <li><strong>Consumer Group</strong> — multiple consumers working together to read from a topic</li>
+  </ul>
+
+  <h3>Simple Example</h3>
+  <p>
+    Imagine Swiggy/Uber Eats:
+  </p>
+  <pre>
+  [Order Service] --publishes "new order"--> [Kafka Topic: "orders"]
+                                                    |
+                                      +-------------+-------------+
+                                      |             |             |
+                              [Restaurant App] [Payment Service] [Notification Service]
+                              (consumer 1)     (consumer 2)      (consumer 3)
+
+  - Order service doesn't wait for all 3 to finish
+  - Each consumer reads independently at their own speed
+  - If notification service is down, message stays in Kafka until it comes back
+  </pre>
+
+  <h3>Real World Usage</h3>
+  <ul>
+    <li>LinkedIn (created Kafka) — activity feeds, metrics</li>
+    <li>Uber — real-time trip data</li>
+    <li>Netflix — event processing</li>
+  </ul>
+
+  <h3>Kafka vs Regular Queue (like RabbitMQ)</h3>
+  <ul>
+    <li>Kafka retains messages even after reading (configurable days)</li>
+    <li>Kafka is built for high throughput — millions of messages/sec</li>
+    <li>Kafka supports replay — consumer can re-read old messages</li>
+  </ul>
+</section>
+
+<!-- ==================== BIG DATA ==================== -->
+<section>
+  <h2>What is Big Data? (Simple Explanation)</h2>
+  <p>
+    Big Data = data so large that normal databases (MySQL, Postgres) <strong>cannot store or process</strong> it efficiently.
+  </p>
+  <p>
+    <strong>Simple example:</strong> Facebook gets 500+ terabytes of new data EVERY DAY (posts, likes, photos, messages).
+    You can't put that in one MySQL database. That's Big Data.
+  </p>
+
+  <h3>The 5 V's of Big Data (Main Terms)</h3>
+  <ul>
+    <li><strong>Volume</strong> — huge amount of data (terabytes/petabytes)</li>
+    <li><strong>Velocity</strong> — data coming in super fast (real-time tweets, sensor data)</li>
+    <li><strong>Variety</strong> — different types: text, images, videos, logs, JSON (not just rows/columns)</li>
+    <li><strong>Veracity</strong> — data quality/accuracy (some data might be messy or incomplete)</li>
+    <li><strong>Value</strong> — what useful insights can you extract from all this data</li>
+  </ul>
+
+  <h3>Big Data Simple Real-World Example</h3>
+  <pre>
+  Amazon.com:
+  - 300 million customers
+  - Every click, search, purchase, review = stored
+  - "Customers who bought X also bought Y" — needs processing of BILLIONS of records
+  - Normal SQL query would take days — Big Data tools do it in minutes/seconds
+  </pre>
+
+  <h3>Key Terms to Know</h3>
+  <ul>
+    <li><strong>Data Lake</strong> — store everything raw (structured + unstructured) — like a giant storage dumping ground (S3, HDFS)</li>
+    <li><strong>Data Warehouse</strong> — cleaned/organized data ready for analysis (Redshift, BigQuery, Snowflake)</li>
+    <li><strong>ETL</strong> — Extract, Transform, Load — process of cleaning raw data and putting into warehouse</li>
+    <li><strong>Batch Processing</strong> — process large chunks of data at scheduled times (e.g., nightly reports)</li>
+    <li><strong>Stream Processing</strong> — process data in real-time as it arrives (e.g., fraud detection)</li>
+    <li><strong>MapReduce</strong> — a programming model to process big data in parallel across many machines</li>
+  </ul>
+</section>
+
+<!-- ==================== HADOOP ==================== -->
+<section>
+  <h2>Hadoop in Big Data (High Level Overview)</h2>
+  <p>
+    Hadoop = an open source <strong>framework to store and process Big Data</strong> across a cluster of many cheap computers instead of one expensive supercomputer.
+  </p>
+  <p>
+    <strong>Simple analogy:</strong> Instead of hiring 1 genius to read 1 million books, hire 1000 normal people and give each person 1000 books. That's Hadoop.
+  </p>
+
+  <h3>Hadoop Core Components</h3>
+  <ul>
+    <li><strong>HDFS</strong> (Hadoop Distributed File System) — stores data across multiple machines</li>
+    <li><strong>MapReduce</strong> — processes data in parallel across those machines</li>
+    <li><strong>YARN</strong> — resource manager (decides which machine does what job)</li>
+  </ul>
+
+  <h3>Master Node vs Worker Nodes</h3>
+  <pre>
+  [Master Node (NameNode)]  — the BOSS
+      |         |         |
+  [Worker 1] [Worker 2] [Worker 3]  — the WORKERS (DataNodes)
+
+  Master Node (NameNode):
+  - Knows WHERE every piece of data is stored
+  - Keeps metadata (like a librarian who knows which shelf has which book)
+  - Does NOT store actual data itself
+  - If master goes down = big problem (so there's a Secondary NameNode as backup)
+
+  Worker Nodes (DataNodes):
+  - Actually STORE the data chunks
+  - Actually DO the processing (MapReduce jobs)
+  - Report back to master "hey I'm alive, here's my status"
+  - Data is replicated across 3 nodes by default (so if one dies, data is safe)
+  </pre>
+
+  <h3>How Data Storage Works (HDFS)</h3>
+  <pre>
+  Say you have a 300MB file:
+
+  1. HDFS splits it into blocks (default 128MB each)
+     - Block 1: 128MB
+     - Block 2: 128MB
+     - Block 3: 44MB
+
+  2. Each block is stored on different DataNodes
+  3. Each block is REPLICATED 3 times on different nodes (fault tolerance)
+
+  So even if a machine crashes, your data is safe on other machines.
+  </pre>
+
+  <h3>How Data Retrieval Works</h3>
+  <pre>
+  Client wants to read a file:
+
+  1. Client asks NameNode (Master): "Where is myfile.csv?"
+  2. NameNode responds: "Block1 is on Worker2, Block2 is on Worker1, Block3 is on Worker3"
+  3. Client directly contacts those DataNodes and gets the blocks
+  4. Client assembles blocks back into the full file
+
+  Key point: Master only gives directions, Workers do the actual data serving.
+  </pre>
+
+  <h3>How Processing Works (MapReduce - very simple)</h3>
+  <pre>
+  Example: Count word "error" in 1TB of log files
+
+  Without Hadoop: 1 machine scans 1TB = takes hours
+
+  With Hadoop (say 10 nodes):
+  1. MAP phase: Each node scans its own chunk (100GB each) and counts "error" locally
+     - Node1: found 500
+     - Node2: found 300
+     - Node3: found 200 ... etc
+
+  2. REDUCE phase: Combine all counts
+     - Total = 500 + 300 + 200 + ... = final answer
+
+  Result: 10x faster because work is split across 10 machines
+  </pre>
+
+  <h3>Hadoop Ecosystem Tools (just know the names)</h3>
+  <ul>
+    <li><strong>Hive</strong> — write SQL-like queries on Hadoop data (so you don't need to write Java MapReduce)</li>
+    <li><strong>Pig</strong> — scripting language for data transformations on Hadoop</li>
+    <li><strong>Spark</strong> — faster alternative to MapReduce (processes data in memory, not disk)</li>
+    <li><strong>HBase</strong> — NoSQL database on top of HDFS (like MongoDB but for Hadoop)</li>
+    <li><strong>Zookeeper</strong> — coordinates distributed systems (keeps track of which node is alive)</li>
+    <li><strong>Sqoop</strong> — moves data between Hadoop and relational databases (MySQL ↔ HDFS)</li>
+    <li><strong>Flume</strong> — collects and moves log data into Hadoop</li>
+  </ul>
+
+  <h3>Modern Alternatives (Industry is moving to)</h3>
+  <ul>
+    <li><strong>Apache Spark</strong> — 100x faster than MapReduce, most companies prefer this now</li>
+    <li><strong>Cloud solutions</strong> — AWS EMR, Azure HDInsight, Google Dataproc (managed Hadoop)</li>
+    <li><strong>Databricks</strong> — Spark as a service (very popular now)</li>
+    <li><strong>Snowflake / BigQuery / Redshift</strong> — cloud data warehouses replacing many Hadoop use cases</li>
+  </ul>
+</section>
+
+<!-- ==================== QUICK REFERENCE CHEATSHEET ==================== -->
+<section>
+  <h2>Quick Reference Cheatsheet for Full Stack Engineers</h2>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+      <th>Term</th>
+      <th>What it is (one line)</th>
+      <th>When you hear it</th>
+    </tr>
+    <tr><td>Kafka</td><td>Messaging system for async communication between services</td><td>Microservices, event-driven architecture</td></tr>
+    <tr><td>Big Data</td><td>Data too large for traditional databases</td><td>Analytics, ML, reporting at scale</td></tr>
+    <tr><td>Hadoop</td><td>Framework to store/process big data on many machines</td><td>Data pipelines, batch processing</td></tr>
+    <tr><td>HDFS</td><td>Distributed file system (stores data across cluster)</td><td>Data lakes, raw storage</td></tr>
+    <tr><td>MapReduce</td><td>Split work → process in parallel → combine results</td><td>Batch processing large datasets</td></tr>
+    <tr><td>Spark</td><td>Faster alternative to MapReduce (in-memory)</td><td>Real-time analytics, ML pipelines</td></tr>
+    <tr><td>Data Lake</td><td>Raw data storage (everything dumped as-is)</td><td>S3, HDFS</td></tr>
+    <tr><td>Data Warehouse</td><td>Cleaned organized data for querying</td><td>Redshift, Snowflake, BigQuery</td></tr>
+    <tr><td>ETL</td><td>Extract → Transform → Load data pipeline</td><td>Data engineering conversations</td></tr>
+    <tr><td>Hive</td><td>SQL interface for Hadoop</td><td>Analysts querying big data</td></tr>
+    <tr><td>YARN</td><td>Resource manager in Hadoop</td><td>Cluster management</td></tr>
+    <tr><td>Zookeeper</td><td>Coordination service for distributed systems</td><td>Kafka cluster, Hadoop</td></tr>
+  </table>
+</section>
+
+</body>
+</html>
