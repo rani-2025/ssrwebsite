@@ -137,9 +137,160 @@
             </ul>
         </div>
 
+        <!-- Aspect Ratio Section -->
+        <div class="section">
+            <h2>📐 Aspect Ratio</h2>
+            <div class="highlight">
+                <strong>What is it:</strong> The proportional relationship between width and height of an element, written as Width:Height (e.g., 1:1, 16:9, 4:3)
+            </div>
+
+            <h3>Common Aspect Ratios</h3>
+            <table>
+                <tr><th>Ratio</th><th>Shape</th><th>Used For</th></tr>
+                <tr><td>1:1</td><td>Perfect square</td><td>Product images, profile pics, Instagram posts</td></tr>
+                <tr><td>16:9</td><td>Wide rectangle</td><td>Videos, hero banners, YouTube thumbnails</td></tr>
+                <tr><td>4:3</td><td>Slightly wide</td><td>Old TV format, some tablet layouts</td></tr>
+                <tr><td>3:2</td><td>Photo standard</td><td>DSLR photos, card layouts</td></tr>
+            </table>
+
+            <h3>Why 1:1 is Popular in E-commerce Grids</h3>
+            <ul>
+                <li><strong>Grid uniformity</strong> — all items align perfectly, text/prices line up beneath each card</li>
+                <li><strong>Responsive friendly</strong> — squares scale cleanly on mobile and desktop without awkward cropping</li>
+            </ul>
+
+            <h3>CSS Code</h3>
+            <div class="code-block">
+<pre>
+/* Force a square container */
+.product-image {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover; /* prevents image stretching */
+}
+
+/* 16:9 video container */
+.video-wrapper {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+</pre>
+            </div>
+
+            <h3>How to Check Aspect Ratio in DevTools</h3>
+            <ol>
+                <li>Right-click on image → Inspect</li>
+                <li>Hover over the &lt;img&gt; tag in Elements panel</li>
+                <li>Tooltip shows: dimensions (e.g., 350 × 350 px) and rendered aspect ratio (e.g., 1:1)</li>
+                <li>Or check Computed tab → look for <code>aspect-ratio</code> CSS property</li>
+            </ol>
+        </div>
+
+        <!-- Intrinsic vs Rendered Size Section -->
+        <div class="section">
+            <h2>📏 Intrinsic Size vs Rendered Size</h2>
+            <div class="highlight">
+                <strong>Key:</strong> Intrinsic = actual file pixels | Rendered = how big it appears on screen
+            </div>
+
+            <table>
+                <tr><th>Aspect</th><th>Intrinsic Size (Natural)</th><th>Rendered Size (Display)</th></tr>
+                <tr><td>What is it</td><td>The actual pixel dimensions of the image file</td><td>The size the browser displays it at on screen</td></tr>
+                <tr><td>Who controls it</td><td>Designer / image optimization server</td><td>CSS rules + user's screen size</td></tr>
+                <tr><td>How to check</td><td>Download file → check properties, or DevTools tooltip</td><td>DevTools tooltip or Computed tab</td></tr>
+                <tr><td>Example</td><td>350 × 350 px (the file itself)</td><td>180 × 180 px (shrunk on mobile)</td></tr>
+            </table>
+
+            <h3>3 Scenarios</h3>
+            <div class="code-block">
+<pre>
+Scenario A — Perfect Match (ideal):
+  Intrinsic: 350×350 | Rendered: 350×350
+  Result: Crisp, no wasted bandwidth
+
+Scenario B — Downscaling (common on mobile):
+  Intrinsic: 350×350 | Rendered: 180×180
+  Result: Looks fine but downloading more pixels than needed (perf hit)
+
+Scenario C — Upscaling (BAD):
+  Intrinsic: 350×350 | Rendered: 600×600
+  Result: Browser stretches image → looks BLURRY/pixelated
+</pre>
+            </div>
+
+            <h3>When Talking to UX Designers</h3>
+            <ul>
+                <li><strong>Default conversation:</strong> Talk in <strong>Rendered Size</strong> — "The layout needs a 350px square image container"</li>
+                <li><strong>Performance concern:</strong> Bring up Intrinsic — "We're serving a 1200px file for a 350px container, wasting bandwidth"</li>
+                <li><strong>Blurry image issue:</strong> Bring up Intrinsic — "Container is 500px but source file is only 350px, we need a higher-res asset"</li>
+            </ul>
+        </div>
+
+        <!-- Viewport Section -->
+        <div class="section">
+            <h2>📱 Viewport Sizes & Breakpoints</h2>
+            <div class="highlight">
+                <strong>Viewport:</strong> The visible area of a webpage on the user's screen, measured in CSS pixels.
+            </div>
+
+            <h3>The 3 Main Breakpoint Categories</h3>
+            <table>
+                <tr><th>Category</th><th>Width Range</th><th>Devices</th></tr>
+                <tr><td>📱 Mobile</td><td>320px – 480px</td><td>iPhones, Galaxy phones, portrait mode</td></tr>
+                <tr><td>📟 Tablet</td><td>481px – 1024px</td><td>iPads, Surface, landscape phones</td></tr>
+                <tr><td>🖥️ Desktop</td><td>1025px and up</td><td>Laptops, external monitors</td></tr>
+            </table>
+
+            <h3>Why Viewport Matters</h3>
+            <ul>
+                <li><strong>Responsive layout:</strong> CSS media queries rearrange elements at breakpoints (e.g., product grid goes from 4 columns → 2 → 1)</li>
+                <li><strong>Above the fold:</strong> UX designers want key content (price, CTA button) visible without scrolling on initial viewport</li>
+                <li><strong>Fluid design:</strong> Modern CSS uses viewport units instead of hardcoded pixels</li>
+            </ul>
+
+            <h3>Viewport Units in CSS</h3>
+            <div class="code-block">
+<pre>
+/* vw = viewport width, vh = viewport height */
+.hero-banner {
+  width: 100vw;    /* full screen width */
+  height: 50vh;    /* half the screen height */
+}
+
+.sidebar {
+  width: 25vw;     /* always 25% of screen width */
+}
+
+/* Common responsive breakpoints */
+@media (max-width: 480px) {
+  /* Mobile styles */
+  .product-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1024px) {
+  /* Tablet styles */
+  .product-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1025px) {
+  /* Desktop styles */
+  .product-grid { grid-template-columns: repeat(4, 1fr); }
+}
+</pre>
+            </div>
+
+            <h3>Quick Tip: Test Viewport in DevTools</h3>
+            <ol>
+                <li>Open DevTools (F12)</li>
+                <li>Click the device toggle icon (📱 icon top-left of DevTools)</li>
+                <li>Select preset devices or manually type viewport width</li>
+                <li>Watch your layout respond to different sizes</li>
+            </ol>
+        </div>
+
         <!-- Footer -->
         <footer class="section">
-            <p><em>Last updated: 2024 | CSS Basics Quick Reference</em></p>
+            <p><em>Last updated: 2025 | CSS Basics Quick Reference</em></p>
         </footer>
     </div>
 </body>
